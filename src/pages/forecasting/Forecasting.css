@@ -1,0 +1,21 @@
+.forecasting{
+    flex: 5;
+}
+
+.sliderWrapper{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider{
+    width:80%
+}
+
+.slider2{
+    padding:15px 15px;
+    width:80%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
