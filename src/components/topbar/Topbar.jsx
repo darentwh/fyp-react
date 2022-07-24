@@ -1,6 +1,6 @@
 import React from 'react'
 import './Topbar.css'
-import InfoIcon from '@mui/icons-material/Info';
+import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
 
 export default function Topbar(){
@@ -13,7 +13,7 @@ export default function Topbar(){
                 <div className="topRight">
                     <Link to="/" className="link">
                     <div className="topbarIcons">
-                        <InfoIcon/>
+                        <HomeIcon/>
                     </div>
                     </Link>
                 </div>
