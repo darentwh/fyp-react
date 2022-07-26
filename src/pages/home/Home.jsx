@@ -4,7 +4,9 @@ import './Home.css'
 export default function Home(){
     return(
         <div className="home">
-            home test
+            <div className="midWrap">
+                test
+            </div>
         </div>
     )
 }

@@ -11,11 +11,12 @@ function App() {
       <Topbar/>
       <div className="container">
         <Sidebar/>
-        <Routes>
-          <Route exact path="/" element={<Home/>}/>
-          <Route exact path="/forecasting" element={<Forecasting/>}/>
-        </Routes>
-
+        <div className="main">
+          <Routes>
+            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/forecasting" element={<Forecasting/>}/>
+          </Routes>
+        </div>
       </div>
     </Router>
   );
