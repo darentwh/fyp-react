@@ -40,10 +40,12 @@ export default function Sidebar(){
                             Forecasting
                         </li>
                         </Link>
+                        <Link to="/mps" className="link">
                         <li className="sidebarListItem">
                             <EventNoteIcon className="sidebarListItemIcon"/>
                             Master Production Scheduling
                         </li>
+                        </Link>
                         <li className="sidebarListItem">
                             <InventoryIcon className="sidebarListItemIcon"/>
                             Material Requirement Planning
