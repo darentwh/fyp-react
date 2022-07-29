@@ -29,7 +29,7 @@
 }
 
 .sidebarListItem.active,.sidebarListItem:hover{
-    background-color:rgb(239, 193, 193);
+    background-color:rgb(199, 182, 236);
     transition: background-color 0.75s;
 }
 
