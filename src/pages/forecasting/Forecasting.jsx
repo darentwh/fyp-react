@@ -1,9 +1,6 @@
 import * as React from 'react'
 import './Forecasting.css'
 import Slider from '@mui/material/Slider'
-import Chart from "../../components/chart/Chart"
-
-
 
 export default function Forecasting(){
     const [value, setValue] = React.useState(10);
@@ -14,7 +11,6 @@ export default function Forecasting(){
     };
     return(
         <div className="forecasting">
-            <Chart value={value}/>
             <div className="sliderWrapper">
                 <div className="slider">
                     <Slider
