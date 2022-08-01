@@ -1,0 +1,9 @@
+.architecture{
+    flex: 5;
+}
+
+.mainWrapper{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -5,6 +5,7 @@ import Forecasting from "./pages/forecasting/Forecasting";
 import "./App.css"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Masterproductionscheduling from "./pages/masterproductionscheduling/Masterproductionscheduling";
+import Architecture from "./pages/architecture/Architecture";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/forecasting" element={<Forecasting/>}/>
             <Route exact path="/mps" element={<Masterproductionscheduling/>}/>
+            <Route exact path="/architecture" element={<Architecture/>}/>
           </Routes>
         </div>
       </div>
