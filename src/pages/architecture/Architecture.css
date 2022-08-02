@@ -3,8 +3,13 @@
 }
 
 .mainWrapper{
+    padding: 15px 15px
+}
+
+.imageStyle{
     display:flex;
-    justify-content: center;
     align-items: center;
-    padding: 30px;
+    justify-content: center;
+    max-width:1000px;
+    background-color: aqua;
 }
