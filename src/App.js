@@ -19,6 +19,10 @@ function App() {
             <Route exact path="/forecasting" element={<Forecasting/>}/>
             <Route exact path="/mps" element={<Masterproductionscheduling/>}/>
             <Route exact path="/architecture" element={<Architecture/>}/>
+            <Route exact path='/linkedin' component={() => { 
+              window.location.href = 'https://linkedin.com/in/darentwh'; 
+              return null;
+            }}/>
           </Routes>
         </div>
       </div>

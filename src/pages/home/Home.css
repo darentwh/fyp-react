@@ -1,5 +1,6 @@
-
-
+.home{
+	display:flex
+}
 .midWrap{
     right: 50%;
     bottom: 70%;
