@@ -9,10 +9,32 @@ export default function Forecasting(){
           setValue(newValue);
         }
     };
+    const [valuetwo, setValuetwo] = React.useState(10);
+    const handleChangeTwo = (event, newValue) => {
+        if (typeof newValue === 'number') {
+          setValuetwo(newValue);
+        }
+    };
+    const [valuethree, setValuethree] = React.useState(10);
+    const handleChangeThree = (event, newValue) => {
+        if (typeof newValue === 'number') {
+          setValuethree(newValue);
+        }
+    };
+    const multiply = (num1,num2,num3)=>{
+        return num1 * num2 * num3
+    };
+    var intOne = parseInt(value)
+    var intTwo = parseInt(valuetwo)
+    var intThree = parseInt(valuethree)
+    let multiplyResult = multiply(intOne,intTwo,intThree)
+    ;
+    
     return(
         <div className="forecasting">
-            <div className="sliderWrapper">
-                <div className="slider">
+            <div className="featured">
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 1</span>
                     <Slider
                         value={value}
                         size="small"
@@ -21,10 +43,35 @@ export default function Forecasting(){
                         valueLabelDisplay="auto"
                         onChange={handleChange}
                     />
+                    {value}
+                </div>
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 2</span>
+                    <Slider
+                        value={valuetwo}
+                        size="small"
+                        defaultValue={70}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={handleChangeTwo}
+                    />
+                    {valuetwo}
+                </div>
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 3</span>
+                    <Slider
+                        value={valuethree}
+                        size="small"
+                        defaultValue={70}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={handleChangeThree}
+                    />
+                    {valuethree}
                 </div>
             </div>
             <div className="slider2">
-                {value}
+                Total Multiplied: {multiplyResult}
             </div>
         </div>
     )

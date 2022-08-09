@@ -1,3 +1,7 @@
 .mps{
     flex:5
 }
+
+.chartDiv{
+    justify-content: center;
+}

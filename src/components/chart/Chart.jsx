@@ -56,7 +56,7 @@ export default function Chart({value}) {
         }
       ];
     return (
-        <ResponsiveContainer width="90%" height={500} position="absolute">
+        <ResponsiveContainer width="97%" height={500} position="absolute">
             <LineChart
             data={data}
             margin={{

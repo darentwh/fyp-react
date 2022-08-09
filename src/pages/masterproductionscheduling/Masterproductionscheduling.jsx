@@ -24,7 +24,9 @@ export default function Masterproductionscheduling(){
       <div className="mps">
         results:
         <br/>
-        {loading ? <div>Loading...</div> : <Chart value={data}/>}
+        <div className="chartDiv">
+          {loading ? <div>Loading...</div> : <Chart value={data}/>}
+        </div>
       </div>
     )
 }

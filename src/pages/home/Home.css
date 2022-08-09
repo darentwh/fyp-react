@@ -1,5 +1,5 @@
 .home{
-	display:flex
+	display:flex;
 }
 .midWrap{
     right: 50%;
@@ -16,6 +16,16 @@
 	animation-iteration-count: 1;
 	animation-timing-function: ease-in;
 	animation-duration: 1.8s;
+}
+
+.writings2{
+    opacity: 0;
+	animation-name: fadeInOpacity;
+	animation-iteration-count: 1;
+	animation-timing-function: ease-in;
+	animation-delay: 1.5s;
+	animation-duration: 1.8s;
+	animation-fill-mode: forwards;
 }
 
 @keyframes fadeInOpacity {
