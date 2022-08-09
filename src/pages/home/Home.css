@@ -2,10 +2,10 @@
 	display:flex;
 }
 .midWrap{
-    right: 50%;
-    bottom: 70%;
-    transform: translate(50%,50%);
-    position: absolute;
+    width:70%;
+	padding: 100px 15px;
+	margin-left: auto;
+  	margin-right: auto;
 }
 
 .writings{
@@ -26,6 +26,7 @@
 	animation-delay: 1.5s;
 	animation-duration: 1.8s;
 	animation-fill-mode: forwards;
+	line-height: 30px;
 }
 
 @keyframes fadeInOpacity {
