@@ -42,6 +42,7 @@ export default function Forecasting(){
                         aria-label="Small"
                         valueLabelDisplay="auto"
                         onChange={handleChange}
+                        color="secondary"
                     />
                     {value}
                 </div>
@@ -54,6 +55,7 @@ export default function Forecasting(){
                         aria-label="Small"
                         valueLabelDisplay="auto"
                         onChange={handleChangeTwo}
+                        color="secondary"
                     />
                     {valuetwo}
                 </div>
@@ -66,6 +68,7 @@ export default function Forecasting(){
                         aria-label="Small"
                         valueLabelDisplay="auto"
                         onChange={handleChangeThree}
+                        color="secondary"
                     />
                     {valuethree}
                 </div>
