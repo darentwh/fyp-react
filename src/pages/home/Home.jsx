@@ -6,7 +6,7 @@ export default function Home(){
         <div className="home">
             <div className="midWrap">
                 <div className="writings">
-                    Hello,
+                    Test Title,
                 </div>
                 <div className="writings2">
                     <b>Proj No</b>: C105 <br/>
