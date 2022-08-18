@@ -20,13 +20,13 @@ export default function Masterproductionscheduling(){
     return {data,loading};
   }
   const {data, loading} = useFetch()
-    return(
-      <div className="mps">
-        API Call Values:
-        <br/>
-        <div className="chartDiv">
-          {loading ? <div>Loading...</div> : <Chart value={data}/>}
-        </div>
+  return(
+    <div className="mps">
+      API Call Values:
+      <br/>
+      <div className="chartDiv">
+        {loading ? <div>Loading...</div> : <Chart value={data}/>}
       </div>
-    )
+    </div>
+  )
 }
