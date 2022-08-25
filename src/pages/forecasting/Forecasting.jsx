@@ -29,6 +29,10 @@ export default function Forecasting(){
     var intThree = parseInt(valuethree)
     let multiplyResult = multiply(intOne,intTwo,intThree)
     ;
+    const [message, setMessage] = React.useState('');
+    const handleChangeFour = event => {
+        setMessage(event.target.value);
+    }
     
     return(
         <div className="forecasting">
@@ -75,6 +79,17 @@ export default function Forecasting(){
             </div>
             <div className="slider2">
                 Total Multiplied: {multiplyResult}
+            </div>
+            <div className="featured">
+                <input
+                    type="text"
+                    id="message"
+                    onChange={handleChangeFour}
+                    name="message"
+                    value={message}
+                    autoComplete="off"
+                />
+                Message: {message}
             </div>
         </div>
     )
