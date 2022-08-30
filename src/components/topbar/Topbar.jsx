@@ -2,7 +2,6 @@ import React from 'react'
 import './Topbar.css'
 import HomeIcon from '@mui/icons-material/Home';
 import { Link } from "react-router-dom";
-import TopbarIcon from "./icon.gif"
 
 export default function Topbar(){
     return(
