@@ -2,6 +2,11 @@
     flex: 5;
 }
 
+.orderTitle{
+  padding:15px 15px;
+  text-align: center;
+}
+
 .slider2{
     padding:15px 10px;
     width:100%;
