@@ -5,6 +5,7 @@ import TimelineIcon from '@mui/icons-material/Timeline';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
 import { Link } from "react-router-dom";
 
 export default function Sidebar(){
@@ -12,6 +13,17 @@ export default function Sidebar(){
         <div className="sidebar">
             <div className="sidebarWrapper">
                 <div className="siderbarMenu">
+                    <h4 className="siderbarTitle">
+                        Ordering
+                    </h4>
+                    <ul className="sidebarList">
+                        <Link to="/ordering" className="link">
+                            <li className="sidebarListItem">
+                                <HistoryEduIcon className="sidebarListItemIcon"/>
+                                Order Form
+                            </li>
+                        </Link>
+                    </ul>
                     <h4 className="siderbarTitle">
                         Functions
                     </h4>
