@@ -3,12 +3,15 @@
 }
 
 .orderTitle{
-  padding:15px 15px;
+  padding:30px 15px;
   text-align: center;
+  font: bold;
+  font-size: 22px;
+
 }
 
-.slider2{
-    padding:15px 10px;
+.submitButton{
+    padding-top: 50px;
     width:100%;
     display:flex;
     justify-content: center;
