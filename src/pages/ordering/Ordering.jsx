@@ -1,5 +1,4 @@
 import * as React from 'react'
-//import { useEffect, useState } from "react";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import './Ordering.css'
@@ -45,7 +44,7 @@ export default function Ordering(){
     
     return(
         <div className='ordering'>
-            <div className='orderTitle'>Order Form</div>
+            <div className='orderTitle'>Order Form ✍🏻</div>
             <div className='featuredItem'>
                 <div className='featured2'>
                     <div>

@@ -6,6 +6,7 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import HistoryEduIcon from '@mui/icons-material/HistoryEdu';
+import RestoreIcon from '@mui/icons-material/Restore';
 import { Link } from "react-router-dom";
 
 export default function Sidebar(){
@@ -21,6 +22,12 @@ export default function Sidebar(){
                             <li className="sidebarListItem">
                                 <HistoryEduIcon className="sidebarListItemIcon"/>
                                 Order Form
+                            </li>
+                        </Link>
+                        <Link to="/orderinghistory" className="link">
+                            <li className="sidebarListItem">
+                                <RestoreIcon className="sidebarListItemIcon"/>
+                                Order History
                             </li>
                         </Link>
                     </ul>
