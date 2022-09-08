@@ -9,6 +9,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {ma} from 'moving-averages';
 
 function createData(name, calories) {
     return { name, calories};
@@ -58,7 +59,7 @@ export default function Forecasting(){
         createData('🔗 Chain(s)', noOfChains),
         createData('🏆 Gold', noOfGold),
     ];
-
+    var maValue = ma([130,112,286,220,118,141,126,231,194,289,186,174], 3)
     return(
         <div className="forecasting">
             <div className="featured">
@@ -148,6 +149,7 @@ export default function Forecasting(){
                     </div>
                 </div>
             </div>
+            {maValue}
         </div>
     )
 }
