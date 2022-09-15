@@ -8,6 +8,7 @@ import Masterproductionscheduling from "./pages/masterproductionscheduling/Maste
 import Architecture from "./pages/architecture/Architecture";
 import Ordering from "./pages/ordering/Ordering";
 import Orderinghistory from "./pages/orderinghistory/Orderinghistory";
+import Mrp from "./pages/mrp/mrp"
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route exact path="/orderinghistory" element={<Orderinghistory/>}/>
             <Route exact path="/forecasting" element={<Forecasting/>}/>
             <Route exact path="/mps" element={<Masterproductionscheduling/>}/>
+            <Route exact path="/mrp" element={<Mrp/>}/>
             <Route exact path="/architecture" element={<Architecture/>}/>
             <Route exact path='/linkedin' component={() => { 
               window.location.href = 'https://linkedin.com/in/darentwh'; 

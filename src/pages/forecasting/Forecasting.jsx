@@ -2,18 +2,18 @@ import * as React from 'react'
 import './Forecasting.css'
 import Slider from '@mui/material/Slider'
 
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+import "../../components/chart/Chart.css";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Legend,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer
+} from "recharts";
 import {ma} from 'moving-averages';
-
-function createData(name, calories) {
-    return { name, calories};
-}
 
 export default function Forecasting(){
     const [value, setValue] = React.useState(10);
@@ -42,24 +42,53 @@ export default function Forecasting(){
     var intThree = parseInt(valuethree)
     let multiplyResult = multiply(intOne,intTwo,intThree)
     ;
-    const [message, setMessage] = React.useState('0');
-    const handleChangeFour = event => {
-        setMessage(event.target.value);
-    };
-    var noOfUnits = parseInt(message)
-    var noOfScrews = (noOfUnits*5)
-    var noOfBricks = (noOfUnits*10)
-    var noOfGears = (noOfUnits*12)
-    var noOfChains = (noOfUnits*2)
-    var noOfGold = (noOfUnits/4)
-    var rows = [
-        createData('🔩 Screw(s)', noOfScrews),
-        createData('🧱 Brick(s)', noOfBricks),
-        createData('⚙️ Gear(s)', noOfGears),
-        createData('🔗 Chain(s)', noOfChains),
-        createData('🏆 Gold', noOfGold),
-    ];
-    var maValue = ma([130,112,286,220,118,141,126,231,194,289,186,174], 3)
+
+    const maValue = ma([130,112,286,220,118,141,126,231,194,289,186,174], 3)
+    console.log(maValue)
+    var data = [
+        {
+          name: "1",
+          actual: '112',
+          ma: maValue[2],
+          amt: 2400
+        },
+        {
+          name: "2",
+          actual: '286',
+          ma: maValue[3],
+          amt: 2210
+        },
+        {
+          name: "3",
+          actual: '220',
+          ma: maValue[4],
+          amt: 2290
+        },
+        {
+          name: "4",
+          actual: '118',
+          ma: maValue[5],
+          amt: 2000
+        },
+        {
+          name: "5",
+          actual: '141',
+          ma: maValue[6],
+          amt: 2181
+        },
+        {
+          name: "6",
+          actual: '126',
+          ma: maValue[7],
+          amt: 2500
+        },
+        {
+          name: "7",
+          actual: '231',
+          ma: maValue[8],
+          amt: 2100
+        }
+      ];
     return(
         <div className="forecasting">
             <div className="featured">
@@ -106,50 +135,25 @@ export default function Forecasting(){
             <div className="slider2">
                 Total Multiplied: {multiplyResult}
             </div>
-            <div className="featured">
-                <div className="featuredItem">
-                    <span className="featuredTitle">No. of Units</span>
-                    <div className="slider2">    
-                        <input
-                            type="text"
-                            id="message"
-                            onChange={handleChangeFour}
-                            name="message"
-                            value={message}
-                            autoComplete="off"
-                        />
-                    </div>
-                </div>
-                <div className="featuredItem">
-                    <span className="featuredTitle">Required Quantity</span>
-                    <div className="slider2">
-                        <TableContainer component={Paper} align='center'>
-                            <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '80%' }}>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell align="left">Component</TableCell>
-                                        <TableCell>Quantity</TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                {rows.map((row) => (
-                                    <TableRow
-                                    key={row.name}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                    >
-                                    <TableCell component="th" scope="row" style={{ width: '5%' }}>
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell style={{ width: '20%' }}>{row.calories}</TableCell>
-                                    </TableRow>
-                                ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                    </div>
-                </div>
-            </div>
-            {maValue}
+            <ResponsiveContainer width="97%" height={500} position="absolute">
+                <LineChart
+                data={data}
+                margin={{
+                    top: 30,
+                    right: 30,
+                    left: 30,
+                    bottom: 30
+                }}
+                >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="actual" stroke="#49454D" />
+                <Line type="monotone" dataKey="ma" stroke="#AD6ADF" strokeWidth={3}/>
+                </LineChart>
+            </ResponsiveContainer>
         </div>
     )
 }
