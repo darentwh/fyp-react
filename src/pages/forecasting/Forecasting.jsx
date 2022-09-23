@@ -106,25 +106,25 @@ export default function Forecasting(){
           <div className='slider2'>
             Moving Average, ⍺ = 2
           </div>
-            <ResponsiveContainer width="97%" height={500} position="absolute">
-                <LineChart
-                data={data}
-                margin={{
-                    top: 30,
-                    right: 30,
-                    left: 30,
-                    bottom: 30
-                }}
-                >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" />
-                <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="actual" stroke="#49454D" />
-                <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-                </LineChart>
-            </ResponsiveContainer>
+          <ResponsiveContainer width="97%" height={500} position="absolute">
+              <LineChart
+              data={data}
+              margin={{
+                  top: 30,
+                  right: 30,
+                  left: 30,
+                  bottom: 30
+              }}
+              >
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="name" />
+              <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="actual" stroke="#49454D" />
+              <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
+              </LineChart>
+          </ResponsiveContainer>
         </div>
     )
 }
