@@ -104,7 +104,7 @@ export default function Forecasting(){
     return(
         <div className="forecasting">
           <div className='slider2'>
-            Moving Average, ⍺ = 2
+            Moving Average, m = 2
           </div>
           <ResponsiveContainer width="97%" height={500} position="absolute">
               <LineChart
