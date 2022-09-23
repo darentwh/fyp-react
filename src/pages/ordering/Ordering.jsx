@@ -9,7 +9,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import Autocomplete from '@mui/material/Autocomplete';
 
 const optionsCountries = ['Singapore', 'Malaysia'];
-const optionsItem = ['34-720A','950XL', '975XL2', 'RK1-720A','RK14-975XLC'];
+const optionsItem = ['950XL'];
 
 export default function Ordering(){
     function callApi() {

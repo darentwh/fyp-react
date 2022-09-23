@@ -6,6 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Slider from '@mui/material/Slider'
 import './mrp.css'
 
 function createData(name, calories) {
@@ -30,6 +31,32 @@ export default function Mrp(){
         createData('🔗 Chain(s)', noOfChains),
         createData('🏆 Gold', noOfGold),
     ];
+    const [value, setValue] = React.useState(10);
+    const handleChange = (event, newValue) => {
+        if (typeof newValue === 'number') {
+          setValue(newValue);
+        }
+    };
+    const [valuetwo, setValuetwo] = React.useState(10);
+    const handleChangeTwo = (event, newValue) => {
+        if (typeof newValue === 'number') {
+          setValuetwo(newValue);
+        }
+    };
+    const [valuethree, setValuethree] = React.useState(10);
+    const handleChangeThree = (event, newValue) => {
+        if (typeof newValue === 'number') {
+          setValuethree(newValue);
+        }
+    };
+    const multiply = (num1,num2,num3)=>{
+        return num1 * num2 * num3
+    };
+    var intOne = parseInt(value)
+    var intTwo = parseInt(valuetwo)
+    var intThree = parseInt(valuethree)
+    let multiplyResult = multiply(intOne,intTwo,intThree)
+    ;
     return(
         <div className="mrp">
             <div className="featured">
@@ -74,6 +101,50 @@ export default function Mrp(){
                         </TableContainer>
                     </div>
                 </div>
+            </div>
+            <div className = "featured">
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 1</span>
+                    <Slider
+                        value={value}
+                        size="small"
+                        defaultValue={70}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={handleChange}
+                        color="secondary"
+                    />
+                    {value}
+                </div>
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 2</span>
+                    <Slider
+                        value={valuetwo}
+                        size="small"
+                        defaultValue={70}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={handleChangeTwo}
+                        color="secondary"
+                    />
+                    {valuetwo}
+                </div>
+                <div className="featuredItem">
+                    <span className="featuredTitle">Material 3</span>
+                    <Slider
+                        value={valuethree}
+                        size="small"
+                        defaultValue={70}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        onChange={handleChangeThree}
+                        color="secondary"
+                    />
+                    {valuethree}
+                </div>
+            </div>
+            <div className="slider2">
+                Total Multiplied: {multiplyResult}
             </div>
         </div>
     )
