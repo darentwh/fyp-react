@@ -47,56 +47,61 @@ export default function Forecasting(){
         {
           name: keys[1],
           actual: values[1],
-          forecast: maValue[1]
+          forecast: maValue[0]
         },
         {
           name: keys[2],
           actual: values[2],
-          forecast: maValue[2]
+          forecast: maValue[1]
         },
         {
           name: keys[3],
           actual: values[3],
-          forecast: maValue[3]
+          forecast: maValue[2]
         },
         {
           name: keys[4],
           actual: values[4],
-          forecast: maValue[4]
+          forecast: maValue[3]
         },
         {
           name: keys[5],
           actual: values[5],
-          forecast: maValue[5]
+          forecast: maValue[4]
         },
         {
           name: keys[6],
           actual: values[6],
-          forecast: maValue[6]
+          forecast: maValue[5]
         },
         {
           name: keys[7],
           actual: values[7],
-          forecast: maValue[7]
+          forecast: maValue[6]
         },
         {
           name: keys[8],
           actual: values[8],
-          forecast: maValue[8]
+          forecast: maValue[7]
         },
         {
           name: keys[9],
           actual: values[9],
-          forecast: maValue[9]
+          forecast: maValue[8]
         },
         {
           name: keys[10],
           actual: values[10],
-          forecast: maValue[10]
+          forecast: maValue[9]
         },
         {
           name: keys[11],
           actual: values[11],
+          forecast: maValue[10]
+        },
+        {
+          name: keys[12],
+          actual: values[12],
           forecast: maValue[11]
         },
       ]
