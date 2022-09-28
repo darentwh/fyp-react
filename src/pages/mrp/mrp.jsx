@@ -7,7 +7,23 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Slider from '@mui/material/Slider'
+import { useEffect, useState } from "react"
+import {ma} from 'moving-averages';
 import './mrp.css'
+
+const useFetch = () => {
+    const [dataAPI, setData] = useState(null);
+    useEffect((url = "https://7l5jx3guqnqr6gxnabjeb5icgm0evafu.lambda-url.us-east-1.on.aws/") => {
+      async function fetchData(){
+        const response = await fetch(url,{method:'GET'});
+        const dataAPI = await response.json();
+        console.log(dataAPI)
+        setData(dataAPI);
+      }
+      fetchData();
+    }, []);
+    return {dataAPI};
+};
 
 function createData(name, calories) {
     return { name, calories};
@@ -18,18 +34,27 @@ export default function Mrp(){
     const handleChangeFour = event => {
         setMessage(event.target.value);
     };
-    var noOfUnits = parseInt(message)
-    var noOfScrews = (noOfUnits*5)
-    var noOfBricks = (noOfUnits*10)
-    var noOfGears = (noOfUnits*12)
-    var noOfChains = (noOfUnits*2)
-    var noOfGold = (noOfUnits/4)
+    const {dataAPI} = useFetch()
+    if(dataAPI !== null){
+        var keys = Object.keys(dataAPI)
+        var values = Object.values(dataAPI)
+        var nextMonth = keys[12]
+        const maValue = ma(values, 2)
+        console.log(maValue)
+        var nextMonthForecast = maValue[11]
+        var roundedForecast = parseInt(Math.ceil(nextMonthForecast / 10) * 10);
+        var noOfParts = (roundedForecast*5)
+        console.log(noOfParts)
+    };
     var rows = [
-        createData('🔩 Screw(s)', noOfScrews),
-        createData('🧱 Brick(s)', noOfBricks),
-        createData('⚙️ Gear(s)', noOfGears),
-        createData('🔗 Chain(s)', noOfChains),
-        createData('🏆 Gold', noOfGold),
+        createData('721A-12', noOfParts),
+        createData('138N', noOfParts),
+        createData('721-33', noOfParts),
+        createData('721-300', noOfParts),
+        createData('721-310', noOfParts),
+        createData('RK1-720', noOfParts),
+        createData('IS720', noOfParts),
+        createData('9B5X7', noOfParts),
     ];
     const [value, setValue] = React.useState(10);
     const handleChange = (event, newValue) => {
@@ -72,15 +97,18 @@ export default function Mrp(){
                             autoComplete="off"
                         />
                     </div>
+                    Month: <b>{nextMonth}</b><br/>
+                    Forecasted Demand: <b>{nextMonthForecast}</b><br/>
+                    Rounded Demand: <b>{roundedForecast}</b>
                 </div>
                 <div className="featuredItem">
-                    <span className="featuredTitle">Required Quantity</span>
+                    <span className="featuredTitle">Forecasted Required Component Quantity</span>
                     <div className="slider2">
                         <TableContainer component={Paper} align='center'>
                             <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '80%' }}>
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell align="left">Component</TableCell>
+                                        <TableCell align="left">Part No.</TableCell>
                                         <TableCell>Quantity</TableCell>
                                     </TableRow>
                                 </TableHead>

@@ -117,18 +117,18 @@ export default function Forecasting(){
         },
       ];
     } if(buttonValue === 'Expotential Moving Average'){
-      const maValue = ema(values, 2)
+      const maValue = ema(values, 3)
       console.log(maValue)
       data = [
         {
           name: keys[0],
           actual: values[0],
-          forecast: maValue[0]
+          forecast: null
         },
         {
           name: keys[1],
           actual: values[1],
-          forecast: maValue[0]
+          forecast: null
         },
         {
           name: keys[2],
