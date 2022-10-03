@@ -88,6 +88,7 @@ export default function Ordering(){
                             <div>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DesktopDatePicker
+                                        disablePast
                                         label='Order Date'
                                         inputFormat="DD/MM/YYYY"
                                         value={value1}
@@ -99,6 +100,7 @@ export default function Ordering(){
                             <div>
                                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                                     <DesktopDatePicker
+                                        disablePast
                                         label='Required Date'
                                         inputFormat="DD/MM/YYYY"
                                         value={value2}

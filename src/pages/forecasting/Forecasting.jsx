@@ -278,7 +278,7 @@ export default function Forecasting(){
               onClick={() => {
                 handleChangeB()
               }}
-            >Expotential Smoothing</Button>
+            >Expotential Moving Average</Button>
             <Button
               style={{
                 backgroundColor: "#AD6ADF",
