@@ -70,7 +70,6 @@ export default function Orderinghistory(){
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    
                 </div>}
             </div>
         </div>

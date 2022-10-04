@@ -51,7 +51,7 @@ export default function Ordering(){
                         <Box
                             component="form"
                             sx={{
-                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                '& .MuiTextField-root': { m: 1, width: 'fit-content(25%)' },
                             }}
                             noValidate
                             autoComplete="off"
@@ -80,7 +80,7 @@ export default function Ordering(){
                         <Box
                             component="form"
                             sx={{
-                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                '& .MuiTextField-root': { m: 1, width: 'fit-content(25%)' },
                             }}
                             noValidate
                             autoComplete="off"
@@ -115,7 +115,7 @@ export default function Ordering(){
                         <Box
                             component="form"
                             sx={{
-                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                '& .MuiTextField-root': { m: 1, width: 'fit-content(25%)' },
                             }}
                             noValidate
                             autoComplete="off"
@@ -132,7 +132,7 @@ export default function Ordering(){
                                     }}
                                     id="controllable-states-demo"
                                     options={optionsCountries}
-                                    sx={{ width: 300 }}
+                                    sx={{ width: '90%' }}
                                     renderInput={(params) => <TextField {...params} label="Destination Country" />}
                                 />
                             </div>
@@ -151,7 +151,7 @@ export default function Ordering(){
                         <Box
                             component="form"
                             sx={{
-                                '& .MuiTextField-root': { m: 1, width: '25ch' },
+                                '& .MuiTextField-root': { m: 1, width: 'fit-content(25%)' },
                             }}
                             noValidate
                             autoComplete="off"
@@ -168,7 +168,7 @@ export default function Ordering(){
                                     }}
                                     id="controllable-states-demo"
                                     options={optionsItem}
-                                    sx={{ width: 300 }}
+                                    sx={{ width: '90%' }}
                                     renderInput={(params) => <TextField {...params} label="Item Code" />}
                                 />
                             </div>
