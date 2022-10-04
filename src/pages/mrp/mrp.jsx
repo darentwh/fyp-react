@@ -109,7 +109,7 @@ export default function Mrp(){
                                 <TableHead>
                                     <TableRow>
                                         <TableCell align="left">Part No.</TableCell>
-                                        <TableCell>Quantity</TableCell>
+                                        <TableCell>Quantity , <i>5/unit</i></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>

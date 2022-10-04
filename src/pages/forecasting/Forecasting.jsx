@@ -293,7 +293,7 @@ export default function Forecasting(){
       <div className='slider2'>
         {buttonValue}
       </div>
-      <ResponsiveContainer width="97%" height={500} position="absolute">
+      <ResponsiveContainer width="97%" height={600} position="absolute">
         <LineChart
         data={data}
         margin={{
