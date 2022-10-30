@@ -6,6 +6,8 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import 'trendline'
 
 const useFetch = () => {
@@ -26,6 +28,14 @@ const useFetch = () => {
 
 export default function Masterproductionscheduling(){
   const {data,loading} = useFetch()
+  const [strategyName,setStrategyName] = useState('Level Strategy')
+  const handleChange = event => {
+    setStrategyName(event);
+    console.log(event)
+  }
+  var mps_data = null
+  var projected_balance = null
+  var inventory_balance = []
   if(data !== null){
     var keys = Object.keys(data)
     var values = Object.values(data)
@@ -47,7 +57,60 @@ export default function Masterproductionscheduling(){
     const trend = createTrend(LRdata, 'x', 'y')
     console.log(trend.yStart, trend.slope)
     var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
+    if(strategyName === 'Chase Strategy'){
+      mps_data = [
+        LRVal[0]+20,
+        LRVal[1]+20,
+        LRVal[2]+20,
+        LRVal[3]+20,
+        LRVal[4]+20,
+        LRVal[5]+20,
+        LRVal[6]+20,
+      ]
+      projected_balance = [
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+        20,
+      ]
+    }
+    if(strategyName === 'Level Strategy'){
+      var avg = Math.round((LRVal[0]+LRVal[1]+LRVal[2]+LRVal[3]+LRVal[4]+LRVal[5]+LRVal[6])/7)
+      console.log(avg)
+      var balance = 20
+      for (let i = 0; i < 7; i++) { 
+        balance = balance + (avg - LRVal[i])
+        console.log(balance)
+        inventory_balance.push(balance)
+      }
+      mps_data = [
+        avg,
+        avg,
+        avg,
+        avg,
+        avg,
+        avg,
+        avg
+      ]
+      projected_balance = [
+        inventory_balance[0],
+        inventory_balance[1],
+        inventory_balance[2],
+        inventory_balance[3],
+        inventory_balance[4],
+        inventory_balance[5],
+        inventory_balance[6]
+      ]
+    }
+    if(strategyName === 'Lot Size Strategy'){
+      mps_data = 'Lot Size'
+      projected_balance = 'test'
+    }
   }
+  
   return(
     <div className="mps">
       {loading ? 
@@ -99,9 +162,39 @@ export default function Masterproductionscheduling(){
             </div>
           </div>
         </div>
+        <div className='slider3'>
+          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Level Strategy')
+              }}   
+            >Level Strategy</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Chase Strategy')
+              }}   
+            >Chase Strategy</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Lot Size Strategy')
+              }}   
+            >Lot Size Strategy</Button>
+          </ButtonGroup>
+        </div>
         <div className='featured'>
           <div className='featuredItem'>
-            <span className="featuredTitle">7-Month Period Forecast</span>
+            <div className="featuredTitle">
+              7-Month Period Forecast: <b>{strategyName}</b>
+            </div>
             <div className='slider3'>
               <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
                 <TableHead>
@@ -128,24 +221,24 @@ export default function Masterproductionscheduling(){
                     <TableCell>{LRVal[6]}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell><b>Projected Balance | 20</b></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell><b>Projected Balance</b> <i>20 in hand</i></TableCell>
+                    <TableCell>{projected_balance[0]}</TableCell>
+                    <TableCell>{projected_balance[1]}</TableCell>
+                    <TableCell>{projected_balance[2]}</TableCell>
+                    <TableCell>{projected_balance[3]}</TableCell>
+                    <TableCell>{projected_balance[4]}</TableCell>
+                    <TableCell>{projected_balance[5]}</TableCell>
+                    <TableCell>{projected_balance[6]}</TableCell>
                   </TableRow>
                   <TableRow>
                     <TableCell><b>Master Production Schedule</b></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
-                    <TableCell></TableCell>
+                    <TableCell>{mps_data[0]}</TableCell>
+                    <TableCell>{mps_data[1]}</TableCell>
+                    <TableCell>{mps_data[2]}</TableCell>
+                    <TableCell>{mps_data[3]}</TableCell>
+                    <TableCell>{mps_data[4]}</TableCell>
+                    <TableCell>{mps_data[5]}</TableCell>
+                    <TableCell>{mps_data[6]}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -153,7 +246,6 @@ export default function Masterproductionscheduling(){
           </div>
         </div>
       </div>}
-        
     </div>
   )
 }
