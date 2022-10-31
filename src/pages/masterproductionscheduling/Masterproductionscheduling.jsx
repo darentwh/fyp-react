@@ -106,18 +106,31 @@ export default function Masterproductionscheduling(){
       ]
     }
     if(strategyName === 'Lot Size Strategy'){
-      mps_data = 'Lot Size'
-      projected_balance = 'test'
+      mps_data = []
+      projected_balance = []
+      balance = 20
+      for (let i = 0; i < 7; i++) { 
+        balance = balance - LRVal[i]
+        if(balance < 20){
+          projected_balance.push(balance+700)
+          mps_data.push(700)
+          balance = balance + 700
+        }else{
+          projected_balance.push(balance)
+          mps_data.push(0)
+        }
+      }
+      console.log(mps_data)
+      console.log(inventory_balance)
     }
   }
-  
   return(
     <div className="mps">
       {loading ? 
         <div className='slider2'>
-            Loading...
+          Loading...
         </div> 
-                : 
+        : 
       <div>
         <div className='featured'>
           <div className='featuredItem'>
