@@ -1,5 +1,5 @@
 import * as React from 'react'
-import Architecutre from "./architecture.png"
+import Architecutre from "./FYP-Diagram.drawio.png"
 import './Architecture.css'
 
 import Table from '@mui/material/Table';

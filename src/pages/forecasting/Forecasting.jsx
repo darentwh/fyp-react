@@ -20,7 +20,7 @@ import 'trendline';
 
 const useFetch = () => {
   const [dataAPI, setData] = useState(null);
-  useEffect((url = "https://7l5jx3guqnqr6gxnabjeb5icgm0evafu.lambda-url.us-east-1.on.aws/") => {
+  useEffect((url = "https://xkscvbyt7xcmdpibtt3olzbuti0gqbgx.lambda-url.us-east-1.on.aws/") => {
     async function fetchData(){
       const response = await fetch(url,{method:'GET'});
       const dataAPI = await response.json();
