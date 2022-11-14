@@ -156,7 +156,7 @@ export default function Masterproductionscheduling(){
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell><b>Order</b></TableCell>
+                    <TableCell><b>Actual Demand</b></TableCell>
                     <TableCell>{values[0]}</TableCell>
                     <TableCell>{values[1]}</TableCell>
                     <TableCell>{values[2]}</TableCell>
@@ -174,34 +174,6 @@ export default function Masterproductionscheduling(){
               </Table>
             </div>
           </div>
-        </div>
-        <div className='slider3'>
-          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Level Strategy')
-              }}   
-            >Level Strategy</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Chase Strategy')
-              }}   
-            >Chase Strategy</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Lot Size Strategy')
-              }}   
-            >Lot Size Strategy</Button>
-          </ButtonGroup>
         </div>
         <div className='featured'>
           <div className='featuredItem'>
@@ -257,6 +229,34 @@ export default function Masterproductionscheduling(){
               </Table>
             </div>
           </div>
+        </div>
+        <div className='slider3'>
+          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Level Strategy')
+              }}   
+            >Level Strategy</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Chase Strategy')
+              }}   
+            >Chase Strategy</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChange('Lot Size Strategy')
+              }}   
+            >Lot Size Strategy</Button>
+          </ButtonGroup>
         </div>
       </div>}
     </div>
