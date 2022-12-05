@@ -373,67 +373,61 @@ export default function Forecasting(){
   };
   return(
     <div className="forecasting">
-      <div className='slider2'>
-        {buttonValue}
-      </div>
-      <ResponsiveContainer width="97%" height={600} position="absolute">
-        <ComposedChart
-        data={data}
-        margin={{
-            top: 30,
-            right: 30,
-            left: 30,
-            bottom: 30
-        }}
-        >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
-          <Tooltip />
-          <Legend />
-          <Line type="monotone" dataKey="actual" stroke="#49454D" />
-          <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-          <Scatter type="monotone" dataKey="actualLR" fill="transparent" stroke="#49454D" strokeWidth={3} legendType='none'/>
-          <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
-        </ComposedChart>
-      </ResponsiveContainer>
-      <div className='slider2'>
-        <div>
-          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}   
-              onClick={() => {
-                handleChangeA()
-              }}
-            >Moving Average</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChangeB()
-              }}
-            >Expotential Moving Average</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChangeC()
-              }}
-            >Weighted Moving Average</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChangeD()
-              }}
-            >Linear Regression</Button>
-          </ButtonGroup>
+      <div className='featuredItem'>
+        <div className='slider2'>
+          {buttonValue}
         </div>
+        <ResponsiveContainer width="100%" height={600} position="absolute">
+          <ComposedChart
+          data={data}
+          >
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name"/>
+            <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
+            <Tooltip />
+            <Legend />
+            <Line type="monotone" dataKey="actual" stroke="#49454D" />
+            <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
+            <Scatter type="monotone" dataKey="actualLR" fill="transparent" stroke="#49454D" strokeWidth={3} legendType='none'/>
+            <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
+          </ComposedChart>
+        </ResponsiveContainer>
+      </div>
+      <div className='slider3'>
+        <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+          <Button
+            style={{
+              backgroundColor: "#AD6ADF",
+            }}   
+            onClick={() => {
+              handleChangeA()
+            }}
+          >Moving Average</Button>
+          <Button
+            style={{
+              backgroundColor: "#AD6ADF",
+            }}
+            onClick={() => {
+              handleChangeB()
+            }}
+          >Expotential Moving Average</Button>
+          <Button
+            style={{
+              backgroundColor: "#AD6ADF",
+            }}
+            onClick={() => {
+              handleChangeC()
+            }}
+          >Weighted Moving Average</Button>
+          <Button
+            style={{
+              backgroundColor: "#AD6ADF",
+            }}
+            onClick={() => {
+              handleChangeD()
+            }}
+          >Linear Regression</Button>
+        </ButtonGroup>
       </div>
     </div>
   )

@@ -13,11 +13,17 @@
 }
 
 .slider2{
-    padding:15px 10px;
-    width:100%;
+    padding:15px;
+    width:90%;
     display:flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+}
+
+.slider3{
+    flex: 1;
+    margin: 0px 20px;
+    padding: 30px;
 }
 
 .featured {
