@@ -34,3 +34,10 @@
 .featuredTitle{
     font-size: 20px;
 }
+
+.tableContainer{
+  background-color: #b1b1b1;
+  height: 500px;
+  width:100%;
+  overflow: scroll;
+}

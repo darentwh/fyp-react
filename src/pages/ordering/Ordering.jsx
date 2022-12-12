@@ -9,7 +9,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker'
 import Autocomplete from '@mui/material/Autocomplete';
 
 const optionsCountries = ['Singapore', 'Malaysia'];
-const optionsItem = ['RK1-720'];
+const optionsItem = ['34-720A'];
 
 export default function Ordering(){
     function callApi() {
@@ -44,7 +44,7 @@ export default function Ordering(){
     
     return(
         <div className='ordering'>
-            <div className='orderTitle'>Order Form ✍🏻</div>
+            <div className='orderTitle'>Order Form</div>
             <div className='featuredItem'>
                 <div className='featured2'>
                     <div>
