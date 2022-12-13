@@ -388,7 +388,7 @@ export default function Forecasting(){
             <Legend />
             <Line type="monotone" dataKey="actual" stroke="#49454D" />
             <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-            <Scatter type="monotone" dataKey="actualLR" fill="transparent" stroke="#49454D" strokeWidth={3} legendType='none'/>
+            <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={3} legendType='none'/>
             <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
           </ComposedChart>
         </ResponsiveContainer>

@@ -6,14 +6,17 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Slider from '@mui/material/Slider'
 import { useEffect, useState } from "react"
 import {ma} from 'moving-averages';
-//import Tree, { withStyles } from 'react-vertical-tree'
 import './mrp.css'
 
 import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
+
+import TreeView from '@mui/lab/TreeView';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import TreeItem from '@mui/lab/TreeItem';
 
 const useFetch = () => {
     const [dataAPI, setData] = useState(null);
@@ -32,21 +35,6 @@ const useFetch = () => {
 function createData(name, calories) {
     return { name, calories};
 }
-
-const styles = {
-    lines: {
-      color: '#AD6ADF',
-      height: '100px',
-    },
-    node: {
-      backgroundColor: '#fff',
-      border: '1px solid #000000',
-    },
-    text: {
-      color: '#000000',
-    }
-}
-//const StyledTree = withStyles(styles)(Tree)
 
 export default function Mrp(){  
     const {dataAPI} = useFetch()
@@ -83,65 +71,34 @@ export default function Mrp(){
         createData('Poppet Assembly, 721-300', noOfParts),
         createData('Spider Assembly, 721-310', noOfParts),
     ];
-    const [value, setValue] = React.useState(10);
-    const handleChange = (event, newValue) => {
-        if (typeof newValue === 'number') {
-          setValue(newValue);
-        }
-    };
-    const  data = [
-        {id: 1, name: 'Pressure Vacuum Breaker : '+noOfParts, parent: null, children: [
-            {id: 2, parent: {id: 1}, name: 'Canopy Screw : '+3*noOfParts, children: []},
-            {id: 3, parent: {id: 1}, name: 'Canopy : '+noOfParts, children: []},
-            {id: 4, parent: {id: 1}, name: 'Bonnet : '+noOfParts, children: []},
-            {id: 5, parent: {id: 1}, name: 'Plastic Washer : '+noOfParts, children: []},
-            {id: 6, parent: {id: 1}, name: 'O-Ring : '+noOfParts, children: []},
-            {id: 8, parent: {id: 1}, name: 'Poppet Assembly', children: [
-                {id: 9, parent: {id: 8}, name: 'Load Nut & Guide : '+noOfParts, children: []},
-                {id: 10, parent: {id: 8}, name: 'Load Washer : '+noOfParts, children: []},
-                {id: 11, parent: {id: 8}, name: 'Disc Upper : '+noOfParts, children: []},
-                {id: 12, parent: {id: 8}, name: 'Poppet : '+noOfParts, children: []},
-            ]},
-            {id: 13, parent: {id: 1}, name: 'Spring : '+noOfParts, children: []},
-            {id: 14, parent: {id: 1}, name: 'Spider Assembly', children: [
-                {id: 15, parent: {id: 14}, name: 'Screw : '+noOfParts, children: []},
-                {id: 16, parent: {id: 14}, name: 'Lower Disc : '+noOfParts, children: []},
-                {id: 17, parent: {id: 14}, name: 'Guide Spider : '+noOfParts, children: []},
-                {id: 18, parent: {id: 14}, name: 'Hex Nut : '+noOfParts, children: []},
-            ]},
-            {id: 19, parent: {id: 1}, name: 'Test Cock : '+2*noOfParts, children: []},
-            {id: 20, parent: {id: 1}, name: 'Ball Valve 1/2" Tap : '+2*noOfParts, children: []},
-            {id: 21, parent: {id: 1}, name: 'Ball Valve 3/4" Tap : '+2*noOfParts, children: []},
-            {id: 22, parent: {id: 1}, name: 'Ball Valve 1" Tap : '+2*noOfParts, children: []},
-        ]}
-        ]      
 
-        const StyledNode = styled.div`
-            padding: 1px;
-            border-radius: 8px;
-            display: inline-block;
-            border: 1px solid red;
-        `;
+    const StyledNodeTitle = styled.div`
+        border-radius: 5px;
+        display: inline-block;
+        border: 1px solid purple;
+        border-width: auto;
+        font-size: 12px;
+        font-weight: bold;
+    `;
+
+    const StyledNode = styled.div`
+        border-radius: 5px;
+        display: inline-block;
+        border: 1px solid purple;
+        border-width: auto;
+        font-size: 12px;
+    `;
 
     return(
         <div className="mrp">
-            <div className='featureItem'>
-                <div align='center'>
+            <div className='featured'>
+                <div className="featuredItem">
+                    Item Code: <b>34-720A</b><br/>
                     Month: <b>{nextMonth}</b><br/>
                     Forecasted Demand: <b>{nextMonthForecast}</b><br/>
                     Rounded Demand: <b>{roundedForecast}</b>
                 </div>
-            </div>
-            <div className="featured">
-                <div className="featuredItem">
-                    <span className="featuredTitle">Product Structure Diagram</span>
-                    <div>
-                        {/*<StyledTree data={data} direction/>*/}
-                    </div>
-                </div>
-            </div>
-            <div className="featured">
-                <div className="featuredItem">
+                <div className='featuredItem'>
                     <span className="featuredTitle">Bill of Material</span>
                     <div className="slider2">
                         <div className='tableContainer'>
@@ -172,52 +129,83 @@ export default function Mrp(){
                     </div>
                 </div>
             </div>
-            <div className = "featured">
+            <div className="featured">
                 <div className="featuredItem">
-                    <span className="featuredTitle">Forecast Period</span>
-                    <Slider
-                        value={value}
-                        size="small"
-                        min={1}
-                        max={10}
-                        defaultValue={1}
-                        aria-label="Small"
-                        valueLabelDisplay="auto"
-                        onChange={handleChange}
-                        color="secondary"
-                    />
-                    <span className='slider2'>{value}</span>
+                    <span className="featuredTitle">Product Structure Diagram</span>
+                    <Tree
+                        lineWidth={'2px'}
+                        lineColor={'purple'}
+                        lineBorderRadius={'5px'}
+                        label={<StyledNodeTitle>Pressure Vacuum Breaker 34-720A :{'\n'+noOfParts}</StyledNodeTitle>}
+                    >
+                        <TreeNode label={<StyledNode>Canopy Screw{'\n'+3*noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Canopy{'\n'+noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Bonnet{'\n'+noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Plastic Washer{'\n'+noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>O-Ring{'\n'+noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Poppet Assembly{'\n'+noOfParts}</StyledNode>}>
+                        <TreeNode label={<StyledNode>Load Nut & Guide{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Load Washer{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Disc Upper{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Poppet{'\n'+noOfParts}</StyledNode>} />
+                        </TreeNode>
+                        <TreeNode label={<StyledNode>Spring{'\n'+noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Spider Assembly{'\n'+noOfParts}</StyledNode>}>
+                        <TreeNode label={<StyledNode>Screw{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Lower Disc{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Guide Spider{'\n'+noOfParts}</StyledNode>} />
+                        <TreeNode label={<StyledNode>Hex Nut{'\n'+noOfParts}</StyledNode>} />
+                        </TreeNode>
+                        <TreeNode label={<StyledNode>Test Cock{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Ball Valve 1/2" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Ball Valve 3/4" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+                        <TreeNode label={<StyledNode>Ball Valve 1" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+                    </Tree>
                 </div>
             </div>
-            <Tree
-                lineWidth={'2px'}
-                lineColor={'green'}
-                lineBorderRadius={'10px'}
-                label={<StyledNode>Pressure Vacuum Breaker</StyledNode>}
-            >
-                <TreeNode label={<StyledNode>Canopy Screw{'\n'+noOfParts}</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Canopy</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Bonnet</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Plastic Washer</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>O-Ring</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Poppet Assembly</StyledNode>}>
-                <TreeNode label={<StyledNode>Load Nut & Guide</StyledNode>} />
-                <TreeNode label={<StyledNode>Load Washer</StyledNode>} />
-                <TreeNode label={<StyledNode>Disc Upper</StyledNode>} />
-                <TreeNode label={<StyledNode>Poppet</StyledNode>} />
-                </TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                <TreeNode label={<StyledNode>Child 1</StyledNode>}></TreeNode>
-                
-            </Tree>
+            <div className = "featured">
+                <div className="featuredItem">
+                    <span className="featuredTitle">Bill of Material</span>
+                    <div className="slider2">
+                        <div>
+                            <TreeView
+                            aria-label="file system navigator"
+                            defaultCollapseIcon={<ExpandMoreIcon />}
+                            defaultExpandIcon={<ChevronRightIcon />}
+                            defaultExpanded={['1']}
+                            sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
+                            >
+                                <TreeItem nodeId="1" label="34-720A">
+                                    <TreeItem nodeId="2" label={"Canopy Screw"+noOfParts}/>
+                                </TreeItem>
+                            </TreeView>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
+{/*
+<TreeNode label={<StyledNode>Canopy Screw{'\n'+3*noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Canopy{'\n'+noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Bonnet{'\n'+noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Plastic Washer{'\n'+noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>O-Ring{'\n'+noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Poppet Assembly{'\n'+noOfParts}</StyledNode>}>
+<TreeNode label={<StyledNode>Load Nut & Guide{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Load Washer{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Disc Upper{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Poppet{'\n'+noOfParts}</StyledNode>} />
+</TreeNode>
+<TreeNode label={<StyledNode>Spring{'\n'+noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Spider Assembly{'\n'+noOfParts}</StyledNode>}>
+<TreeNode label={<StyledNode>Screw{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Lower Disc{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Guide Spider{'\n'+noOfParts}</StyledNode>} />
+<TreeNode label={<StyledNode>Hex Nut{'\n'+noOfParts}</StyledNode>} />
+</TreeNode>
+<TreeNode label={<StyledNode>Test Cock{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Ball Valve 1/2" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Ball Valve 3/4" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
+<TreeNode label={<StyledNode>Ball Valve 1" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode> */}
