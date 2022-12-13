@@ -3,7 +3,6 @@ import './Forecasting.css'
 import { useEffect, useState } from "react"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import "../../components/chart/Chart.css";
 import {
   ComposedChart,
   Line,
@@ -388,7 +387,7 @@ export default function Forecasting(){
             <Legend />
             <Line type="monotone" dataKey="actual" stroke="#49454D" />
             <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-            <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={3} legendType='none'/>
+            <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
             <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
           </ComposedChart>
         </ResponsiveContainer>

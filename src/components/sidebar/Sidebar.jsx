@@ -38,7 +38,7 @@ export default function Sidebar(){
                         <Link to="/forecasting" className="link">
                         <li className="sidebarListItem">
                             <TimelineIcon className="sidebarListItemIcon"/>
-                            Forecasting
+                            Demand Forecasting
                         </li>
                         </Link>
                         <Link to="/mps" className="link">

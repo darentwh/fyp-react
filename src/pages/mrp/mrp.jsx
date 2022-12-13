@@ -163,49 +163,6 @@ export default function Mrp(){
                     </Tree>
                 </div>
             </div>
-            <div className = "featured">
-                <div className="featuredItem">
-                    <span className="featuredTitle">Bill of Material</span>
-                    <div className="slider2">
-                        <div>
-                            <TreeView
-                            aria-label="file system navigator"
-                            defaultCollapseIcon={<ExpandMoreIcon />}
-                            defaultExpandIcon={<ChevronRightIcon />}
-                            defaultExpanded={['1']}
-                            sx={{ height: 240, flexGrow: 1, maxWidth: 400, overflowY: 'auto' }}
-                            >
-                                <TreeItem nodeId="1" label="34-720A">
-                                    <TreeItem nodeId="2" label={"Canopy Screw"+noOfParts}/>
-                                </TreeItem>
-                            </TreeView>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     )
 }
-{/*
-<TreeNode label={<StyledNode>Canopy Screw{'\n'+3*noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Canopy{'\n'+noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Bonnet{'\n'+noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Plastic Washer{'\n'+noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>O-Ring{'\n'+noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Poppet Assembly{'\n'+noOfParts}</StyledNode>}>
-<TreeNode label={<StyledNode>Load Nut & Guide{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Load Washer{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Disc Upper{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Poppet{'\n'+noOfParts}</StyledNode>} />
-</TreeNode>
-<TreeNode label={<StyledNode>Spring{'\n'+noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Spider Assembly{'\n'+noOfParts}</StyledNode>}>
-<TreeNode label={<StyledNode>Screw{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Lower Disc{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Guide Spider{'\n'+noOfParts}</StyledNode>} />
-<TreeNode label={<StyledNode>Hex Nut{'\n'+noOfParts}</StyledNode>} />
-</TreeNode>
-<TreeNode label={<StyledNode>Test Cock{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Ball Valve 1/2" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Ball Valve 3/4" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode>
-<TreeNode label={<StyledNode>Ball Valve 1" Tap{'\n'+2*noOfParts}</StyledNode>}></TreeNode> */}

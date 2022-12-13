@@ -8,9 +8,9 @@ export default function Topbar(){
         <div className="topbar">
             <div className="topbarWrapper">
                 <div className="topLeft">
-                    <h2 className='logo'>
-                        <b>FYP C105</b> Dashboard
-                    </h2>
+                    <div className='logo'>
+                        FYP<span style={{color:'#AD6ADF', fontWeight:'bold'}}> C105</span> Dashboard
+                    </div>
                 </div>
                 <div className="topRight">
                     <Link to="/" className="link">
