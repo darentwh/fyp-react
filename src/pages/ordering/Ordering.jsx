@@ -15,14 +15,22 @@ export default function Ordering(){
     function callApi() {
         var requestOptions = {
             method: 'PUT',
-            body: JSON.stringify({customerName:{valueName},contactNumber:{valueContactNumber},dateOrder:{value1},dateReceive:{value2},deliveryCountry:{valueCountry},deliveryAddress:{valuePostalCode},item:{valueItem},quantity:{valueQuantity}})
+            body: JSON.stringify({customerName:{valueName},
+                contactNumber:{valueContactNumber},
+                dateOrder:{value1},
+                dateReceive:{value2},
+                deliveryCountry:{valueCountry},
+                deliveryAddress:{valuePostalCode},
+                item:{valueItem},
+                quantity:{valueQuantity}
+            })
         }
-        fetch('https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/', requestOptions)
+        fetch('https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/', requestOptions) //API destination
           .then(data => data.json()) // Parsing the data into a JavaScript object
           .then(json => alert(JSON.stringify(json))) // Displaying the stringified data in an alert popup
       }
     const handleSubmit = () => {
-        console.log({valueName},{valueContactNumber},{orderDate:value1['$d']},{value2},{valueCountry},{valueItem});
+        console.log({customerName:{valueName},contactNumber:{valueContactNumber},dateOrder:{value1},dateReceive:{value2},deliveryCountry:{valueCountry},deliveryAddress:{valuePostalCode},item:{valueItem},quantity:{valueQuantity}});
         callApi()
     }
     const [value1, setValue1] = React.useState('');
