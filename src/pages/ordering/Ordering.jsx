@@ -1,4 +1,5 @@
 import * as React from 'react'
+import {useEffect} from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import './Ordering.css'
@@ -12,23 +13,26 @@ const optionsCountries = ['Singapore', 'Malaysia'];
 const optionsItem = ['34-720A'];
 
 export default function Ordering(){
+    
     function callApi() {
-        var requestOptions = {
-            method: 'PUT',
-            body: JSON.stringify({customerName:{valueName},
-                contactNumber:{valueContactNumber},
-                dateOrder:{value1},
-                dateReceive:{value2},
-                deliveryCountry:{valueCountry},
-                deliveryAddress:{valuePostalCode},
-                item:{valueItem},
-                quantity:{valueQuantity}
-            })
+        if (ifFalse === false){
+            var requestOptions = {
+                method: 'PUT',
+                body: JSON.stringify({customerName:{valueName},
+                    contactNumber:{valueContactNumber},
+                    dateOrder:{value1},
+                    dateReceive:{value2},
+                    deliveryCountry:{valueCountry},
+                    deliveryAddress:{valuePostalCode},
+                    item:{valueItem},
+                    quantity:{valueQuantity}
+                })
+            }
+            fetch('https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/', requestOptions) //API destination
+            .then(data => data.json()) // Parsing the data into a JavaScript object
+            .then(json => alert(JSON.stringify(json))) // Displaying the stringified data in an alert popup
         }
-        fetch('https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/', requestOptions) //API destination
-          .then(data => data.json()) // Parsing the data into a JavaScript object
-          .then(json => alert(JSON.stringify(json))) // Displaying the stringified data in an alert popup
-      }
+    }
     const handleSubmit = () => {
         console.log({customerName:{valueName},contactNumber:{valueContactNumber},dateOrder:{value1},dateReceive:{value2},deliveryCountry:{valueCountry},deliveryAddress:{valuePostalCode},item:{valueItem},quantity:{valueQuantity}});
         callApi()
@@ -41,15 +45,25 @@ export default function Ordering(){
     const handleChange2 = (newValue) => {
         setValue2(newValue);
     };
-    const [valueName, setValueName] = React.useState('');
-    const [valueContactNumber, setValueContactNumber] = React.useState('');
-    const [valueQuantity, setValueQuantity] = React.useState('');
-    const [valuePostalCode, setValuePostalCode] = React.useState('');
+    const [valueName, setValueName] = React.useState(null);
+    const [valueContactNumber, setValueContactNumber] = React.useState(null);
+    const [valueQuantity, setValueQuantity] = React.useState(null);
+    const [valuePostalCode, setValuePostalCode] = React.useState(null);
     const [valueCountry, setValueCountry] = React.useState(optionsCountries[0]);
     const [inputValueCountry, setInputValueCountry] = React.useState(optionsCountries[0]);
     const [valueItem, setValueItem] = React.useState(optionsItem[0]);
     const [inputValueItem, setInputValueItem] = React.useState(optionsCountries[0]);
+    const [ifFalse, setIfFalse] = React.useState(true)
     
+    useEffect(()=>{
+        if (valueName && valueContactNumber && value1 && value2 && valueCountry && valuePostalCode && valueItem && valueQuantity !== (null && '')) {
+            setIfFalse(false);
+        }
+        else{
+            setIfFalse(true);
+        }
+    }, [valueName , valueContactNumber , value1 , value2 , valueCountry , valuePostalCode , valueItem , valueQuantity])
+
     return(
         <div className='ordering'>
             <div className='orderTitle'>Order Form</div>
@@ -193,7 +207,7 @@ export default function Ordering(){
                     </div>
                 </div>
                 <div className="submitButton">
-                    <Button variant="outlined" onClick={handleSubmit}>Submit</Button>
+                    <Button variant="outlined" disabled={ifFalse} onClick={handleSubmit}>Submit</Button>
                 </div>
             </div>
         </div>
