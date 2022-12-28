@@ -56,7 +56,7 @@ export default function Ordering(){
     const [ifFalse, setIfFalse] = React.useState(true)
     
     useEffect(()=>{
-        if (valueName && valueContactNumber && value1 && value2 && valueCountry && valuePostalCode && valueItem && valueQuantity !== (null && '')) {
+        if (valueName && valueContactNumber && value1 && value2 && valueCountry && valuePostalCode && valueQuantity && valueItem  !== (null || '')) {
             setIfFalse(false);
         }
         else{

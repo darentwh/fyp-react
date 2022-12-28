@@ -13,11 +13,6 @@ import './mrp.css'
 import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
 
-import TreeView from '@mui/lab/TreeView';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import TreeItem from '@mui/lab/TreeItem';
-
 const useFetch = () => {
     const [dataAPI, setData] = useState(null);
     useEffect((url = "https://7l5jx3guqnqr6gxnabjeb5icgm0evafu.lambda-url.us-east-1.on.aws/") => {

@@ -34,3 +34,11 @@
 .featuredTitle{
     font-size: 20px;
 }
+
+.featuredItemNoShadow {
+    flex: 1;
+    margin: 0px 20px;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+}

@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Slider from '@mui/material/Slider';
 import 'trendline'
 
 const useFetch = () => {
@@ -36,6 +37,14 @@ export default function Masterproductionscheduling(){
   var mps_data = null
   var projected_balance = null
   var inventory_balance = []
+  const [valueSlider, setValueSlider] = useState(20);
+  const changeValueSlider = (event, value) => {
+    setValueSlider(value);
+  };
+  const [valueSliderLS, setValueSliderLS] = useState(500);
+  const changeValueSliderLS = (event, value) => {
+    setValueSliderLS(value);
+  };
   if(data !== null){
     var keys = Object.keys(data)
     var values = Object.values(data)
@@ -59,22 +68,22 @@ export default function Masterproductionscheduling(){
     var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
     if(strategyName === 'Chase Strategy'){
       mps_data = [
-        LRVal[0]+20,
-        LRVal[1]+20,
-        LRVal[2]+20,
-        LRVal[3]+20,
-        LRVal[4]+20,
-        LRVal[5]+20,
-        LRVal[6]+20,
+        LRVal[0]+valueSlider,
+        LRVal[1]+valueSlider,
+        LRVal[2]+valueSlider,
+        LRVal[3]+valueSlider,
+        LRVal[4]+valueSlider,
+        LRVal[5]+valueSlider,
+        LRVal[6]+valueSlider,
       ]
       projected_balance = [
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
-        20,
+        valueSlider,
+        valueSlider,
+        valueSlider,
+        valueSlider,
+        valueSlider,
+        valueSlider,
+        valueSlider,
       ]
     }
     if(strategyName === 'Level Strategy'){
@@ -108,13 +117,13 @@ export default function Masterproductionscheduling(){
     if(strategyName === 'Lot Size Strategy'){
       mps_data = []
       projected_balance = []
-      balance = 20
+      balance = valueSlider
       for (let i = 0; i < 7; i++) { 
         balance = balance - LRVal[i]
-        if(balance < 20){
-          projected_balance.push(balance+700)
-          mps_data.push(700)
-          balance = balance + 700
+        if(balance < valueSlider){
+          projected_balance.push(balance+valueSliderLS)
+          mps_data.push(valueSliderLS)
+          balance = balance + valueSliderLS
         }else{
           projected_balance.push(balance)
           mps_data.push(0)
@@ -206,7 +215,17 @@ export default function Masterproductionscheduling(){
                     <TableCell>{LRVal[6]}</TableCell>
                   </TableRow>
                   <TableRow>
-                    <TableCell><b>Projected Balance</b> <i>20 in hand</i></TableCell>
+                    {(() => {
+                      if (strategyName === 'Lot Size Strategy') {
+                        return (
+                          <TableCell><b>Projected Balance</b> <i>{valueSlider} Initial on-hand</i></TableCell>
+                        )
+                      } else {
+                        return (
+                          <TableCell><b>Projected Balance</b></TableCell>
+                        )
+                      }
+                    })()}
                     <TableCell>{projected_balance[0]}</TableCell>
                     <TableCell>{projected_balance[1]}</TableCell>
                     <TableCell>{projected_balance[2]}</TableCell>
@@ -258,6 +277,73 @@ export default function Masterproductionscheduling(){
             >Lot Size Strategy</Button>
           </ButtonGroup>
         </div>
+        {(() => {
+          if (strategyName === 'Chase Strategy') {
+            return (
+              <div className = 'featured'>
+                <div className = 'featuredItemNoShadow'>
+                  <div className = 'featuredTitle'>
+                    Desired On-Hand Balance: <b>{valueSlider}</b>
+                    <div className = 'featuredItemNoShadow'>
+                      <Slider
+                        size="small"
+                        defaultValue={20}
+                        step = {5}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        color="secondary"
+                        max={1000}
+                        value = {valueSlider}
+                        onChange={changeValueSlider}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          } else if (strategyName === 'Lot Size Strategy'){
+            return (
+              <div className = 'featured'>
+                <div className = 'featuredItemNoShadow'>
+                  <div className = 'featuredTitle'>
+                    Initial On-Hand Balance: <b>{valueSlider}</b>
+                    <div className = 'featuredItemNoShadow'>
+                      <Slider
+                        size="small"
+                        defaultValue={20}
+                        step = {5}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        color="secondary"
+                        max={1000}
+                        value = {valueSlider}
+                        onChange={changeValueSlider}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className = 'featuredItemNoShadow'>
+                  <div className = 'featuredTitle'>
+                    Desired Lot Size: <b>{valueSliderLS}</b>
+                    <div className = 'featuredItemNoShadow'>
+                      <Slider
+                        size="small"
+                        defaultValue={500}
+                        step = {10}
+                        aria-label="Small"
+                        valueLabelDisplay="auto"
+                        color="secondary"
+                        max={1000}
+                        value = {valueSliderLS}
+                        onChange={changeValueSliderLS}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        })()}
       </div>}
     </div>
   )
