@@ -42,3 +42,9 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.featuredTitleList{
+    display:inline-flex;
+    font-size: 20px;
+    padding-left: 15px;
+}

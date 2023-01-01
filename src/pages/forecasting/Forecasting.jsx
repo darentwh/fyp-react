@@ -32,7 +32,7 @@ const useFetch = () => {
 };
 
 export default function Forecasting(){
-  const [buttonValue, setValue] = useState('Moving Average, ⍺ = 2');
+  const [buttonValue, setValue] = useState('Linear Regression');
   const handleChangeA = event => {
     setValue('Moving Average, ⍺ = 2');
   }
@@ -318,34 +318,34 @@ export default function Forecasting(){
             <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
           </ComposedChart>
         </ResponsiveContainer>
-      </div>
-      <div className='slider3'>
-        <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-          <Button
-            style={{
-              backgroundColor: "#AD6ADF",
-            }}   
-            onClick={() => {
-              handleChangeA()
-            }}
-          >Moving Average</Button>
-          <Button
-            style={{
-              backgroundColor: "#AD6ADF",
-            }}
-            onClick={() => {
-              handleChangeB()
-            }}
-          >Expotential Moving Average</Button>
-          <Button
-            style={{
-              backgroundColor: "#AD6ADF",
-            }}
-            onClick={() => {
-              handleChangeD()
-            }}
-          >Linear Regression</Button>
-        </ButtonGroup>
+        <div className='slider3'>
+          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}   
+              onClick={() => {
+                handleChangeA()
+              }}
+            >Moving Average</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChangeB()
+              }}
+            >Expotential Moving Average</Button>
+            <Button
+              style={{
+                backgroundColor: "#AD6ADF",
+              }}
+              onClick={() => {
+                handleChangeD()
+              }}
+            >Linear Regression</Button>
+          </ButtonGroup>
+        </div>
       </div>
     </div>
   )

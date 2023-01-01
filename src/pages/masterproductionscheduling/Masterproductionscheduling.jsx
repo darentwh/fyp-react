@@ -6,10 +6,13 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
+//import Button from '@mui/material/Button';
+//import ButtonGroup from '@mui/material/ButtonGroup';
 import Slider from '@mui/material/Slider';
 import 'trendline'
+
+import Autocomplete from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
 
 const useFetch = () => {
   const [data, setData] = useState(null);
@@ -133,6 +136,7 @@ export default function Masterproductionscheduling(){
       console.log(inventory_balance)
     }
   }
+  const optionsStrat = ['Level Strategy','Chase Strategy','Lot Size Strategy'];
   return(
     <div className="mps">
       {loading ? 
@@ -187,7 +191,20 @@ export default function Masterproductionscheduling(){
         <div className='featured'>
           <div className='featuredItem'>
             <div className="featuredTitle">
-              7-Month Period Forecast: <b>{strategyName}</b>
+              7-Month Period Forecast:
+              <div className='featuredTitleList'>
+                <Autocomplete
+                  value={strategyName}
+                  onChange={(event, newValue) => {
+                    setStrategyName(newValue);
+                  }}
+                  id="controllable-states-demo"
+                  options={optionsStrat}
+                  disableClearable
+                  sx={{ minWidth: 200 }}
+                  renderInput={(params) => <TextField {...params} label="Strategy" />}
+                />
+              </div>
             </div>
             <div className='slider3'>
               <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
@@ -248,34 +265,6 @@ export default function Masterproductionscheduling(){
               </Table>
             </div>
           </div>
-        </div>
-        <div className='slider3'>
-          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Level Strategy')
-              }}   
-            >Level Strategy</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Chase Strategy')
-              }}   
-            >Chase Strategy</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChange('Lot Size Strategy')
-              }}   
-            >Lot Size Strategy</Button>
-          </ButtonGroup>
         </div>
         {(() => {
           if (strategyName === 'Chase Strategy') {
