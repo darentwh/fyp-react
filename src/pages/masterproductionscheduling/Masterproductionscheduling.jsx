@@ -33,10 +33,6 @@ const useFetch = () => {
 export default function Masterproductionscheduling(){
   const {data,loading} = useFetch()
   const [strategyName,setStrategyName] = useState('Level Strategy')
-  const handleChange = event => {
-    setStrategyName(event);
-    console.log(event)
-  }
   var mps_data = null
   var projected_balance = null
   var inventory_balance = []

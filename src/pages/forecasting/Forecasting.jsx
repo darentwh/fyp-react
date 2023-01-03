@@ -34,10 +34,10 @@ const useFetch = () => {
 export default function Forecasting(){
   const [buttonValue, setValue] = useState('Linear Regression');
   const handleChangeA = event => {
-    setValue('Moving Average, ⍺ = 2');
+    setValue('Moving Average, m = 2');
   }
   const handleChangeB = event => {
-    setValue('Expotential Moving Average');
+    setValue('Exponential Moving Average');
   }
   const handleChangeD = event => {
     setValue('Linear Regression');
@@ -46,7 +46,7 @@ export default function Forecasting(){
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
-    if(buttonValue === 'Moving Average, ⍺ = 2'){
+    if(buttonValue === 'Moving Average, m = 2'){
       const maValue = ma(values, 2)
       console.log(maValue)
       var data = [
@@ -116,7 +116,7 @@ export default function Forecasting(){
           forecast: maValue[11]
         },
       ];
-    } if(buttonValue === 'Expotential Moving Average'){
+    } if(buttonValue === 'Exponential Moving Average'){
       const maValue = ema(values, 3)
       console.log(maValue)
       data = [
@@ -335,7 +335,7 @@ export default function Forecasting(){
               onClick={() => {
                 handleChangeB()
               }}
-            >Expotential Moving Average</Button>
+            >Exponential Moving Average</Button>
             <Button
               style={{
                 backgroundColor: "#AD6ADF",
