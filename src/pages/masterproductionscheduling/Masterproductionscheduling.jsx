@@ -68,12 +68,12 @@ export default function Masterproductionscheduling(){
     if(strategyName === 'Chase Strategy'){
       mps_data = [
         LRVal[0]+valueSlider,
-        LRVal[1]+valueSlider,
-        LRVal[2]+valueSlider,
-        LRVal[3]+valueSlider,
-        LRVal[4]+valueSlider,
-        LRVal[5]+valueSlider,
-        LRVal[6]+valueSlider,
+        LRVal[1],
+        LRVal[2],
+        LRVal[3],
+        LRVal[4],
+        LRVal[5],
+        LRVal[6],
       ]
       projected_balance = [
         valueSlider,
