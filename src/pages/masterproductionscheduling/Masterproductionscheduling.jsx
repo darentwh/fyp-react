@@ -136,8 +136,8 @@ export default function Masterproductionscheduling(){
   return(
     <div className="mps">
       {loading ? 
-        <div className='slider2'>
-          Loading...
+        <div className='slider3'>
+          <div className='loader'/>
         </div> 
         : 
       <div>

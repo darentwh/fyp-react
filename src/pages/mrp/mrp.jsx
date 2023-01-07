@@ -107,7 +107,7 @@ export default function Mrp(){
         <div className="mrp">
             {loading ? 
             <div className='slider3'>
-                Loading...
+                <div className='loader'/>
             </div> 
             : 
             <div>
