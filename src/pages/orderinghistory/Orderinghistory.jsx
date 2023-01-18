@@ -1,13 +1,9 @@
 import * as React from 'react'
 import { useEffect, useState } from "react"
 import './Orderinghistory.css'
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
+
+import Box from '@mui/material/Box';
+import { DataGrid } from '@mui/x-data-grid';
 
 const useFetch = () => {
     const [data, setData] = useState(null);
@@ -25,8 +21,68 @@ const useFetch = () => {
     return {data,loading};
   }
 
+const columns = [
+{
+    field: 'OrderID',
+    headerName: 'OrderID',
+    flex: 1,
+    editable: true,
+    sortable: false, 
+},
+{
+    field: 'Customer',
+    headerName: 'Customer',
+    description: 'This column has a value getter and is not sortable.',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'ContactNumber',
+    headerName: 'Contact Number',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'DateOfOrder',
+    headerName: 'Date of Order',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'DateOfReceiving',
+    headerName: 'Date of Receiving',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'ItemCode',
+    headerName: 'Item Code',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'Country',
+    headerName: 'Country',
+    flex: 1,
+    editable: true,
+},
+{
+    field: 'PostalCode',
+    headerName: 'Postal Code',
+    flex: 1,
+    editable: true,
+    type: 'number',
+},
+{
+    field: 'Quantity',
+    headerName: 'Quantity',
+    flex: 1,
+    editable: true,
+    type: 'number',
+},
+];
+
 export default function Orderinghistory(){
-    
     const {data,loading} = useFetch()
     return(
         <div className='orderinghistory'>
@@ -37,39 +93,18 @@ export default function Orderinghistory(){
                 </div> 
                 : 
                 <div className='slider3'>
-                    <TableContainer component={Paper} align='center'>
-                        <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '80%' }}>
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell><b>Customer</b></TableCell>
-                                    <TableCell><b>Contact No.</b></TableCell>
-                                    <TableCell><b>Order Date</b></TableCell>
-                                    <TableCell><b>Receive Date</b></TableCell>
-                                    <TableCell><b>Destination</b></TableCell>
-                                    <TableCell><b>Delivery Address</b></TableCell>
-                                    <TableCell><b>Component</b></TableCell>
-                                    <TableCell><b>Quantity</b></TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {data.map((items,index) => {
-                                    return(
-                                    <TableRow key={index} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                        <TableCell>{items.Customer}</TableCell>
-                                        <TableCell>{items.ContactNumber}</TableCell>
-                                        <TableCell>{items.DateOfOrder}</TableCell>
-                                        <TableCell>{items.DateOfReceiving}</TableCell>
-                                        <TableCell>{items.Country}</TableCell>
-                                        <TableCell>{items.PostalCode}</TableCell>
-                                        <TableCell>{items.ItemCode}</TableCell>
-                                        <TableCell>{items.Quantity}</TableCell>
-                                    </TableRow>
-                                    )    
-                                    })
-                                }
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <Box sx={{ height: '85vh', width: '100%' }}>
+                        <DataGrid
+                            rows={data}
+                            getRowId={(row) => row.OrderID}
+                            columns={columns}
+                            pageSize={15}
+                            getRowHeight={() => 'auto'}
+                            checkboxSelection
+                            disableSelectionOnClick
+                            experimentalFeatures={{ newEditingApi: true }}
+                        />
+                    </Box>
                 </div>}
             </div>
         </div>

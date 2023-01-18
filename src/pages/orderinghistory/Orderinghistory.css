@@ -61,6 +61,13 @@
   align-items: center;
 }
 
+.tableContainer{
+  background-color: #ffffff;
+  min-height: 80vh;
+  width:100%;
+  overflow: scroll;
+}
+
 .loader {
   border: 12px solid #f3f3f3; /* Light grey */
   border-top: 12px solid #AD6ADF; /* Blue */
