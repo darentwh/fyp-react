@@ -412,6 +412,7 @@ export default function Forecasting(){
           Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
           Forecast Bias: <b>{forecastBias}</b>
         </div>
+        <div className='sliderWrapper'>
         <div className='slider2'>
           <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
             <Button
@@ -439,6 +440,7 @@ export default function Forecasting(){
               }}
             >Linear Regression</Button>
           </ButtonGroup>
+        </div>
         </div>
       </div>}
     </div>

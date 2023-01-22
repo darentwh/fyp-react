@@ -92,19 +92,21 @@ export default function Orderinghistory(){
                     <div className='loader'/>
                 </div> 
                 : 
-                <div className='slider3'>
-                    <Box sx={{ height: '85vh', width: '95%' }}>
-                        <DataGrid
-                            rows={data}
-                            getRowId={(row) => row.OrderID}
-                            columns={columns}
-                            pageSize={15}
-                            getRowHeight={() => 'auto'}
-                            checkboxSelection
-                            disableSelectionOnClick
-                            experimentalFeatures={{ newEditingApi: true }}
-                        />
-                    </Box>
+                <div className='sliderWrapper'>
+                    <div className='slider3'>
+                        <Box sx={{ height: '85vh', width: '95%' }}>
+                            <DataGrid
+                                rows={data}
+                                getRowId={(row) => row.OrderID}
+                                columns={columns}
+                                pageSize={15}
+                                getRowHeight={() => 'auto'}
+                                checkboxSelection
+                                disableSelectionOnClick
+                                experimentalFeatures={{ newEditingApi: true }}
+                            />
+                        </Box>
+                    </div>
                 </div>}
             </div>
         </div>

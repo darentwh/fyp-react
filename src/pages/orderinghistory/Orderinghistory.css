@@ -61,6 +61,12 @@
   align-items: center;
 }
 
+.sliderWrapper{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .tableContainer{
   background-color: #ffffff;
   min-height: 80vh;
