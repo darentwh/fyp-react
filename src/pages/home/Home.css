@@ -7,33 +7,26 @@
 	margin-left: auto;
   	margin-right: auto;
 }
-
-.writings{
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 80px;
-    opacity: 1;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-duration: 1.8s;
+html{
+	scroll-snap-type: y mandatory;
+}
+section {
+    display:grid;
+    place-items: center;
+    align-content: center;
+    min-height: 120vh;
+	scroll-snap-align: center;
+}
+.hidden{
+    opacity:0;
+    transition: all 1s;
+	filter:blur(5px);
+    transform: translateX(-50%);
 }
 
-.writings2{
-    opacity: 0;
-	animation-name: fadeInOpacity;
-	animation-iteration-count: 1;
-	animation-timing-function: ease-in;
-	animation-delay: 1.5s;
-	animation-duration: 1.8s;
-	animation-fill-mode: forwards;
-	line-height: 30px;
-}
-
-@keyframes fadeInOpacity {
-	0% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+.show{
+    opacity:1;
+    transition: 1;
+	filter:blur(0);
+    transform: translateX(0);
 }
