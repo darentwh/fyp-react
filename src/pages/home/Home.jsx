@@ -1,5 +1,6 @@
 import React from 'react'
 import { useEffect } from 'react';
+import Button from '@mui/material/Button';
 import './Home.css'
 
 export default function Home(){
@@ -23,10 +24,62 @@ export default function Home(){
             <div className="midWrap">
                 <div>
                     <section className="hidden">
-                        <b>Final Year Project,<br/>Proj No</b>: C105 <br/>
+                        <div className="container">
+                            <p>
+                                <h1>
+                                <b>Final Year Project <span style={{color:'#AD6ADF'}}>C105</span></b></h1><br/>
+                                <b>Main Supervisor</b>: Assoc Prof Rajesh Piplani<br/><br/>
+                                <b>Title</b>: Development of an application for production scheduling and requirement planning<br/>
+                            </p>
+                        </div>                       
                     </section>
-                    <section className="hidden">
-                        <b>Main Supervisor</b>: Assoc Prof Rajesh Piplani <br/>
+                    <section>
+                        <b>Functions</b><br/>
+                        <div className="functions">
+                            <div className="logo hidden">
+                                <Button sx={{
+                                    p: 2, 
+                                    border: '#f1f1f1',
+                                    borderRadius: '16px',
+                                    m:2,
+                                    color:'purple',
+                                    fontFamily:'Arial',
+                                    textTransform: 'none',
+                                    fontSize: 14,
+                                    boxShadow: 2
+                                }}>
+                                    Demand Forecasting
+                                </Button>
+                            </div>
+                            <div className="logo hidden">              
+                                <Button sx={{
+                                    p: 2, 
+                                    border: '#f1f1f1',
+                                    borderRadius: '16px',
+                                    m:2,
+                                    color:'purple',
+                                    fontFamily:'Arial',
+                                    textTransform: 'none',
+                                    boxShadow: 2
+                                }}>
+                                    Master Production Scheduling
+                                </Button>
+                            </div>
+                            <div className="logo hidden">
+                                <Button sx={{
+                                    p: 2, 
+                                    border: '#f1f1f1',
+                                    borderRadius: '16px',
+                                    m:2,
+                                    color:'purple',
+                                    fontFamily:'Arial',
+                                    textTransform: 'none',
+                                    boxShadow: 2
+                                    }}>
+                                    Material Requirement Planning
+                                </Button>
+                            </div>
+                        </div>
                     </section>
                     <section className="hidden">    
                         <b>Title</b>: Development of an application for production scheduling and requirement planning	<br/>
