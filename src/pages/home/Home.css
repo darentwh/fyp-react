@@ -14,7 +14,7 @@ section {
     display:grid;
     place-items: center;
     align-content: center;
-    min-height: 120vh;
+    min-height: 110vh;
 	scroll-snap-align: center;
 }
 .hidden{
