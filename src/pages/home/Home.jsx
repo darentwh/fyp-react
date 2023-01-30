@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import Button from '@mui/material/Button';
 import './Home.css'
 
@@ -19,6 +19,20 @@ export default function Home(){
         
         hiddenElements.forEach((el) => observer.observe(el));
     });
+    const Popup = props => {
+        return (
+          <div className="popup-box">
+            <div className="box">
+              <span className="close-icon" onClick={props.handleClose}>x</span>
+              {props.content}
+            </div>
+          </div>
+        );
+      };
+    const [isOpen, setIsOpen] = useState(false);
+    const togglePopup = () => {
+        setIsOpen(!isOpen);
+    }
     return(
         <div className="home">
             <div className="midWrap">
@@ -61,7 +75,7 @@ export default function Home(){
                                     fontFamily:'Arial',
                                     textTransform: 'none',
                                     boxShadow: 2
-                                }}>
+                                }} onClick={togglePopup}>
                                     Master Production Scheduling
                                 </Button>
                             </div>
@@ -79,6 +93,14 @@ export default function Home(){
                                     Material Requirement Planning
                                 </Button>
                             </div>
+                            {isOpen && <Popup
+                                content={<>
+                                    <b>Design your Popup</b>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <button>Test button</button>
+                                </>}
+                                handleClose={togglePopup}
+                            />}
                         </div>
                     </section>
                     <section className="hidden">    
