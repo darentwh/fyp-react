@@ -133,7 +133,7 @@ export default function Home(){
             setContent(<>
                 <b>Material Requirement Planning</b>
                 <p>Material Requirement Planning (MRP) is a basic tool for performing detailed material planning of component parts and their assembly into finished items. 
-                    MRP’s managerial objective is to provide ‘the right part at the right time’ to meet the schedules set via the MPS. </p>
+                    MRP’s managerial objective is to provide ‘the right part at the right time’ to meet the schedules set via the MPS.</p>
             </>
             )
         }
