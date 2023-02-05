@@ -33,7 +33,7 @@ const useFetch = () => {
   return {dataAPI,loading};
 };
 
-export default function Forecasting(){
+export default function Forecasting(props){
   const [buttonValue, setValue] = useState('Linear Regression');
   const handleChangeA = event => {
     setValue('Moving Average, m = 2');
@@ -51,7 +51,7 @@ export default function Forecasting(){
     if(buttonValue === 'Moving Average, m = 2'){
       const maValue = ma(values, 2)
       console.log(maValue)
-      var forecastAcc = 100-((
+      var forecastAcc = (100-((
           (Math.abs(values[2]-maValue[1])/values[2])
           +(Math.abs(values[3]-maValue[2])/values[3])
           +(Math.abs(values[4]-maValue[3])/values[4])
@@ -62,7 +62,7 @@ export default function Forecasting(){
           +(Math.abs(values[9]-maValue[8])/values[9])
           +(Math.abs(values[10]-maValue[9])/values[10])
           +(Math.abs(values[11]-maValue[10])/values[11])
-        )/10*100)
+        )/10*100)).toFixed(2)
       console.log(forecastAcc)
       var forecastBias = ((
         (values[2]-maValue[1])
@@ -75,7 +75,7 @@ export default function Forecasting(){
         +(values[9]-maValue[8])
         +(values[10]-maValue[9])
         +(values[11]-maValue[10])
-      ) / 10)
+      ) / 10).toFixed(2)
       console.log(forecastBias)
       var data = [
         {
@@ -147,7 +147,7 @@ export default function Forecasting(){
     } if(buttonValue === 'Exponential Moving Average'){
       const maValue = ema(values, 3)
       console.log(maValue)
-      forecastAcc = 100-((
+      forecastAcc = (100-((
         (Math.abs(values[2]-maValue[1])/values[2])
         +(Math.abs(values[3]-maValue[2])/values[3])
         +(Math.abs(values[4]-maValue[3])/values[4])
@@ -158,7 +158,7 @@ export default function Forecasting(){
         +(Math.abs(values[9]-maValue[8])/values[9])
         +(Math.abs(values[10]-maValue[9])/values[10])
         +(Math.abs(values[11]-maValue[10])/values[11])
-      )/10*100)
+      )/10*100)).toFixed(2)
       console.log(forecastAcc)
       forecastBias = ((
         (values[2]-maValue[1])
@@ -171,7 +171,7 @@ export default function Forecasting(){
         +(values[9]-maValue[8])
         +(values[10]-maValue[9])
         +(values[11]-maValue[10])
-      )/10)
+      )/10).toFixed(2)
       console.log(forecastBias)
       data = [
         {
@@ -259,7 +259,7 @@ export default function Forecasting(){
       ];
       const trend = createTrend(LRdata, 'x', 'y')
       console.log(trend.yStart, trend.slope)
-      forecastAcc = 100-(
+      forecastAcc = (100-(
         (Math.abs(values[0]-trend.calcY(0))/values[0])
         +(Math.abs(values[1]-trend.calcY(1))/values[1])
         +(Math.abs(values[2]-trend.calcY(2))/values[2])
@@ -272,7 +272,7 @@ export default function Forecasting(){
         +(Math.abs(values[9]-trend.calcY(9))/values[9])
         +(Math.abs(values[10]-trend.calcY(10))/values[10])
         +(Math.abs(values[11]-trend.calcY(11))/values[11])
-        )/12*100 //rounding to 2dp
+        )/12*100).toFixed(2) //rounding to 2dp
       console.log(forecastAcc)
       forecastBias = ((
         (values[0]-trend.calcY(0))
@@ -287,7 +287,7 @@ export default function Forecasting(){
         +(values[9]-trend.calcY(9))
         +(values[10]-trend.calcY(10))
         +(values[11]-trend.calcY(11))
-      )/12)
+      )/12).toFixed(2)
       console.log(forecastBias)
       data = [
         {
