@@ -58,8 +58,8 @@ export default function Mrp(){
         const trend = createTrend(LRdata, 'x', 'y')
         console.log(trend.yStart, trend.slope)
         var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
-        var nextMonth = keys[0]
-        var nextMonthForecast = LRVal[6]
+        var nextMonth = keys[12]
+        var nextMonthForecast = LRVal[0]
         var noOfParts = (nextMonthForecast)
         console.log(noOfParts)
     };
