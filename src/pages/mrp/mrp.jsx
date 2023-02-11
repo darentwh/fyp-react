@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useEffect, useState } from "react"
 import './mrp.css'
-
 import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
 
@@ -37,6 +36,7 @@ function createData(name, calories) {
 export default function Mrp(){  
     const [buttonValue, setValue] = useState('BOM');
     const {data,loading} = useFetch()
+
     if(data !== null){
         var keys = Object.keys(data)
         var values = Object.values(data)
@@ -116,6 +116,7 @@ export default function Mrp(){
                         Item Code: <b>34-720A</b><br/>
                         Month: <b>{nextMonth}</b><br/>
                         Forecasted Demand: <b>{nextMonthForecast}</b><br/>
+                        Forecast value from Forecasting.jsx:
                     </div>
                 </div>
                 {(() => {

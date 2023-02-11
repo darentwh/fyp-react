@@ -3,6 +3,7 @@ import './Forecasting.css'
 import { useEffect, useState } from "react"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import { TextField } from '@mui/material';
 import {
   ComposedChart,
   Line,
@@ -35,6 +36,7 @@ const useFetch = () => {
 
 export default function Forecasting(props){
   const [buttonValue, setValue] = useState('Linear Regression');
+  const [forecastValue, setForecast] = useState(null)
   const handleChangeA = event => {
     setValue('Moving Average, m = 2');
   }
@@ -240,7 +242,6 @@ export default function Forecasting(props){
           forecast: maValue[11]
         },
       ]
-      
     } if(buttonValue === 'Linear Regression'){
       const createTrend = require('trendline');
       const LRdata = [
@@ -259,6 +260,7 @@ export default function Forecasting(props){
       ];
       const trend = createTrend(LRdata, 'x', 'y')
       console.log(trend.yStart, trend.slope)
+      //setForecast(Math.round(trend.calcY(12)))
       forecastAcc = (100-(
         (Math.abs(values[0]-trend.calcY(0))/values[0])
         +(Math.abs(values[1]-trend.calcY(1))/values[1])
@@ -379,7 +381,7 @@ export default function Forecasting(props){
           name: '+6',
           lineLR: trend.calcY(18)
         },
-      ]
+      ];
     };
   };
   return(
@@ -409,38 +411,59 @@ export default function Forecasting(props){
               <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
             </ComposedChart>
           </ResponsiveContainer>
-          Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
-          Forecast Bias: <b>{forecastBias}</b>
+          <div className='featured'>
+            <div className='featuredItem'>
+              Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
+              Forecast Bias: <b>{forecastBias}</b>
+            </div>
+            <div className='featuredItem'>
+              <div className='vert'>
+                Forecast Override: <TextField
+                  id="standard-number"
+                  label="Number"
+                  type="number"
+                  sx={{ mx: '15px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={forecastValue}
+                  onChange={(event) => {setForecast(event.target.value)}}
+                />
+                {forecastValue}
+              </div>
+            </div>
+          </div>
         </div>
         <div className='sliderWrapper'>
-        <div className='slider2'>
-          <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}   
-              onClick={() => {
-                handleChangeA()
-              }}
-            >Moving Average</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChangeB()
-              }}
-            >Exponential Moving Average</Button>
-            <Button
-              style={{
-                backgroundColor: "#AD6ADF",
-              }}
-              onClick={() => {
-                handleChangeD()
-              }}
-            >Linear Regression</Button>
-          </ButtonGroup>
-        </div>
+          <div className='slider2'>
+            <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+              <Button
+                style={{
+                  backgroundColor: "#AD6ADF",
+                }}   
+                onClick={() => {
+                  handleChangeA()
+                }}
+              >Moving Average</Button>
+              <Button
+                style={{
+                  backgroundColor: "#AD6ADF",
+                }}
+                onClick={() => {
+                  handleChangeB()
+                }}
+              >Exponential Moving Average</Button>
+              <Button
+                style={{
+                  backgroundColor: "#AD6ADF",
+                }}
+                onClick={() => {
+                  handleChangeD()
+                }}
+              >Linear Regression</Button>
+            </ButtonGroup>
+          </div>
         </div>
       </div>}
     </div>
