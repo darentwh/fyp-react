@@ -1,37 +1,25 @@
 import React from 'react'
 import './Masterproductionscheduling.css'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-//import Button from '@mui/material/Button';
-//import ButtonGroup from '@mui/material/ButtonGroup';
 import Slider from '@mui/material/Slider';
 import 'trendline'
 
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 
-const useFetch = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect((url = "https://xkscvbyt7xcmdpibtt3olzbuti0gqbgx.lambda-url.us-east-1.on.aws/") => {
-    async function fetchData(){
-      const response = await fetch(url,{method:'GET'});
-      const data = await response.json();
-      console.log(data)
-      setData(data);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-  return {data,loading};
-}
+import { useContext } from 'react';
+import { UserContext } from '../../UserContext';
+
 
 export default function Masterproductionscheduling(){
-  const {data,loading} = useFetch()
+  const {overridevalue} = useContext(UserContext);
+  const {dataAPI, loading} = useContext(UserContext)
+  //const {data,loading} = useFetch()
   const [strategyName,setStrategyName] = useState('Level Strategy')
   var mps_data = null
   var projected_balance = null
@@ -44,9 +32,9 @@ export default function Masterproductionscheduling(){
   const changeValueSliderLS = (event, value) => {
     setValueSliderLS(value);
   };
-  if(data !== null){
-    var keys = Object.keys(data)
-    var values = Object.values(data)
+  if(dataAPI !== null){
+    var keys = Object.keys(dataAPI)
+    var values = Object.values(dataAPI)
     const createTrend = require('trendline');
     const LRdata = [
       { y: values[0], x: 1 },
@@ -64,7 +52,8 @@ export default function Masterproductionscheduling(){
     ];
     const trend = createTrend(LRdata, 'x', 'y')
     console.log(trend.yStart, trend.slope)
-    var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
+    var LRVal = [overridevalue,Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
+    console.log(LRVal)
     if(strategyName === 'Chase Strategy'){
       mps_data = [
         LRVal[0]+valueSlider,
@@ -88,7 +77,7 @@ export default function Masterproductionscheduling(){
     if(strategyName === 'Level Strategy'){
       var avg = Math.round((LRVal[0]+LRVal[1]+LRVal[2]+LRVal[3]+LRVal[4]+LRVal[5]+LRVal[6])/7)
       console.log(avg)
-      var balance = 20
+      var balance = 0
       for (let i = 0; i < 7; i++) { 
         balance = balance + (avg - LRVal[i])
         console.log(balance)
@@ -144,8 +133,8 @@ export default function Masterproductionscheduling(){
         <div className='featured'>
           <div className='featuredItem'>
             <span className="featuredTitle">12-Month Historical Data</span>
-            <div className='slider3'>
-              <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
+            <div>
+              <Table sx={{ width:"100%"}} aria-label="simple table">
                 <TableHead>
                   <TableRow>
                     <TableCell><b>Date</b></TableCell>
@@ -186,6 +175,7 @@ export default function Masterproductionscheduling(){
         </div>
         <div className='featured'>
           <div className='featuredItem'>
+            Forecast Override: <b>{overridevalue}</b>
             <div className="featuredTitle">
               7-Month Period Forecast:
               <div className='featuredTitleList'>
@@ -219,7 +209,7 @@ export default function Masterproductionscheduling(){
                 <TableBody>
                   <TableRow>
                     <TableCell><b>Forecasted Demand</b></TableCell>
-                    <TableCell>{LRVal[0]}</TableCell>
+                    <TableCell><b>{overridevalue}</b></TableCell>
                     <TableCell>{LRVal[1]}</TableCell>
                     <TableCell>{LRVal[2]}</TableCell>
                     <TableCell>{LRVal[3]}</TableCell>

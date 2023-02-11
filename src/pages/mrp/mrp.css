@@ -1,5 +1,5 @@
 .mps{
-    flex:5
+    flex:5;
 }
 
 .slider{
@@ -12,12 +12,14 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    overflow-y: scroll;
 }
 
 .slider3{
   flex: 1;
   margin: 20px 20px;
   padding: 30px;
+  
 }
 
 .featured {
@@ -35,6 +37,7 @@
   cursor: pointer;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  
 }
 
 .featuredItem2 {
@@ -56,7 +59,7 @@
   background-color: #b1b1b1;
   height: 450px;
   width:100%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .TreePositioning{

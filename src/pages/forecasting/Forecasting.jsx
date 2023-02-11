@@ -1,6 +1,6 @@
 import * as React from 'react'
 import './Forecasting.css'
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { TextField } from '@mui/material';
@@ -17,26 +17,14 @@ import {
 } from "recharts";
 import {ma,ema} from 'moving-averages';
 import 'trendline';
+import { useContext } from 'react';
+import { UserContext } from '../../UserContext';
 
-const useFetch = () => {
-  const [dataAPI, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  useEffect((url = "https://xkscvbyt7xcmdpibtt3olzbuti0gqbgx.lambda-url.us-east-1.on.aws/") => {
-    async function fetchData(){
-      const response = await fetch(url,{method:'GET'});
-      const dataAPI = await response.json();
-      console.log(dataAPI)
-      setData(dataAPI);
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
-  return {dataAPI,loading};
-};
-
-export default function Forecasting(props){
+export default function Forecasting(){
+  const {overridevalue, setOverridevalue} = useContext(UserContext);
+  const {dataAPI, loading} = useContext(UserContext)
+  console.log(overridevalue)
   const [buttonValue, setValue] = useState('Linear Regression');
-  const [forecastValue, setForecast] = useState(null)
   const handleChangeA = event => {
     setValue('Moving Average, m = 2');
   }
@@ -46,7 +34,7 @@ export default function Forecasting(props){
   const handleChangeD = event => {
     setValue('Linear Regression');
   }
-  const {dataAPI,loading} = useFetch()
+
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
@@ -427,10 +415,9 @@ export default function Forecasting(props){
                     shrink: true,
                   }}
                   variant="standard"
-                  value={forecastValue}
-                  onChange={(event) => {setForecast(event.target.value)}}
+                  value={overridevalue}
+                  onChange={(event) => {setOverridevalue(parseInt(event.target.value))}}
                 />
-                {forecastValue}
               </div>
             </div>
           </div>

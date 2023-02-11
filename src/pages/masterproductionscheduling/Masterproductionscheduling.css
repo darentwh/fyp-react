@@ -1,5 +1,6 @@
 .mps{
-    flex:5
+    flex:5;
+    overflow-y: scroll;
 }
 
 .chartDiv{

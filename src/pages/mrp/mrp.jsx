@@ -8,26 +8,12 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import './mrp.css'
 import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
-
-const useFetch = () => {
-    const [data, setData] = useState(null);
-    const [loading, setLoading] = useState(true);
-    useEffect((url = "https://xkscvbyt7xcmdpibtt3olzbuti0gqbgx.lambda-url.us-east-1.on.aws/") => {
-      async function fetchData(){
-        const response = await fetch(url,{method:'GET'});
-        const data = await response.json();
-        console.log(data)
-        setData(data);
-        setLoading(false);
-      }
-      fetchData();
-    }, []);
-    return {data,loading};
-  }
+import { UserContext } from '../../UserContext';
+import { useContext } from 'react';
 
 function createData(name, calories) {
     return { name, calories};
@@ -35,11 +21,12 @@ function createData(name, calories) {
 
 export default function Mrp(){  
     const [buttonValue, setValue] = useState('BOM');
-    const {data,loading} = useFetch()
-
-    if(data !== null){
-        var keys = Object.keys(data)
-        var values = Object.values(data)
+    //const {data,loading} = useFetch()
+    const {dataAPI, loading} = useContext(UserContext)
+    const {overridevalue} = useContext(UserContext);
+    if(dataAPI !== null){
+        var keys = Object.keys(dataAPI)
+        var values = Object.values(dataAPI)
         const createTrend = require('trendline');
         const LRdata = [
         { y: values[0], x: 1 },
@@ -60,7 +47,7 @@ export default function Mrp(){
         var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
         var nextMonth = keys[12]
         var nextMonthForecast = LRVal[0]
-        var noOfParts = (nextMonthForecast)
+        var noOfParts = (overridevalue)
         console.log(noOfParts)
     };
     var rows = [
@@ -116,7 +103,7 @@ export default function Mrp(){
                         Item Code: <b>34-720A</b><br/>
                         Month: <b>{nextMonth}</b><br/>
                         Forecasted Demand: <b>{nextMonthForecast}</b><br/>
-                        Forecast value from Forecasting.jsx:
+                        Override Forecasted Demand: <b>{overridevalue}</b>
                     </div>
                 </div>
                 {(() => {
