@@ -19,10 +19,15 @@ import {ma,ema} from 'moving-averages';
 import 'trendline';
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
+import Slider from '@mui/material/Slider';
 
 export default function Forecasting(){
   const {overridevalue, setOverridevalue} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
+  const [alpha , setAlpha] = useState(0.5)
+  const changeValueSlider = (event, value) => {
+    setAlpha(value);
+  };
   console.log(overridevalue)
   const [buttonValue, setValue] = useState('Linear Regression');
   const handleChangeA = event => {
@@ -135,7 +140,8 @@ export default function Forecasting(){
         },
       ];
     } if(buttonValue === 'Exponential Moving Average'){
-      const maValue = ema(values, 3)
+      var size = ((2/alpha)-1)
+      const maValue = ema(values, size)
       console.log(maValue)
       forecastAcc = (100-((
         (Math.abs(values[2]-maValue[1])/values[2])
@@ -403,12 +409,48 @@ export default function Forecasting(){
             <div className='featuredItem'>
               Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
               Forecast Bias: <b>{forecastBias}</b>
+              {/* {(() => {
+                if (buttonValue === 'Exponential Moving Average') {
+                  return (
+                    <div>
+                      Adjust ⍺ value: <br/>
+                      <Slider
+                      size="small"
+                      step = {0.01}
+                      aria-label="Small"
+                      valueLabelDisplay="auto"
+                      color="secondary"
+                      max={1}
+                      value = {alpha}
+                      onChange={changeValueSlider}
+                      />
+                    </div>
+                  )
+                }
+              })()} */}
             </div>
+            {(() => {
+                if (buttonValue === 'Exponential Moving Average') {
+                  return (
+                    <div className='featuredItem'>
+                      Adjust ⍺ value: {alpha}<br/>
+                      <Slider
+                      size="small"
+                      step = {0.01}
+                      aria-label="Small"
+                      valueLabelDisplay="auto"
+                      color="secondary"
+                      max={1}
+                      value = {alpha}
+                      onChange={changeValueSlider}
+                      />
+                    </div>
+                  )
+                }
+              })()}
             <div className='featuredItem'>
               <div className='vert'>
                 Forecast Override: <TextField
-                  id="standard-number"
-                  label="Number"
                   type="number"
                   sx={{ mx: '15px' }}
                   InputLabelProps={{

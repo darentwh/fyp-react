@@ -14,6 +14,7 @@ import { Tree, TreeNode } from 'react-organizational-chart';
 import styled from 'styled-components';
 import { UserContext } from '../../UserContext';
 import { useContext } from 'react';
+import { Box } from '@mui/material';
 
 function createData(name, calories) {
     return { name, calories};
@@ -111,11 +112,10 @@ export default function Mrp(){
                         return (
                             <div className="featured">
                                 <div className="featuredItem">
-                                <span className="featuredTitle">Bill of Material</span>
-                                <div className="slider2">
-                                    <div className='tableContainer'>
-                                        <TableContainer component={Paper} align='center'>
-                                            <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '80%' }}>
+                                    <span className="featuredTitle"><b>Bill of Material</b></span>
+                                    <div>
+                                        <TableContainer component={Paper} align='center' sx={{height:'50vh', minWidth:'100%', my:5}}>
+                                            <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} stickyHeader aria-label="sticky table" >
                                                 <TableHead>
                                                     <TableRow>
                                                         <TableCell align="left"><b>Part No.</b></TableCell>
@@ -139,14 +139,13 @@ export default function Mrp(){
                                         </TableContainer>
                                     </div>
                                 </div>
-                                </div>
                             </div>
                         )
                     } else if (buttonValue === 'PDS'){
                         return (
                             <div className='featured'>
                                 <div className="featuredItem2">
-                                    <span className="featuredTitle">Product Structure Diagram</span>
+                                    <span className="featuredTitle"><b>Product Structure Diagram</b></span>
                                     <div className="TreePositioning">
                                         <Tree
                                             lineWidth={'2px'}
@@ -181,29 +180,267 @@ export default function Mrp(){
                                 </div>
                             </div>
                         )
+                    } else if (buttonValue === 'Individual MRP'){
+                        return(
+                            <div>
+                                <Box
+                                sx={{
+                                    mt: 3,
+                                    mx: 2,
+                                    height: '70vh',
+                                    overflowX: "scroll",
+                                    borderRadius: '10px',
+                                    boxShadow: 3
+                                    }}
+                                >
+                                <div className="featured">
+                                    <div className='featuredItem'>
+                                        <div className='featuredTitle'>
+                                            O-Ring, FDA <b><i>138N</i></b>
+                                        </div>
+                                        <Table sx={{ width:"100%"}} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell><b>Date</b></TableCell>
+                                                    <TableCell>{keys[12]}</TableCell>
+                                                    <TableCell>+1</TableCell>
+                                                    <TableCell>+2</TableCell>
+                                                    <TableCell>+3</TableCell>
+                                                    <TableCell>+4</TableCell>
+                                                    <TableCell>+5</TableCell>
+                                                    <TableCell>+6</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell>{overridevalue}</TableCell>
+                                                    <TableCell>{LRVal[1]}</TableCell>
+                                                    <TableCell>{LRVal[2]}</TableCell>
+                                                    <TableCell>{LRVal[3]}</TableCell>
+                                                    <TableCell>{LRVal[4]}</TableCell>
+                                                    <TableCell>{LRVal[5]}</TableCell>
+                                                    <TableCell>{LRVal[6]}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Projected Available Balance</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </div>
+                                <div className="featured">
+                                    <div className='featuredItem'>
+                                        <div className='featuredTitle'>
+                                            Ball Valve, 3/4" <b><i>34-850</i></b>
+                                        </div>
+                                        <Table sx={{ width:"100%"}} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell><b>Date</b></TableCell>
+                                                    <TableCell>{keys[12]}</TableCell>
+                                                    <TableCell>+1</TableCell>
+                                                    <TableCell>+2</TableCell>
+                                                    <TableCell>+3</TableCell>
+                                                    <TableCell>+4</TableCell>
+                                                    <TableCell>+5</TableCell>
+                                                    <TableCell>+6</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell>{2*overridevalue}</TableCell>
+                                                    <TableCell>{2*LRVal[1]}</TableCell>
+                                                    <TableCell>{2*LRVal[2]}</TableCell>
+                                                    <TableCell>{2*LRVal[3]}</TableCell>
+                                                    <TableCell>{2*LRVal[4]}</TableCell>
+                                                    <TableCell>{2*LRVal[5]}</TableCell>
+                                                    <TableCell>{2*LRVal[6]}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Projected Available Balance</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </div>
+                                <div className="featured">
+                                    <div className='featuredItem'>
+                                        <div className='featuredTitle'>
+                                            Bolt, 8-32 x 3/8 Fil. SS <b><i>721-11</i></b>
+                                        </div>
+                                        <Table sx={{ width:"100%"}} aria-label="simple table">
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell><b>Date</b></TableCell>
+                                                    <TableCell>{keys[12]}</TableCell>
+                                                    <TableCell>+1</TableCell>
+                                                    <TableCell>+2</TableCell>
+                                                    <TableCell>+3</TableCell>
+                                                    <TableCell>+4</TableCell>
+                                                    <TableCell>+5</TableCell>
+                                                    <TableCell>+6</TableCell>
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell>{3*overridevalue}</TableCell>
+                                                    <TableCell>{3*LRVal[1]}</TableCell>
+                                                    <TableCell>{3*LRVal[2]}</TableCell>
+                                                    <TableCell>{3*LRVal[3]}</TableCell>
+                                                    <TableCell>{3*LRVal[4]}</TableCell>
+                                                    <TableCell>{3*LRVal[5]}</TableCell>
+                                                    <TableCell>{3*LRVal[6]}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Projected Available Balance</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </div>
+                                </Box>
+                            </div>
+                        )
                     }
                 })()}
-                <div className='featured'>
-                    <div className='slider3'>
-                        <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-                            <Button
-                            style={{
-                                backgroundColor: "#AD6ADF",
-                            }}   
-                            onClick={() => {
-                                setValue('BOM')
-                            }}
-                            >Bill of Materials</Button>
-                            <Button
-                            style={{
-                                backgroundColor: "#AD6ADF",
-                            }}
-                            onClick={() => {
-                                setValue('PDS')
-                            }}
-                            >Product Diagram Structure</Button>
-                        </ButtonGroup>
-                    </div>
+                <div className='slider4'>
+                    <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
+                        <Button
+                        style={{
+                            backgroundColor: "#AD6ADF",
+                        }}   
+                        onClick={() => {
+                            setValue('BOM')
+                        }}
+                        >Bill of Materials</Button>
+                        <Button
+                        style={{
+                            backgroundColor: "#AD6ADF",
+                        }}
+                        onClick={() => {
+                            setValue('PDS')
+                        }}
+                        >Product Diagram Structure</Button>
+                        <Button
+                        style={{
+                            backgroundColor: "#AD6ADF",
+                        }}
+                        onClick={() => {
+                            setValue('Individual MRP')
+                        }}
+                        >Individual Components</Button>
+                    </ButtonGroup>
                 </div>
             </div>}
         </div>
