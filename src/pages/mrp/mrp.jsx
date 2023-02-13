@@ -15,14 +15,20 @@ import styled from 'styled-components';
 import { UserContext } from '../../UserContext';
 import { useContext } from 'react';
 import { Box } from '@mui/material';
+import Slider from '@mui/material/Slider';
 
 function createData(name, calories) {
     return { name, calories};
 }
 
+
+
 export default function Mrp(){  
     const [buttonValue, setValue] = useState('BOM');
-    //const {data,loading} = useFetch()
+    const [oringbalanceValue, setValueORing] = useState(0)
+    const changeValueSlider = (event, value) => {
+        setValueORing(value);
+    };
     const {dataAPI, loading} = useContext(UserContext)
     const {overridevalue} = useContext(UserContext);
     if(dataAPI !== null){
@@ -181,6 +187,38 @@ export default function Mrp(){
                             </div>
                         )
                     } else if (buttonValue === 'Individual MRP'){
+                        //TODO logic for O-Ring lot sizing, scheduled receipts etc
+                        const ORingLot = 100
+                        var ORingBalance = oringbalanceValue 
+                        var ORingScheduledReceipts = []
+                        var ORingBalanceList = []
+                        var ORingDemand = [overridevalue,LRVal[1],LRVal[2],LRVal[3],LRVal[4],LRVal[5],LRVal[6]]
+                        console.log(ORingBalance)
+                        console.log(ORingDemand)
+                        for (let i = 0; i < 7; i++) { 
+                            var count = 1
+                            if(ORingBalance < ORingDemand[i]){
+                                ORingBalance = ORingBalance + ORingLot - ORingDemand[i]
+                                if (ORingBalance > 0){
+                                    ORingScheduledReceipts.push(ORingLot)
+                                    ORingBalanceList.push(ORingBalance)
+                                } else{
+                                    while (ORingBalance < 0){
+                                        ORingBalance = ORingBalance + ORingLot
+                                        count += 1
+                                    }
+
+                                    ORingScheduledReceipts.push(ORingLot*count)
+                                    ORingBalanceList.push(ORingBalance)
+                                }
+                            }else{
+                                ORingScheduledReceipts.push(0)
+                                ORingBalance = ORingBalance - ORingDemand[i]
+                                ORingBalanceList.push(ORingBalance)
+                            }
+                        }
+                        console.log(ORingScheduledReceipts)
+                        console.log(ORingBalanceList)
                         return(
                             <div>
                                 <Box
@@ -196,7 +234,7 @@ export default function Mrp(){
                                 <div className="featured">
                                     <div className='featuredItem'>
                                         <div className='featuredTitle'>
-                                            O-Ring, FDA <b><i>138N</i></b>
+                                            O-Ring, FDA <b><i>138N</i></b><span style={{fontSize: '75%'}}><i>(100/lot)</i></span>
                                         </div>
                                         <Table sx={{ width:"100%"}} aria-label="simple table">
                                             <TableHead>
@@ -226,43 +264,40 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Scheduled Receipts</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[0]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[1]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[2]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[3]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[4]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[5]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[6]}</TableCell>
                                                 </TableRow>
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Projected Available Balance</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
+                                                    <TableCell><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {oringbalanceValue}</i></span></TableCell>
+                                                    <TableCell>{ORingBalanceList[0]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[1]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[2]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[3]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[4]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[5]}</TableCell>
+                                                    <TableCell>{ORingBalanceList[6]}</TableCell>
                                                 </TableRow>
                                             </TableBody>
                                         </Table>
+                                        <div className='slider3'>
+                                            <Slider
+                                                size="small"
+                                                step = {5}
+                                                aria-label="Small"
+                                                valueLabelDisplay="auto"
+                                                color="secondary"
+                                                max={1000}
+                                                value = {oringbalanceValue}
+                                                onChange={changeValueSlider}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                                 <div className="featured">

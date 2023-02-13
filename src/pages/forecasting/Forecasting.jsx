@@ -34,7 +34,7 @@ export default function Forecasting(){
     setValue('Moving Average, m = 2');
   }
   const handleChangeB = event => {
-    setValue('Exponential Moving Average');
+    setValue('Exponential Smoothing');
   }
   const handleChangeD = event => {
     setValue('Linear Regression');
@@ -139,7 +139,7 @@ export default function Forecasting(){
           forecast: maValue[11]
         },
       ];
-    } if(buttonValue === 'Exponential Moving Average'){
+    } if(buttonValue === 'Exponential Smoothing'){
       var size = ((2/alpha)-1)
       const maValue = ema(values, size)
       console.log(maValue)
@@ -409,32 +409,13 @@ export default function Forecasting(){
             <div className='featuredItem'>
               Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
               Forecast Bias: <b>{forecastBias}</b>
-              {/* {(() => {
-                if (buttonValue === 'Exponential Moving Average') {
-                  return (
-                    <div>
-                      Adjust ⍺ value: <br/>
-                      <Slider
-                      size="small"
-                      step = {0.01}
-                      aria-label="Small"
-                      valueLabelDisplay="auto"
-                      color="secondary"
-                      max={1}
-                      value = {alpha}
-                      onChange={changeValueSlider}
-                      />
-                    </div>
-                  )
-                }
-              })()} */}
             </div>
             {(() => {
-                if (buttonValue === 'Exponential Moving Average') {
-                  return (
-                    <div className='featuredItem'>
-                      Adjust ⍺ value: {alpha}<br/>
-                      <Slider
+              if (buttonValue === 'Exponential Smoothing') {
+                return (
+                  <div className='featuredItem'>
+                    Adjust ⍺ value: {alpha} 
+                    <Slider
                       size="small"
                       step = {0.01}
                       aria-label="Small"
@@ -443,16 +424,16 @@ export default function Forecasting(){
                       max={1}
                       value = {alpha}
                       onChange={changeValueSlider}
-                      />
-                    </div>
-                  )
-                }
-              })()}
+                    />
+                  </div>
+                )
+              }
+            })()}
             <div className='featuredItem'>
               <div className='vert'>
                 Forecast Override: <TextField
                   type="number"
-                  sx={{ mx: '15px' }}
+                  sx={{ mx: '1px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
@@ -482,7 +463,7 @@ export default function Forecasting(){
                 onClick={() => {
                   handleChangeB()
                 }}
-              >Exponential Moving Average</Button>
+              >Exponential Smoothing</Button>
               <Button
                 style={{
                   backgroundColor: "#AD6ADF",
