@@ -187,7 +187,7 @@ export default function Mrp(){
                             </div>
                         )
                     } else if (buttonValue === 'Individual MRP'){
-                        //TODO logic for O-Ring lot sizing, scheduled receipts etc
+                        //TODO logic for O-Ring lot sizing, Planned Order etc
                         const ORingLot = 100
                         var ORingBalance = oringbalanceValue 
                         var ORingScheduledReceipts = []
@@ -263,7 +263,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell><b>Planned Order</b></TableCell>
                                                     <TableCell>{ORingScheduledReceipts[0]}</TableCell>
                                                     <TableCell>{ORingScheduledReceipts[1]}</TableCell>
                                                     <TableCell>{ORingScheduledReceipts[2]}</TableCell>
@@ -332,7 +332,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell><b>Planned Order</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -346,19 +346,6 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Projected Available Balance</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -404,7 +391,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
+                                                    <TableCell><b>Planned Order</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -418,19 +405,6 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Projected Available Balance</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
