@@ -11,6 +11,7 @@ import Orderinghistory from "./pages/orderinghistory/Orderinghistory";
 import Mrp from "./pages/mrp/mrp"
 import { UserContext } from "./UserContext";
 import { useState, useEffect } from "react";
+import 'trendline';
 
 const useFetch = () => {
   const [dataAPI, setData] = useState(null);
@@ -29,15 +30,57 @@ const useFetch = () => {
 };
 
 function App() {
-  const [overridevalue, setOverridevalue] = useState(400);
+  const [overridevalue1, setOverridevalue1] = useState(400);
+  const [overridevalue2, setOverridevalue2] = useState(400);
+  const [overridevalue3, setOverridevalue3] = useState(400);
+  const [overridevalue4, setOverridevalue4] = useState(400);
+  const [overridevalue5, setOverridevalue5] = useState(400);
+  const [overridevalue6, setOverridevalue6] = useState(400);
+  const [overridevalue7, setOverridevalue7] = useState(400);
   const {dataAPI,loading} = useFetch()
+  useEffect(() => {
+    if(dataAPI !== null){
+      var values = Object.values(dataAPI)
+      const createTrend = require('trendline');
+      const LRdata = [
+        { y: values[0], x: 1 },
+        { y: values[1], x: 2 },
+        { y: values[2], x: 3 },
+        { y: values[3], x: 4 },
+        { y: values[4], x: 5 },
+        { y: values[5], x: 6 },
+        { y: values[6], x: 7 },
+        { y: values[7], x: 8 },
+        { y: values[8], x: 9 },
+        { y: values[9], x: 10 },
+        { y: values[10], x: 11 },
+        { y: values[11], x: 12 },
+      ];
+      const trend = createTrend(LRdata, 'x', 'y')
+      console.log(trend.calcY(12))
+      setOverridevalue1(Math.round(trend.calcY(12)))
+      setOverridevalue2(Math.round(trend.calcY(13)))
+      setOverridevalue3(Math.round(trend.calcY(14)))
+      setOverridevalue4(Math.round(trend.calcY(15)))
+      setOverridevalue5(Math.round(trend.calcY(16)))
+      setOverridevalue6(Math.round(trend.calcY(17)))
+      setOverridevalue7(Math.round(trend.calcY(18)))
+    }},[dataAPI])
   return (
     <Router>
       <Topbar/>
       <div className="container">
         <Sidebar/>
         <div className="main">
-          <UserContext.Provider value ={{overridevalue, setOverridevalue,dataAPI,loading}}>
+          <UserContext.Provider value ={{
+            overridevalue1, setOverridevalue1,
+            overridevalue2, setOverridevalue2,
+            overridevalue3, setOverridevalue3,
+            overridevalue4, setOverridevalue4,
+            overridevalue5, setOverridevalue5,
+            overridevalue6, setOverridevalue6,
+            overridevalue7, setOverridevalue7,
+            dataAPI,loading}}>
             <Routes>
               <Route exact path="/" element={<Home/>}/>
               <Route exact path="/ordering" element={<Ordering/>}/>

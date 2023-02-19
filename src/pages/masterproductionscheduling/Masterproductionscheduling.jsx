@@ -17,9 +17,15 @@ import { UserContext } from '../../UserContext';
 
 
 export default function Masterproductionscheduling(){
-  const {overridevalue} = useContext(UserContext);
+  const {overridevalue1} = useContext(UserContext);
+  const {overridevalue2} = useContext(UserContext);
+  const {overridevalue3} = useContext(UserContext);
+  const {overridevalue4} = useContext(UserContext);
+  const {overridevalue5} = useContext(UserContext);
+  const {overridevalue6} = useContext(UserContext);
+  const {overridevalue7} = useContext(UserContext);
+
   const {dataAPI, loading} = useContext(UserContext)
-  //const {data,loading} = useFetch()
   const [strategyName,setStrategyName] = useState('Level Strategy')
   var mps_data = null
   var projected_balance = null
@@ -52,7 +58,7 @@ export default function Masterproductionscheduling(){
     ];
     const trend = createTrend(LRdata, 'x', 'y')
     console.log(trend.yStart, trend.slope)
-    var LRVal = [overridevalue,Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
+    var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7]
     console.log(LRVal)
     if(strategyName === 'Chase Strategy'){
       mps_data = [
@@ -175,24 +181,24 @@ export default function Masterproductionscheduling(){
         </div>
         <div className='featured'>
           <div className='featuredItem'>
-            Forecast Override: <b>{overridevalue}</b>
+            <Autocomplete
+              value={strategyName}
+              onChange={(event, newValue) => {
+                setStrategyName(newValue);
+              }}
+              id="controllable-states-demo"
+              options={optionsStrat}
+              disableClearable
+              sx={{width: 250, mb:'10px'}}
+              renderInput={(params) => <TextField {...params} label="MPS Strategy" />}
+            />
             <div className="featuredTitle">
               7-Month Period Forecast:
               <div className='featuredTitleList'>
-                <Autocomplete
-                  value={strategyName}
-                  onChange={(event, newValue) => {
-                    setStrategyName(newValue);
-                  }}
-                  id="controllable-states-demo"
-                  options={optionsStrat}
-                  disableClearable
-                  sx={{ minWidth: 200 }}
-                  renderInput={(params) => <TextField {...params} label="Strategy" />}
-                />
+               
               </div>
             </div>
-            <div className='slider3'>
+            <div>
               <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
                 <TableHead>
                   <TableRow>
@@ -209,13 +215,13 @@ export default function Masterproductionscheduling(){
                 <TableBody>
                   <TableRow>
                     <TableCell><b>Forecasted Demand</b></TableCell>
-                    <TableCell><b>{overridevalue}</b></TableCell>
-                    <TableCell>{LRVal[1]}</TableCell>
-                    <TableCell>{LRVal[2]}</TableCell>
-                    <TableCell>{LRVal[3]}</TableCell>
-                    <TableCell>{LRVal[4]}</TableCell>
-                    <TableCell>{LRVal[5]}</TableCell>
-                    <TableCell>{LRVal[6]}</TableCell>
+                    <TableCell><b>{overridevalue1}</b></TableCell>
+                    <TableCell><b>{overridevalue2}</b></TableCell>
+                    <TableCell><b>{overridevalue3}</b></TableCell>
+                    <TableCell><b>{overridevalue4}</b></TableCell>
+                    <TableCell><b>{overridevalue5}</b></TableCell>
+                    <TableCell><b>{overridevalue6}</b></TableCell>
+                    <TableCell><b>{overridevalue7}</b></TableCell>
                   </TableRow>
                   <TableRow>
                     {(() => {

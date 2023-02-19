@@ -15,22 +15,16 @@ import styled from 'styled-components';
 import { UserContext } from '../../UserContext';
 import { useContext } from 'react';
 import { Box } from '@mui/material';
-import Slider from '@mui/material/Slider';
-
-function createData(name, calories) {
-    return { name, calories};
-}
-
-
+import IconButton from '@mui/material/IconButton';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { Collapse } from '@material-ui/core';
 
 export default function Mrp(){  
     const [buttonValue, setValue] = useState('BOM');
-    const [oringbalanceValue, setValueORing] = useState(0)
-    const changeValueSlider = (event, value) => {
-        setValueORing(value);
-    };
     const {dataAPI, loading} = useContext(UserContext)
-    const {overridevalue} = useContext(UserContext);
+    const {overridevalue1} = useContext(UserContext);
+    const [open, setOpen] = React.useState(true);
     if(dataAPI !== null){
         var keys = Object.keys(dataAPI)
         var values = Object.values(dataAPI)
@@ -54,31 +48,9 @@ export default function Mrp(){
         var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
         var nextMonth = keys[12]
         var nextMonthForecast = LRVal[0]
-        var noOfParts = (overridevalue)
+        var noOfParts = (overridevalue1)
         console.log(noOfParts)
     };
-    var rows = [
-        createData('Canopy Screw, 721-11', 3*noOfParts),
-        createData('Canopy, 721-3', noOfParts),
-        createData('Bonnet, 721-20', noOfParts),
-        createData('Plastic Washer, 721A-12', noOfParts),
-        createData('O-Ring, WK-138N', noOfParts),
-        createData('Load Nut & Guide, 721-90', noOfParts),
-        createData('Load Washer, 721-80', noOfParts),
-        createData('Disc Upper, 721A-34', noOfParts),
-        createData('Poppet, 721-30', noOfParts),
-        createData('Spring, 721-33', noOfParts),
-        createData('Screw, 721-11A', noOfParts),
-        createData('Lower Disc, 721B-34', noOfParts),
-        createData('Guide Spider, 721-31', noOfParts),
-        createData('Hex Nut, 721-9A', noOfParts),
-        createData('Test Cock, 18-860XL', 2*noOfParts),
-        createData('Ball Valve 1/2" Tap, 12-850T', 2*noOfParts),
-        createData('Ball Valve 3/4" Tap, 34-850T', 2*noOfParts),
-        createData('Ball Valve 1" Tap, 1-850T', 2*noOfParts),
-        createData('Poppet Assembly, 721-300', noOfParts),
-        createData('Spider Assembly, 721-310', noOfParts),
-    ];
 
     const StyledNodeTitle = styled.div`
         border-radius: 5px;
@@ -110,7 +82,7 @@ export default function Mrp(){
                         Item Code: <b>34-720A</b><br/>
                         Month: <b>{nextMonth}</b><br/>
                         Forecasted Demand: <b>{nextMonthForecast}</b><br/>
-                        Override Forecasted Demand: <b>{overridevalue}</b>
+                        Override Forecasted Demand: <b>{overridevalue1}</b>
                     </div>
                 </div>
                 {(() => {
@@ -129,17 +101,172 @@ export default function Mrp(){
                                                     </TableRow>
                                                 </TableHead>
                                                 <TableBody>
-                                                {rows.map((row) => (
                                                     <TableRow
-                                                    key={row.name}
                                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                                                     >
-                                                    <TableCell component="th" scope="row" style={{ width: '10%' }}>
-                                                        {row.name}
-                                                    </TableCell>
-                                                    <TableCell style={{ width: '5%' }}>{row.calories}</TableCell>
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Poppet Assembly, 721-310
+                                                            <IconButton
+                                                                aria-label="expand row"
+                                                                size="small"
+                                                                onClick={() => setOpen(!open)}
+                                                            >
+                                                                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                                            </IconButton>
+                                                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                                                <Box sx={{ml:'50px', fontFamily:'Arial',fontStyle:'italic'}}>
+                                                                    Load Nut & Guide, 721-90<br/>
+                                                                    Load Washer, 721-80<br/>
+                                                                    Disc Upper, 721A-34<br/>
+                                                                    Poppet, 721-30<br/>
+                                                                </Box>
+                                                            </Collapse>
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                                                <Box sx={{fontFamily:'Arial',fontStyle:'italic',ml:'50px'}}>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                </Box>
+                                                            </Collapse>
+                                                        </TableCell>
                                                     </TableRow>
-                                                ))}
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Spider Assembly, 721-310
+                                                            <IconButton
+                                                                aria-label="expand row"
+                                                                size="small"
+                                                                onClick={() => setOpen(!open)}
+                                                            >
+                                                                {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+                                                            </IconButton>
+                                                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                                                <Box sx={{ml:'50px', fontFamily:'Arial',fontStyle:'italic'}}>
+                                                                    Screw, 721-11A<br/>
+                                                                    Lower Disc, 721B-34<br/>
+                                                                    Guide Spider, 721-31<br/>
+                                                                    Hex Nut, 721-9A<br/>
+                                                                </Box>
+                                                            </Collapse>
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                            <Collapse in={open} timeout="auto" unmountOnExit>
+                                                                <Box sx={{fontFamily:'Arial',fontStyle:'italic',ml:'50px'}}>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                    {noOfParts}<br/>
+                                                                </Box>
+                                                            </Collapse>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Canopy Screw, 721-11
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts*3}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Canopy, 721-3
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Bonnet, 721-20
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Plastic Wasber, 721A-12
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            O-Ring, WK-138N
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Spring, 721-33
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Test Cock, 18-860XL
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts*2}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Ball Valve 1/2" Tap, 12-850T
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts*2}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Ball Valve 3/4" Tap, 34-850T
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts*2}
+                                                        </TableCell>
+                                                    </TableRow>
+                                                    <TableRow
+                                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                                    >
+                                                        <TableCell component="th" scope="row" style={{ width: '50%' }}>
+                                                            Ball Valve 1" Tap, 1-850T
+                                                        </TableCell>
+                                                        <TableCell style={{ width: '50%' }}>
+                                                            {noOfParts*2}
+                                                        </TableCell>
+                                                    </TableRow>
                                                 </TableBody>
                                             </Table>
                                         </TableContainer>
@@ -189,10 +316,11 @@ export default function Mrp(){
                     } else if (buttonValue === 'Individual MRP'){
                         //TODO logic for O-Ring lot sizing, Planned Order etc
                         const ORingLot = 100
+                        const oringbalanceValue = 50
                         var ORingBalance = oringbalanceValue 
                         var ORingScheduledReceipts = []
                         var ORingBalanceList = []
-                        var ORingDemand = [overridevalue,LRVal[1],LRVal[2],LRVal[3],LRVal[4],LRVal[5],LRVal[6]]
+                        var ORingDemand = [overridevalue1,LRVal[1],LRVal[2],LRVal[3],LRVal[4],LRVal[5],LRVal[6]]
                         console.log(ORingBalance)
                         console.log(ORingDemand)
                         for (let i = 0; i < 7; i++) { 
@@ -252,7 +380,7 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Forecasted Demand</b></TableCell>
-                                                    <TableCell>{overridevalue}</TableCell>
+                                                    <TableCell>{overridevalue1}</TableCell>
                                                     <TableCell>{LRVal[1]}</TableCell>
                                                     <TableCell>{LRVal[2]}</TableCell>
                                                     <TableCell>{LRVal[3]}</TableCell>
@@ -263,7 +391,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order</b></TableCell>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell> 
                                                     <TableCell>{ORingScheduledReceipts[0]}</TableCell>
                                                     <TableCell>{ORingScheduledReceipts[1]}</TableCell>
                                                     <TableCell>{ORingScheduledReceipts[2]}</TableCell>
@@ -285,19 +413,19 @@ export default function Mrp(){
                                                     <TableCell>{ORingBalanceList[6]}</TableCell>
                                                 </TableRow>
                                             </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
                                         </Table>
-                                        <div className='slider3'>
-                                            <Slider
-                                                size="small"
-                                                step = {5}
-                                                aria-label="Small"
-                                                valueLabelDisplay="auto"
-                                                color="secondary"
-                                                max={1000}
-                                                value = {oringbalanceValue}
-                                                onChange={changeValueSlider}
-                                            />
-                                        </div>
                                     </div>
                                 </div>
                                 <div className="featured">
@@ -321,7 +449,7 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Forecasted Demand</b></TableCell>
-                                                    <TableCell>{2*overridevalue}</TableCell>
+                                                    <TableCell>{2*overridevalue1}</TableCell>
                                                     <TableCell>{2*LRVal[1]}</TableCell>
                                                     <TableCell>{2*LRVal[2]}</TableCell>
                                                     <TableCell>{2*LRVal[3]}</TableCell>
@@ -332,7 +460,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order</b></TableCell>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -346,6 +474,19 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Projected Available Balance</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -380,7 +521,7 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Forecasted Demand</b></TableCell>
-                                                    <TableCell>{3*overridevalue}</TableCell>
+                                                    <TableCell>{3*overridevalue1}</TableCell>
                                                     <TableCell>{3*LRVal[1]}</TableCell>
                                                     <TableCell>{3*LRVal[2]}</TableCell>
                                                     <TableCell>{3*LRVal[3]}</TableCell>
@@ -391,7 +532,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order</b></TableCell>
+                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -405,6 +546,19 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Projected Available Balance</b></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell><b>Planned Order Releases</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>

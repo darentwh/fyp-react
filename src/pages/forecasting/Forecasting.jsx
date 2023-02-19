@@ -1,8 +1,6 @@
 import * as React from 'react'
 import './Forecasting.css'
 import { useState } from "react"
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
 import { TextField } from '@mui/material';
 import {
   ComposedChart,
@@ -20,26 +18,23 @@ import 'trendline';
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import Slider from '@mui/material/Slider';
+import Autocomplete from '@mui/material/Autocomplete';
 
 export default function Forecasting(){
-  const {overridevalue, setOverridevalue} = useContext(UserContext);
+  const {overridevalue1, setOverridevalue1} = useContext(UserContext);
+  const {overridevalue2, setOverridevalue2} = useContext(UserContext);
+  const {overridevalue3, setOverridevalue3} = useContext(UserContext);
+  const {overridevalue4, setOverridevalue4} = useContext(UserContext);
+  const {overridevalue5, setOverridevalue5} = useContext(UserContext);
+  const {overridevalue6, setOverridevalue6} = useContext(UserContext);
+  const {overridevalue7, setOverridevalue7} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [alpha , setAlpha] = useState(0.5)
   const changeValueSlider = (event, value) => {
     setAlpha(value);
   };
-  console.log(overridevalue)
+  console.log(overridevalue1)
   const [buttonValue, setValue] = useState('Linear Regression');
-  const handleChangeA = event => {
-    setValue('Moving Average, m = 2');
-  }
-  const handleChangeB = event => {
-    setValue('Exponential Smoothing');
-  }
-  const handleChangeD = event => {
-    setValue('Linear Regression');
-  }
-
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
@@ -378,6 +373,7 @@ export default function Forecasting(){
       ];
     };
   };
+  const optionsForecast = ['Moving Average, m = 2','Exponential Smoothing','Linear Regression'];
   return(
     <div className="forecasting">
       {loading ? 
@@ -387,9 +383,18 @@ export default function Forecasting(){
       : 
       <div>
         <div className='featuredItem'>
-          <div className='slider2'>
-            {buttonValue}
-          </div>
+            {/* {buttonValue} */}
+          <Autocomplete
+            value={buttonValue}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            id="controllable-states-demo"
+            options={optionsForecast}
+            disableClearable
+            sx={{ width: 250, mb:'10px' }}
+            renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
+          />
           <ResponsiveContainer width="100%" height={600} position="absolute">
             <ComposedChart
             data={data}
@@ -430,49 +435,89 @@ export default function Forecasting(){
               }
             })()}
             <div className='featuredItem'>
-              <div className='vert'>
-                Forecast Override: <TextField
+              <div>
+                Forecast Override: 
+              </div>
+              <div className='flexbox-container'>
+                <TextField
                   type="number"
                   sx={{ mx: '1px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
-                  value={overridevalue}
-                  onChange={(event) => {setOverridevalue(parseInt(event.target.value))}}
+                  value={overridevalue1}
+                  onChange={(event) => {setOverridevalue1(parseInt(event.target.value))}}
+                  label={keys[11]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue2}
+                  onChange={(event) => {setOverridevalue2(parseInt(event.target.value))}}
+                  label='+1'
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue3}
+                  onChange={(event) => {setOverridevalue3(parseInt(event.target.value))}}
+                  label='+2'
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue4}
+                  onChange={(event) => {setOverridevalue4(parseInt(event.target.value))}}
+                  label='+3'
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue5}
+                  onChange={(event) => {setOverridevalue5(parseInt(event.target.value))}}
+                  label='+4'
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue6}
+                  onChange={(event) => {setOverridevalue6(parseInt(event.target.value))}}
+                  label='+5'
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue7}
+                  onChange={(event) => {setOverridevalue7(parseInt(event.target.value))}}
+                  label='+6'
                 />
               </div>
             </div>
-          </div>
-        </div>
-        <div className='sliderWrapper'>
-          <div className='slider2'>
-            <ButtonGroup color="secondary" variant="contained" aria-label="outlined primary button group">
-              <Button
-                style={{
-                  backgroundColor: "#AD6ADF",
-                }}   
-                onClick={() => {
-                  handleChangeA()
-                }}
-              >Moving Average</Button>
-              <Button
-                style={{
-                  backgroundColor: "#AD6ADF",
-                }}
-                onClick={() => {
-                  handleChangeB()
-                }}
-              >Exponential Smoothing</Button>
-              <Button
-                style={{
-                  backgroundColor: "#AD6ADF",
-                }}
-                onClick={() => {
-                  handleChangeD()
-                }}
-              >Linear Regression</Button>
-            </ButtonGroup>
           </div>
         </div>
       </div>}
