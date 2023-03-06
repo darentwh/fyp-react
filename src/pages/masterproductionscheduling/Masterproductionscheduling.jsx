@@ -114,7 +114,7 @@ export default function Masterproductionscheduling(){
       balance = valueSlider
       for (let i = 0; i < 7; i++) { 
         balance = balance - LRVal[i]
-        if(balance < valueSlider){
+        if(balance < 0){
           projected_balance.push(balance+valueSliderLS)
           mps_data.push(valueSliderLS)
           balance = balance + valueSliderLS
