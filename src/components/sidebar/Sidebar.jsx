@@ -38,19 +38,19 @@ export default function Sidebar(){
                         <Link to="/forecasting" className="link">
                         <li className="sidebarListItem">
                             <TimelineIcon className="sidebarListItemIcon"/>
-                            Demand Forecasting
+                            Demand Forecast
                         </li>
                         </Link>
                         <Link to="/mps" className="link">
                         <li className="sidebarListItem">
                             <EventNoteIcon className="sidebarListItemIcon"/>
-                            Master Production Scheduling
+                            Master Production Schedule
                         </li>
                         </Link>
                         <Link to="/mrp" className="link">
                         <li className="sidebarListItem">
                             <InventoryIcon className="sidebarListItemIcon"/>
-                            Material Requirement Planning
+                            Material Requirement Plan
                         </li>
                         </Link>
                     </ul>

@@ -29,6 +29,32 @@ const useFetch = () => {
   return {dataAPI,loading};
 };
 
+function getProductList(startDate) {
+  const dateList = [];
+  const startDateObj = new Date(startDate);
+  
+  // Loop through the next 7 months
+  for (let i = 0; i < 7; i++) {
+    // Calculate the year and month of the next month
+    var year = startDateObj.getFullYear();
+    var month = startDateObj.getMonth() + i + 1;
+    
+    // If the month is greater than 12, adjust the year and month accordingly
+    if (month > 12) {
+      year++;
+      month -= 12;
+    }
+    
+    // Pad the month with a leading zero if necessary
+    const monthStr = month.toString().padStart(2, '0');
+    
+    // Add the year and month to the product list
+    dateList.push(`${year}-${monthStr}`);
+  }
+  
+  return dateList;
+}
+
 function App() {
   const [overridevalue1, setOverridevalue1] = useState(400);
   const [overridevalue2, setOverridevalue2] = useState(400);
@@ -37,9 +63,11 @@ function App() {
   const [overridevalue5, setOverridevalue5] = useState(400);
   const [overridevalue6, setOverridevalue6] = useState(400);
   const [overridevalue7, setOverridevalue7] = useState(400);
+  const [dateList, setdateList] = useState([]);
   const {dataAPI,loading} = useFetch()
   useEffect(() => {
     if(dataAPI !== null){
+      var keys = Object.keys(dataAPI)
       var values = Object.values(dataAPI)
       const createTrend = require('trendline');
       const LRdata = [
@@ -58,6 +86,8 @@ function App() {
       ];
       const trend = createTrend(LRdata, 'x', 'y')
       console.log(trend.calcY(12))
+      setdateList(getProductList(keys[12]))
+      console.log(dateList)
       setOverridevalue1(Math.round(trend.calcY(12)))
       setOverridevalue2(Math.round(trend.calcY(13)))
       setOverridevalue3(Math.round(trend.calcY(14)))
@@ -65,7 +95,7 @@ function App() {
       setOverridevalue5(Math.round(trend.calcY(16)))
       setOverridevalue6(Math.round(trend.calcY(17)))
       setOverridevalue7(Math.round(trend.calcY(18)))
-    }},[dataAPI])
+    }},[dataAPI,dateList])
   return (
     <Router>
       <Topbar/>
@@ -80,6 +110,7 @@ function App() {
             overridevalue5, setOverridevalue5,
             overridevalue6, setOverridevalue6,
             overridevalue7, setOverridevalue7,
+            dateList, setdateList,
             dataAPI,loading}}>
             <Routes>
               <Route exact path="/" element={<Home/>}/>

@@ -24,7 +24,7 @@ export default function Masterproductionscheduling(){
   const {overridevalue5} = useContext(UserContext);
   const {overridevalue6} = useContext(UserContext);
   const {overridevalue7} = useContext(UserContext);
-
+  const {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [strategyName,setStrategyName] = useState('Level Strategy')
   var mps_data = null
@@ -194,22 +194,19 @@ export default function Masterproductionscheduling(){
             />
             <div className="featuredTitle">
               7-Month Period Forecast:
-              <div className='featuredTitleList'>
-               
-              </div>
             </div>
             <div>
               <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
                 <TableHead>
                   <TableRow>
                     <TableCell><b>Date</b></TableCell>
-                    <TableCell>{keys[12]}</TableCell>
-                    <TableCell>+1</TableCell>
-                    <TableCell>+2</TableCell>
-                    <TableCell>+3</TableCell>
-                    <TableCell>+4</TableCell>
-                    <TableCell>+5</TableCell>
-                    <TableCell>+6</TableCell>
+                    <TableCell>{dateList[0]}</TableCell>
+                    <TableCell>{dateList[1]}</TableCell>
+                    <TableCell>{dateList[2]}</TableCell>
+                    <TableCell>{dateList[3]}</TableCell>
+                    <TableCell>{dateList[4]}</TableCell>
+                    <TableCell>{dateList[5]}</TableCell>
+                    <TableCell>{dateList[6]}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>

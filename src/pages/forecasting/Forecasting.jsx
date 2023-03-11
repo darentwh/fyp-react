@@ -28,6 +28,7 @@ export default function Forecasting(){
   const {overridevalue5, setOverridevalue5} = useContext(UserContext);
   const {overridevalue6, setOverridevalue6} = useContext(UserContext);
   const {overridevalue7, setOverridevalue7} = useContext(UserContext);
+  const {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [alpha , setAlpha] = useState(0.5)
   const changeValueSlider = (event, value) => {
@@ -347,27 +348,27 @@ export default function Forecasting(){
           lineLR: trend.calcY(12)
         },
         {
-          name: '+1',
+          name: dateList[1],
           lineLR: trend.calcY(13)
         },
         {
-          name: '+2',
+          name: dateList[2],
           lineLR: trend.calcY(14)
         },
         {
-          name: '+3',
+          name: dateList[3],
           lineLR: trend.calcY(15)
         },
         {
-          name: '+4',
+          name: dateList[4],
           lineLR: trend.calcY(16)
         },
         {
-          name: '+5',
+          name: dateList[5],
           lineLR: trend.calcY(17)
         },
         {
-          name: '+6',
+          name: dateList[6],
           lineLR: trend.calcY(18)
         },
       ];
@@ -400,10 +401,10 @@ export default function Forecasting(){
             data={data}
             >
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name"/>
+              <XAxis dataKey="name" textAnchor="end" tick={{fontSize: 12}}/>
               <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
               <Tooltip />
-              <Legend />
+              <Legend verticalAlign='bottom'/>
               <Line type="monotone" dataKey="actual" stroke="#49454D" />
               <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
               <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>

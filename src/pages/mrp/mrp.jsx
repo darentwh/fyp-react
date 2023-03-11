@@ -2,10 +2,8 @@ import React from 'react'
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useState } from "react"
@@ -24,33 +22,20 @@ export default function Mrp(){
     const [buttonValue, setValue] = useState('BOM');
     const {dataAPI, loading} = useContext(UserContext)
     const {overridevalue1} = useContext(UserContext);
+    const {overridevalue2} = useContext(UserContext);
+    const {overridevalue3} = useContext(UserContext);
+    const {overridevalue4} = useContext(UserContext);
+    const {overridevalue5} = useContext(UserContext);
+    const {overridevalue6} = useContext(UserContext);
+    const {overridevalue7} = useContext(UserContext);
+    const {dateList} = useContext(UserContext);
     const [open, setOpen] = React.useState(true);
     if(dataAPI !== null){
-        var keys = Object.keys(dataAPI)
-        var values = Object.values(dataAPI)
-        const createTrend = require('trendline');
-        const LRdata = [
-        { y: values[0], x: 1 },
-        { y: values[1], x: 2 },
-        { y: values[2], x: 3 },
-        { y: values[3], x: 4 },
-        { y: values[4], x: 5 },
-        { y: values[5], x: 6 },
-        { y: values[6], x: 7 },
-        { y: values[7], x: 8 },
-        { y: values[8], x: 9 },
-        { y: values[9], x: 10 },
-        { y: values[10], x: 11 },
-        { y: values[11], x: 12 },
-        ];
-        const trend = createTrend(LRdata, 'x', 'y')
-        console.log(trend.yStart, trend.slope)
-        var LRVal = [Math.round(trend.calcY(12)),Math.round(trend.calcY(13)),Math.round(trend.calcY(14)),Math.round(trend.calcY(15)),Math.round(trend.calcY(16)),Math.round(trend.calcY(17)),Math.round(trend.calcY(18))]
-        var nextMonth = keys[12]
-        var nextMonthForecast = LRVal[0]
+        var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7]
         var noOfParts = (overridevalue1)
         console.log(noOfParts)
     };
+    
 
     const StyledNodeTitle = styled.div`
         border-radius: 5px;
@@ -77,25 +62,28 @@ export default function Mrp(){
             </div> 
             : 
             <div>
-                <div className='featured'>
-                    <div className="featuredItem">
-                        Item Code: <b>34-720A</b><br/>
-                        Month: <b>{nextMonth}</b><br/>
-                        Forecasted Demand: <b>{nextMonthForecast}</b><br/>
-                        Override Forecasted Demand: <b>{overridevalue1}</b>
-                    </div>
-                </div>
                 {(() => {
                     if (buttonValue === 'BOM') {
                         return (
+                            <Box
+                            sx={{
+                                mt: 3,
+                                mx: 2,
+                                height: '80vh',
+                                overflowX: "hidden",
+                                borderRadius: '10px',
+                                boxShadow: 3
+                                }}
+                            >
                             <div className="featured">
-                                <div className="featuredItem">
-                                    <span className="featuredTitle"><b>Bill of Material</b></span>
-                                    <div>
-                                        <TableContainer component={Paper} align='center' sx={{height:'50vh', minWidth:'100%', my:5}}>
+                                {/* <div className="featuredItem"> */}
+                                    {/* <span className="featuredTitle2"><b>Bill of Material</b></span> */}
+                                    {/* <div> */}
+                                        {/* <TableContainer component={Paper} align='center' sx={{height: '100vh', minWidth:'100%'}}> */}
                                             <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} stickyHeader aria-label="sticky table" >
                                                 <TableHead>
-                                                    <TableRow>
+                                                    <span className="featuredTitle2"><b>Bill of Material</b></span>
+                                                    <TableRow>   
                                                         <TableCell align="left"><b>Part No.</b></TableCell>
                                                         <TableCell><b>Quantity Required</b></TableCell>
                                                     </TableRow>
@@ -269,10 +257,11 @@ export default function Mrp(){
                                                     </TableRow>
                                                 </TableBody>
                                             </Table>
-                                        </TableContainer>
-                                    </div>
-                                </div>
+                                        {/* </TableContainer> */}
+                                    {/* </div> */}
+                                {/* </div> */}
                             </div>
+                        </Box>
                         )
                     } else if (buttonValue === 'PDS'){
                         return (
@@ -314,7 +303,6 @@ export default function Mrp(){
                             </div>
                         )
                     } else if (buttonValue === 'Individual MRP'){
-                        //TODO logic for O-Ring lot sizing, Planned Order etc
                         const ORingLot = 100
                         const oringbalanceValue = 50
                         var ORingBalance = oringbalanceValue 
@@ -347,13 +335,45 @@ export default function Mrp(){
                         }
                         console.log(ORingScheduledReceipts)
                         console.log(ORingBalanceList)
+                        const BallValveLot = 3000
+                        const BallValvebalanceValue = 1000
+                        var BallValveBalance = BallValvebalanceValue 
+                        var BallValveScheduledReceipts = []
+                        var BallValveBalanceList = []
+                        var BallValveDemand = [2*overridevalue1,2*LRVal[1],2*LRVal[2],2*LRVal[3],2*LRVal[4],2*LRVal[5],2*LRVal[6]]
+                        console.log(BallValveBalance)
+                        console.log(BallValveDemand)
+                        for (let i = 0; i < 7; i++) { 
+                            var count2 = 1
+                            if(BallValveBalance < BallValveDemand[i]){
+                                BallValveBalance = BallValveBalance + BallValveLot - BallValveDemand[i]
+                                if (BallValveBalance > 0){
+                                    BallValveScheduledReceipts.push(BallValveLot)
+                                    BallValveBalanceList.push(BallValveBalance)
+                                } else{
+                                    while (BallValveBalance < 0){
+                                        BallValveBalance = BallValveBalance + BallValveLot
+                                        count2 += 1
+                                    }
+
+                                    BallValveScheduledReceipts.push(BallValveLot*count2)
+                                    BallValveBalanceList.push(BallValveBalance)
+                                }
+                            }else{
+                                BallValveScheduledReceipts.push(0)
+                                BallValveBalance = BallValveBalance - BallValveDemand[i]
+                                BallValveBalanceList.push(BallValveBalance)
+                            }
+                        }
+                        console.log(BallValveScheduledReceipts)
+                        console.log(BallValveBalanceList)
                         return(
                             <div>
                                 <Box
                                 sx={{
                                     mt: 3,
                                     mx: 2,
-                                    height: '70vh',
+                                    height: '80vh',
                                     overflowX: "scroll",
                                     borderRadius: '10px',
                                     boxShadow: 3
@@ -362,19 +382,19 @@ export default function Mrp(){
                                 <div className="featured">
                                     <div className='featuredItem'>
                                         <div className='featuredTitle'>
-                                            O-Ring, FDA <b><i>138N</i></b><span style={{fontSize: '75%'}}><i>(100/lot)</i></span>
+                                            O-Ring, FDA <b><i>138N</i></b><span style={{fontSize: '75%'}}><i>(100/lot, Lead Time = 1)</i></span>
                                         </div>
                                         <Table sx={{ width:"100%"}} aria-label="simple table">
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell><b>Date</b></TableCell>
-                                                    <TableCell>{keys[12]}</TableCell>
-                                                    <TableCell>+1</TableCell>
-                                                    <TableCell>+2</TableCell>
-                                                    <TableCell>+3</TableCell>
-                                                    <TableCell>+4</TableCell>
-                                                    <TableCell>+5</TableCell>
-                                                    <TableCell>+6</TableCell>
+                                                    <TableCell>{dateList[0]}</TableCell>
+                                                    <TableCell>{dateList[1]}</TableCell>
+                                                    <TableCell>{dateList[2]}</TableCell>
+                                                    <TableCell>{dateList[3]}</TableCell>
+                                                    <TableCell>{dateList[4]}</TableCell>
+                                                    <TableCell>{dateList[5]}</TableCell>
+                                                    <TableCell>{dateList[6]}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -392,13 +412,13 @@ export default function Mrp(){
                                             <TableBody>
                                                 <TableRow>
                                                     <TableCell><b>Scheduled Receipts</b></TableCell> 
-                                                    <TableCell>{ORingScheduledReceipts[0]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[1]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[2]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[3]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[4]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[5]}</TableCell>
-                                                    <TableCell>{ORingScheduledReceipts[6]}</TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
+                                                    <TableCell></TableCell>
                                                 </TableRow>
                                             </TableBody>
                                             <TableBody>
@@ -415,13 +435,13 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
+                                                    <TableCell><b>Planned Order Releases </b><span style={{fontSize: '75%'}}><i>Past Due: {ORingScheduledReceipts[0]}</i></span></TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[1]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[2]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[3]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[4]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[5]}</TableCell>
+                                                    <TableCell>{ORingScheduledReceipts[6]}</TableCell>
                                                     <TableCell></TableCell>
                                                 </TableRow>
                                             </TableBody>
@@ -431,24 +451,24 @@ export default function Mrp(){
                                 <div className="featured">
                                     <div className='featuredItem'>
                                         <div className='featuredTitle'>
-                                            Ball Valve, 3/4" <b><i>34-850</i></b>
+                                            Ball Valve, 3/4" <b><i>34-850</i></b><span style={{fontSize: '75%'}}><i>(3000/lot, Lead Time = 0)</i></span>
                                         </div>
-                                        <Table sx={{ width:"100%"}} aria-label="simple table">
+                                        <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                                             <TableHead>
                                                 <TableRow>
-                                                    <TableCell><b>Date</b></TableCell>
-                                                    <TableCell>{keys[12]}</TableCell>
-                                                    <TableCell>+1</TableCell>
-                                                    <TableCell>+2</TableCell>
-                                                    <TableCell>+3</TableCell>
-                                                    <TableCell>+4</TableCell>
-                                                    <TableCell>+5</TableCell>
-                                                    <TableCell>+6</TableCell>
+                                                    <TableCell className='sticky'><b>Date</b></TableCell>
+                                                    <TableCell>{dateList[0]}</TableCell>
+                                                    <TableCell>{dateList[1]}</TableCell>
+                                                    <TableCell>{dateList[2]}</TableCell>
+                                                    <TableCell>{dateList[3]}</TableCell>
+                                                    <TableCell>{dateList[4]}</TableCell>
+                                                    <TableCell>{dateList[5]}</TableCell>
+                                                    <TableCell>{dateList[6]}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell className='sticky'><b>Forecasted Demand</b></TableCell>
                                                     <TableCell>{2*overridevalue1}</TableCell>
                                                     <TableCell>{2*LRVal[1]}</TableCell>
                                                     <TableCell>{2*LRVal[2]}</TableCell>
@@ -460,21 +480,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Scheduled Receipts</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell><b>Projected Available Balance</b></TableCell>
-                                                    <TableCell></TableCell>
+                                                    <TableCell className='sticky'><b>Scheduled Receipts</b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
@@ -486,15 +492,26 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
-                                                    <TableCell></TableCell>
+                                                    <TableCell className='sticky'><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {BallValvebalanceValue}</i></span></TableCell>
+                                                    <TableCell>{BallValveBalanceList[0]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[1]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[2]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[3]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[4]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[5]}</TableCell>
+                                                    <TableCell>{BallValveBalanceList[6]}</TableCell>
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className='sticky'><b>Planned Order Releases </b><span style={{fontSize: '75%'}}><i>Past Due: </i></span></TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[0]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[1]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[2]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[3]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[4]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[5]}</TableCell>
+                                                    <TableCell>{BallValveScheduledReceipts[6]}</TableCell>
                                                 </TableRow>
                                             </TableBody>
                                         </Table>
@@ -509,13 +526,13 @@ export default function Mrp(){
                                             <TableHead>
                                                 <TableRow>
                                                     <TableCell><b>Date</b></TableCell>
-                                                    <TableCell>{keys[12]}</TableCell>
-                                                    <TableCell>+1</TableCell>
-                                                    <TableCell>+2</TableCell>
-                                                    <TableCell>+3</TableCell>
-                                                    <TableCell>+4</TableCell>
-                                                    <TableCell>+5</TableCell>
-                                                    <TableCell>+6</TableCell>
+                                                    <TableCell>{dateList[0]}</TableCell>
+                                                    <TableCell>{dateList[1]}</TableCell>
+                                                    <TableCell>{dateList[2]}</TableCell>
+                                                    <TableCell>{dateList[3]}</TableCell>
+                                                    <TableCell>{dateList[4]}</TableCell>
+                                                    <TableCell>{dateList[5]}</TableCell>
+                                                    <TableCell>{dateList[6]}</TableCell>
                                                 </TableRow>
                                             </TableHead>
                                             <TableBody>
@@ -558,7 +575,7 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell><b>Planned Order Releases</b></TableCell>
+                                                    <TableCell><b>Planned Order Releases </b></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>
                                                     <TableCell></TableCell>

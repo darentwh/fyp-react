@@ -104,6 +104,11 @@ export default function Orderinghistory(){
                                 checkboxSelection
                                 disableSelectionOnClick
                                 experimentalFeatures={{ newEditingApi: true }}
+                                initialState={{
+                                    sorting: {
+                                      sortModel: [{ field: 'DateOfReceiving', sort: 'desc' }],
+                                    },
+                                }}
                             />
                         </Box>
                     </div>
