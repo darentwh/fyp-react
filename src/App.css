@@ -14,3 +14,7 @@
      color: rgb(81, 15, 180);
      transition: color 0.7s
   }
+
+::-webkit-scrollbar {
+    display: none;
+}

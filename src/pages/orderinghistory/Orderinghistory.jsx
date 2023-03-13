@@ -94,7 +94,7 @@ export default function Orderinghistory(){
                 : 
                 <div className='sliderWrapper'>
                     <div className='slider3'>
-                        <Box sx={{ height: '85vh', width: '95%' }}>
+                        <Box sx={{ height: '80vh', width: '95%' }}>
                             <DataGrid
                                 rows={data}
                                 getRowId={(row) => row.OrderID}
