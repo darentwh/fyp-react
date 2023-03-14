@@ -28,6 +28,13 @@ export default function Forecasting(){
   const {overridevalue5, setOverridevalue5} = useContext(UserContext);
   const {overridevalue6, setOverridevalue6} = useContext(UserContext);
   const {overridevalue7, setOverridevalue7} = useContext(UserContext);
+  const {overridevalue8, setOverridevalue8} = useContext(UserContext);
+  const {overridevalue9, setOverridevalue9} = useContext(UserContext);
+  const {overridevalue10, setOverridevalue10} = useContext(UserContext);
+  const {overridevalue11, setOverridevalue11} = useContext(UserContext);
+  const {overridevalue12, setOverridevalue12} = useContext(UserContext);
+  const {overridevalue13, setOverridevalue13} = useContext(UserContext);
+  const {overridevalue14, setOverridevalue14} = useContext(UserContext);
   const {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [alpha , setAlpha] = useState(0.5)
@@ -42,129 +49,27 @@ export default function Forecasting(){
     if(buttonValue === 'Moving Average, m = 2'){
       const maValue = ma(values, 2)
       console.log(maValue)
-      var forecastAcc = (100-((
-          (Math.abs(values[2]-maValue[1])/values[2])
-          +(Math.abs(values[3]-maValue[2])/values[3])
-          +(Math.abs(values[4]-maValue[3])/values[4])
-          +(Math.abs(values[5]-maValue[4])/values[5])
-          +(Math.abs(values[6]-maValue[5])/values[6])
-          +(Math.abs(values[7]-maValue[6])/values[7])
-          +(Math.abs(values[8]-maValue[7])/values[8])
-          +(Math.abs(values[9]-maValue[8])/values[9])
-          +(Math.abs(values[10]-maValue[9])/values[10])
-          +(Math.abs(values[11]-maValue[10])/values[11])
-        )/10*100)).toFixed(2)
-      console.log(forecastAcc)
-      var forecastBias = ((
-        (values[2]-maValue[1])
-        +(values[3]-maValue[2])
-        +(values[4]-maValue[3])
-        +(values[5]-maValue[4])
-        +(values[6]-maValue[5])
-        +(values[7]-maValue[6])
-        +(values[8]-maValue[7])
-        +(values[9]-maValue[8])
-        +(values[10]-maValue[9])
-        +(values[11]-maValue[10])
-      ) / 10).toFixed(2)
-      console.log(forecastBias)
-      var data = [
-        {
-          name: keys[0],
-          actual: values[0],
-          forecast: maValue[0]
-        },
-        {
-          name: keys[1],
-          actual: values[1],
-          forecast: maValue[0]
-        },
-        {
-          name: keys[2],
-          actual: values[2],
-          forecast: maValue[1]
-        },
-        {
-          name: keys[3],
-          actual: values[3],
-          forecast: maValue[2]
-        },
-        {
-          name: keys[4],
-          actual: values[4],
-          forecast: maValue[3]
-        },
-        {
-          name: keys[5],
-          actual: values[5],
-          forecast: maValue[4]
-        },
-        {
-          name: keys[6],
-          actual: values[6],
-          forecast: maValue[5]
-        },
-        {
-          name: keys[7],
-          actual: values[7],
-          forecast: maValue[6]
-        },
-        {
-          name: keys[8],
-          actual: values[8],
-          forecast: maValue[7]
-        },
-        {
-          name: keys[9],
-          actual: values[9],
-          forecast: maValue[8]
-        },
-        {
-          name: keys[10],
-          actual: values[10],
-          forecast: maValue[9]
-        },
-        {
-          name: keys[11],
-          actual: values[11],
-          forecast: maValue[10]
-        },
-        {
-          name: keys[12],
-          actual: values[12],
-          forecast: maValue[11]
-        },
-      ];
+      var data = [{
+            name: keys[0],
+            actual: values[0],
+            forecast: maValue[0]
+          }]
+      for(let i=0;i<keys.length;i++){
+        data.push({name:keys[i+1], actual: values[i+1], forecast: maValue[i]})
+      }
+      console.log(data)
+      var count = 0
+      var total = 0
+      for(let i=0;i<maValue.length-1; i++){
+        total += Math.abs((maValue[i+1]-values[i]))
+        count += 1
+      }
+      var MAD = (total/count).toFixed(2)
+      console.log(MAD)
     } if(buttonValue === 'Exponential Smoothing'){
       var size = ((2/alpha)-1)
-      const maValue = ema(values, size)
-      console.log(maValue)
-      forecastAcc = (100-((
-        (Math.abs(values[2]-maValue[1])/values[2])
-        +(Math.abs(values[3]-maValue[2])/values[3])
-        +(Math.abs(values[4]-maValue[3])/values[4])
-        +(Math.abs(values[5]-maValue[4])/values[5])
-        +(Math.abs(values[6]-maValue[5])/values[6])
-        +(Math.abs(values[7]-maValue[6])/values[7])
-        +(Math.abs(values[8]-maValue[7])/values[8])
-        +(Math.abs(values[9]-maValue[8])/values[9])
-        +(Math.abs(values[10]-maValue[9])/values[10])
-        +(Math.abs(values[11]-maValue[10])/values[11])
-      )/10*100)).toFixed(2)
-      console.log(forecastAcc)
-      forecastBias = ((
-        (values[2]-maValue[1])
-        +(values[3]-maValue[2])
-        +(values[4]-maValue[3])
-        +(values[5]-maValue[4])
-        +(values[6]-maValue[5])
-        +(values[7]-maValue[6])
-        +(values[8]-maValue[7])
-        +(values[9]-maValue[8])
-        +(values[10]-maValue[9])
-        +(values[11]-maValue[10])
-      )/10).toFixed(2)
-      console.log(forecastBias)
+      const emaValue = ema(values, size)
+      console.log(emaValue)
       data = [
         {
           name: keys[0],
@@ -175,203 +80,51 @@ export default function Forecasting(){
           name: keys[1],
           actual: values[1],
           forecast: null
-        },
-        {
-          name: keys[2],
-          actual: values[2],
-          forecast: maValue[1]
-        },
-        {
-          name: keys[3],
-          actual: values[3],
-          forecast: maValue[2]
-        },
-        {
-          name: keys[4],
-          actual: values[4],
-          forecast: maValue[3]
-        },
-        {
-          name: keys[5],
-          actual: values[5],
-          forecast: maValue[4]
-        },
-        {
-          name: keys[6],
-          actual: values[6],
-          forecast: maValue[5]
-        },
-        {
-          name: keys[7],
-          actual: values[7],
-          forecast: maValue[6]
-        },
-        {
-          name: keys[8],
-          actual: values[8],
-          forecast: maValue[7]
-        },
-        {
-          name: keys[9],
-          actual: values[9],
-          forecast: maValue[8]
-        },
-        {
-          name: keys[10],
-          actual: values[10],
-          forecast: maValue[9]
-        },
-        {
-          name: keys[11],
-          actual: values[11],
-          forecast: maValue[10]
-        },
-        {
-          name: keys[12],
-          actual: values[12],
-          forecast: maValue[11]
-        },
+        }
       ]
+      for(let i=2;i<keys.length+1;i++){
+        data.push({name:keys[i], actual: values[i], forecast: emaValue[i-1]})
+      }
+      console.log(data)
+      count = 0
+      total = 0
+      for(let i=0;i<emaValue.length-1; i++){
+        total += Math.abs((emaValue[i+1]-values[i]))
+        count += 1
+      }
+      MAD = (total/count).toFixed(2)
+      console.log(MAD)
     } if(buttonValue === 'Linear Regression'){
       const createTrend = require('trendline');
-      const LRdata = [
-        { y: values[0], x: 1 },
-        { y: values[1], x: 2 },
-        { y: values[2], x: 3 },
-        { y: values[3], x: 4 },
-        { y: values[4], x: 5 },
-        { y: values[5], x: 6 },
-        { y: values[6], x: 7 },
-        { y: values[7], x: 8 },
-        { y: values[8], x: 9 },
-        { y: values[9], x: 10 },
-        { y: values[10], x: 11 },
-        { y: values[11], x: 12 },
-      ];
+
+      const LRdata = []
+      for (let i = 0; i<values.length; i++){
+        LRdata.push({y: values[i], x: i+1})
+      }
       const trend = createTrend(LRdata, 'x', 'y')
       console.log(trend.yStart, trend.slope)
-      //setForecast(Math.round(trend.calcY(12)))
-      forecastAcc = (100-(
-        (Math.abs(values[0]-trend.calcY(0))/values[0])
-        +(Math.abs(values[1]-trend.calcY(1))/values[1])
-        +(Math.abs(values[2]-trend.calcY(2))/values[2])
-        +(Math.abs(values[3]-trend.calcY(3))/values[3])
-        +(Math.abs(values[4]-trend.calcY(4))/values[4])
-        +(Math.abs(values[5]-trend.calcY(5))/values[5])
-        +(Math.abs(values[6]-trend.calcY(6))/values[6])
-        +(Math.abs(values[7]-trend.calcY(7))/values[7])
-        +(Math.abs(values[8]-trend.calcY(8))/values[8])
-        +(Math.abs(values[9]-trend.calcY(9))/values[9])
-        +(Math.abs(values[10]-trend.calcY(10))/values[10])
-        +(Math.abs(values[11]-trend.calcY(11))/values[11])
-        )/12*100).toFixed(2) //rounding to 2dp
-      console.log(forecastAcc)
-      forecastBias = ((
-        (values[0]-trend.calcY(0))
-        +(values[1]-trend.calcY(1))
-        +(values[2]-trend.calcY(2))
-        +(values[3]-trend.calcY(3))
-        +(values[4]-trend.calcY(4))
-        +(values[5]-trend.calcY(5))
-        +(values[6]-trend.calcY(6))
-        +(values[7]-trend.calcY(7))
-        +(values[8]-trend.calcY(8))
-        +(values[9]-trend.calcY(9))
-        +(values[10]-trend.calcY(10))
-        +(values[11]-trend.calcY(11))
-      )/12).toFixed(2)
-      console.log(forecastBias)
-      data = [
-        {
-          name: keys[0],
-          actualLR: values[0],
-          lineLR: trend.calcY(0)
-        },
-        {
-          name: keys[1],
-          actualLR: values[1],
-          lineLR: trend.calcY(1)
-        },
-        {
-          name: keys[2],
-          actualLR: values[2],
-          lineLR: trend.calcY(2)
-        },
-        {
-          name: keys[3],
-          actualLR: values[3],
-          lineLR: trend.calcY(3)
-        },
-        {
-          name: keys[4],
-          actualLR: values[4],
-          lineLR: trend.calcY(4)
-        },
-        {
-          name: keys[5],
-          actualLR: values[5],
-          lineLR: trend.calcY(5)
-        },
-        {
-          name: keys[6],
-          actualLR: values[6],
-          lineLR: trend.calcY(6)
-        },
-        {
-          name: keys[7],
-          actualLR: values[7],
-          lineLR: trend.calcY(7)
-        },
-        {
-          name: keys[8],
-          actualLR: values[8],
-          lineLR: trend.calcY(8)
-        },
-        {
-          name: keys[9],
-          actualLR: values[9],
-          lineLR: trend.calcY(9)
-        },
-        {
-          name: keys[10],
-          actualLR: values[10],
-          lineLR: trend.calcY(10)
-        },
-        {
-          name: keys[11],
-          actualLR: values[11],
-          lineLR: trend.calcY(11)
-        },
-        {
-          name: keys[12],
-          actualLR: values[12],
-          lineLR: trend.calcY(12)
-        },
-        {
-          name: dateList[1],
-          lineLR: trend.calcY(13)
-        },
-        {
-          name: dateList[2],
-          lineLR: trend.calcY(14)
-        },
-        {
-          name: dateList[3],
-          lineLR: trend.calcY(15)
-        },
-        {
-          name: dateList[4],
-          lineLR: trend.calcY(16)
-        },
-        {
-          name: dateList[5],
-          lineLR: trend.calcY(17)
-        },
-        {
-          name: dateList[6],
-          lineLR: trend.calcY(18)
-        },
-      ];
+      data = []
+      for(let i = 0; i<keys.length;i++){
+        data.push(
+          {
+            name: keys[i],
+            actualLR: values[i],
+            lineLR: trend.calcY(i)
+          }
+        )
+      }
+      count = keys.length
+      for(let i = 1; i<dateList.length;i++){
+        data.push(
+          {
+            name: dateList[i],
+            lineLR: trend.calcY(count)
+          }
+        )
+        count += 1
+      }
+      console.log(data)
+      console.log(dateList)
     };
   };
   const optionsForecast = ['Moving Average, m = 2','Exponential Smoothing','Linear Regression'];
@@ -383,38 +136,39 @@ export default function Forecasting(){
       </div> 
       : 
       <div>
-        <div className='featuredItem'>
-            {/* {buttonValue} */}
-          <Autocomplete
-            value={buttonValue}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            id="controllable-states-demo"
-            options={optionsForecast}
-            disableClearable
-            sx={{ width: 250, mb:'10px' }}
-            renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
-          />
-          <ResponsiveContainer width="100%" height={600} position="absolute">
-            <ComposedChart
-            data={data}
-            >
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="name" textAnchor="end" tick={{fontSize: 12}}/>
-              <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
-              <Tooltip />
-              <Legend verticalAlign='bottom'/>
-              <Line type="monotone" dataKey="actual" stroke="#49454D" />
-              <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-              <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
-              <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
-            </ComposedChart>
-          </ResponsiveContainer>
+        <div className='featured'>
+          <div className='featuredItem'>
+            <Autocomplete
+              value={buttonValue}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+              id="controllable-states-demo"
+              options={optionsForecast}
+              disableClearable
+              sx={{ width: 250, mb:'10px' }}
+              renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
+            />
+            <ResponsiveContainer width="100%" height={550} position="absolute">
+              <ComposedChart
+              data={data}
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" textAnchor="end" tick={{fontSize: 12}}/>
+                <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
+                <Tooltip />
+                <Legend verticalAlign='bottom'/>
+                <Line type="monotone" dataKey="actual" stroke="#49454D" />
+                <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
+                <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
+                <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
+              </ComposedChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
           <div className='featured'>
             <div className='featuredItem'>
-              Forecast Accuracy: <b>{forecastAcc}</b>%<br/>
-              Forecast Bias: <b>{forecastBias}</b>
+              MAD: <b>{MAD}</b>
             </div>
             {(() => {
               if (buttonValue === 'Exponential Smoothing') {
@@ -442,85 +196,161 @@ export default function Forecasting(){
               <div className='flexbox-container'>
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue1}
                   onChange={(event) => {setOverridevalue1(parseInt(event.target.value))}}
-                  label={keys[11]}
+                  label={dateList[1]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue2}
                   onChange={(event) => {setOverridevalue2(parseInt(event.target.value))}}
-                  label='+1'
+                  label={dateList[2]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue3}
                   onChange={(event) => {setOverridevalue3(parseInt(event.target.value))}}
-                  label='+2'
+                  label={dateList[3]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue4}
                   onChange={(event) => {setOverridevalue4(parseInt(event.target.value))}}
-                  label='+3'
+                  label={dateList[4]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue5}
                   onChange={(event) => {setOverridevalue5(parseInt(event.target.value))}}
-                  label='+4'
+                  label={dateList[5]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue6}
                   onChange={(event) => {setOverridevalue6(parseInt(event.target.value))}}
-                  label='+5'
+                  label={dateList[6]}
                 />
                 <TextField
                   type="number"
-                  sx={{ mx: '1px' }}
+                  sx={{ mx: '1px', minWidth:'80px' }}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   variant="standard"
                   value={overridevalue7}
                   onChange={(event) => {setOverridevalue7(parseInt(event.target.value))}}
-                  label='+6'
+                  label={dateList[7]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue8}
+                  onChange={(event) => {setOverridevalue8(parseInt(event.target.value))}}
+                  label={dateList[8]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue9}
+                  onChange={(event) => {setOverridevalue9(parseInt(event.target.value))}}
+                  label={dateList[9]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue10}
+                  onChange={(event) => {setOverridevalue10(parseInt(event.target.value))}}
+                  label={dateList[10]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue11}
+                  onChange={(event) => {setOverridevalue11(parseInt(event.target.value))}}
+                  label={dateList[11]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue12}
+                  onChange={(event) => {setOverridevalue12(parseInt(event.target.value))}}
+                  label={dateList[12]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue13}
+                  onChange={(event) => {setOverridevalue13(parseInt(event.target.value))}}
+                  label={dateList[13]}
+                />
+                <TextField
+                  type="number"
+                  sx={{ mx: '1px', minWidth:'80px' }}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  variant="standard"
+                  value={overridevalue14}
+                  onChange={(event) => {setOverridevalue14(parseInt(event.target.value))}}
+                  label={dateList[14]}
                 />
               </div>
             </div>
           </div>
-        </div>
       </div>}
     </div>
   )

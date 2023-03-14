@@ -19,11 +19,17 @@ const useStyles = makeStyles({
     sticky: {
       position: "sticky",
       left: 0,
-      width: 400,
+      width: 320,
       background: 'white'
     },
+    sticky2: {
+        position: "sticky",
+        left: 0,
+        width: 350,
+        background: 'white'
+    },
     cellStyles: {
-        width: 65
+        width: 80
     }
 });
 
@@ -72,9 +78,17 @@ export default function Mrp(){
     const {overridevalue5} = useContext(UserContext);
     const {overridevalue6} = useContext(UserContext);
     const {overridevalue7} = useContext(UserContext);
+    const {overridevalue8} = useContext(UserContext);
+    const {overridevalue9} = useContext(UserContext);
+    const {overridevalue10} = useContext(UserContext);
+    const {overridevalue11} = useContext(UserContext);
+    const {overridevalue12} = useContext(UserContext);
+    const {overridevalue13} = useContext(UserContext);
+    const {overridevalue14} = useContext(UserContext);
     const {dateList} = useContext(UserContext);
+    const removedDateList = dateList.slice(1);
     if(dataAPI !== null){
-        var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7]
+        var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
         var noOfParts = (overridevalue1)
         console.log(noOfParts)
     };
@@ -121,7 +135,7 @@ export default function Mrp(){
                             <div className='featured'>
                                 <div className="featuredItem">
                                     <b>Item Code: </b><i>34-720A</i><br/>
-                                    <b>Period: </b><i>{dateList[0]}</i><br/>
+                                    <b>Period: </b><i>{removedDateList[0]}</i><br/>
                                     <b>Quantity: </b><i>{noOfParts}</i><br/>
                                 </div>
                             </div>
@@ -337,23 +351,25 @@ export default function Mrp(){
                             </Box>
                         )
                     } else if (buttonValue === 'Individual MRP'){
-                        var dateInWeeks = []
-                        var demandInWeeks = []
-                        var counter = 2
-                        var counterMonth = 1
-                        for (let x = 0; x<30; x++){
-                            if(x % 5 === 0){
-                                dateInWeeks.push(dateList[counterMonth])
-                                demandInWeeks.push(LRVal[counterMonth])
-                                counterMonth += 1
-                                counter = 2
-                            }
-                            else{
-                                dateInWeeks.push(counter)
-                                demandInWeeks.push(0)
-                                counter += 1
-                            }
-                        }
+                        // var dateInWeeks = []
+                        // var demandInWeeks = []
+                        // var counter = 2
+                        // var counterMonth = 1
+                        // for (let x = 0; x<30; x++){
+                        //     if(x % 5 === 0){
+                        //         dateInWeeks.push(dateList[counterMonth])
+                        //         demandInWeeks.push(LRVal[counterMonth])
+                        //         counterMonth += 1
+                        //         counter = 2
+                        //     }
+                        //     else{
+                        //         dateInWeeks.push(counter)
+                        //         demandInWeeks.push(0)
+                        //         counter += 1
+                        //     }
+                        // }
+                        const dateInWeeks = removedDateList
+                        const demandInWeeks = LRVal
                         console.log(dateInWeeks)
                         console.log(demandInWeeks)
 
@@ -399,7 +415,7 @@ export default function Mrp(){
                                 >
                                 <div className="featured">
                                     <div className='featuredItem3'>
-                                        <div className={classes.sticky}>
+                                        <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>O-Ring, FDA </span><b><i>138N</i></b><br/>
                                             <span style={{fontSize: '75%', paddingLeft:20}}><i>({ORingLot}/lot, Lead Time = {ORingLT} weeks, Safety Stock = {ORingSS})</i></span>
                                         </div>
@@ -414,7 +430,7 @@ export default function Mrp(){
                                             </TableHead>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
                                                     {demandInWeeks.map((item,index)=>{
                                                         if(item !== 0){
                                                             return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
@@ -453,7 +469,7 @@ export default function Mrp(){
                                 </div>
                                 <div className="featured">
                                     <div className='featuredItem3'>
-                                        <div className={classes.sticky}>
+                                        <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Ball Valve, 3/4" </span><b><i>34-850</i></b><br/>
                                             <span style={{fontSize: '75%',paddingLeft:20}}><i>({BallValveLot}/lot, Lead Time = {BallValveLT} weeks, Safety Stock = {BallValveSS})</i></span>
                                         </div>
@@ -468,7 +484,7 @@ export default function Mrp(){
                                             </TableHead>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
                                                     {demandInWeeks.map((item,index)=>{
                                                         if(item !== 0){
                                                             return <TableCell className={classes.cellStyles} key={index}>{2*item}</TableCell>
@@ -507,7 +523,7 @@ export default function Mrp(){
                                 </div>
                                 <div className="featured">
                                     <div className='featuredItem3'>
-                                        <div className={classes.sticky}>
+                                        <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Bolt, 8-32 x 3/8 Fil. SS </span><b><i>721-11</i></b><br/>
                                             <span style={{fontSize: '75%',paddingLeft:20}}><i>({BoltLot}/lot, Lead Time = {BoltLT} weeks, Safety Stock = {BoltSS})</i></span>
                                         </div>
@@ -522,7 +538,7 @@ export default function Mrp(){
                                             </TableHead>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Forecasted Demand</b></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
                                                     {demandInWeeks.map((item,index)=>{
                                                         if(item !== 0){
                                                             return <TableCell className={classes.cellStyles} key={index}>{3*item}</TableCell>

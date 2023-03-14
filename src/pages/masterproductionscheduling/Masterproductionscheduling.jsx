@@ -8,15 +8,33 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Slider from '@mui/material/Slider';
 import 'trendline'
-
+import { Box } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-
+import { makeStyles } from "@material-ui/core/styles";
 import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
 
+const useStyles = makeStyles({
+  sticky: {
+    position: "sticky",
+    left: 0,
+    width: 300,
+    background: 'white'
+  },
+  sticky2: {
+    position: "sticky",
+    left: 0,
+    width: 350,
+    background: 'white'
+  },
+  cellStyles: {
+      width: 80
+  }
+});
 
 export default function Masterproductionscheduling(){
+  const classes = useStyles();
   const {overridevalue1} = useContext(UserContext);
   const {overridevalue2} = useContext(UserContext);
   const {overridevalue3} = useContext(UserContext);
@@ -24,7 +42,14 @@ export default function Masterproductionscheduling(){
   const {overridevalue5} = useContext(UserContext);
   const {overridevalue6} = useContext(UserContext);
   const {overridevalue7} = useContext(UserContext);
-  const {dateList} = useContext(UserContext);
+  const {overridevalue8} = useContext(UserContext);
+  const {overridevalue9} = useContext(UserContext);
+  const {overridevalue10} = useContext(UserContext);
+  const {overridevalue11} = useContext(UserContext);
+  const {overridevalue12} = useContext(UserContext);
+  const {overridevalue13} = useContext(UserContext);
+  const {overridevalue14} = useContext(UserContext);
+  var {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [strategyName,setStrategyName] = useState('Level Strategy')
   var mps_data = null
@@ -41,78 +66,57 @@ export default function Masterproductionscheduling(){
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
-    const createTrend = require('trendline');
-    const LRdata = [
-      { y: values[0], x: 1 },
-      { y: values[1], x: 2 },
-      { y: values[2], x: 3 },
-      { y: values[3], x: 4 },
-      { y: values[4], x: 5 },
-      { y: values[5], x: 6 },
-      { y: values[6], x: 7 },
-      { y: values[7], x: 8 },
-      { y: values[8], x: 9 },
-      { y: values[9], x: 10 },
-      { y: values[10], x: 11 },
-      { y: values[11], x: 12 },
-    ];
-    const trend = createTrend(LRdata, 'x', 'y')
-    console.log(trend.yStart, trend.slope)
-    var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7]
+    // const createTrend = require('trendline');
+    // const LRdata = [
+    //   { y: values[0], x: 1 },
+    //   { y: values[1], x: 2 },
+    //   { y: values[2], x: 3 },
+    //   { y: values[3], x: 4 },
+    //   { y: values[4], x: 5 },
+    //   { y: values[5], x: 6 },
+    //   { y: values[6], x: 7 },
+    //   { y: values[7], x: 8 },
+    //   { y: values[8], x: 9 },
+    //   { y: values[9], x: 10 },
+    //   { y: values[10], x: 11 },
+    //   { y: values[11], x: 12 },
+    // ];
+    // const trend = createTrend(LRdata, 'x', 'y')
+    // console.log(trend.yStart, trend.slope)
+    var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
     console.log(LRVal)
     if(strategyName === 'Chase Strategy'){
       mps_data = [
         LRVal[0]+valueSlider,
-        LRVal[1],
-        LRVal[2],
-        LRVal[3],
-        LRVal[4],
-        LRVal[5],
-        LRVal[6],
       ]
-      projected_balance = [
-        valueSlider,
-        valueSlider,
-        valueSlider,
-        valueSlider,
-        valueSlider,
-        valueSlider,
-        valueSlider,
-      ]
+      projected_balance =[valueSlider]
+      for(let i=1;i<LRVal.length;i++){
+        mps_data.push(LRVal[i])
+        projected_balance.push(valueSlider)
+      }
     }
     if(strategyName === 'Level Strategy'){
-      var avg = Math.round((LRVal[0]+LRVal[1]+LRVal[2]+LRVal[3]+LRVal[4]+LRVal[5]+LRVal[6])/7)
+      var total = 0
+      projected_balance = []
+      mps_data = []
+      for(let i=0;i<LRVal.length;i++){
+        total += LRVal[i]
+      }
+      var avg = Math.round(total/14)
       console.log(avg)
       var balance = 0
-      for (let i = 0; i < 7; i++) { 
-        balance = balance + (avg - LRVal[i])
+      for (let j = 0; j < LRVal.length; j++) { 
+        balance = balance + (avg - LRVal[j])
         console.log(balance)
-        inventory_balance.push(balance)
+        projected_balance.push(balance)
+        mps_data.push(avg)
       }
-      mps_data = [
-        avg,
-        avg,
-        avg,
-        avg,
-        avg,
-        avg,
-        avg
-      ]
-      projected_balance = [
-        inventory_balance[0],
-        inventory_balance[1],
-        inventory_balance[2],
-        inventory_balance[3],
-        inventory_balance[4],
-        inventory_balance[5],
-        inventory_balance[6]
-      ]
     }
     if(strategyName === 'Lot Size Strategy'){
       mps_data = []
       projected_balance = []
       balance = valueSlider
-      for (let i = 0; i < 7; i++) { 
+      for (let i = 0; i < 14; i++) { 
         balance = balance - LRVal[i]
         if(balance < 0){
           projected_balance.push(balance+valueSliderLS)
@@ -127,6 +131,7 @@ export default function Masterproductionscheduling(){
       console.log(inventory_balance)
     }
   }
+  const removedDateList = dateList.slice(1);
   const optionsStrat = ['Level Strategy','Chase Strategy','Lot Size Strategy'];
   return(
     <div className="mps">
@@ -136,125 +141,103 @@ export default function Masterproductionscheduling(){
         </div> 
         : 
       <div>
-        <div className='featured'>
-          <div className='featuredItem'>
-            <span className="featuredTitle">12-Month Historical Data</span>
-            <div>
-              <Table sx={{ width:"100%"}} aria-label="simple table">
-                <TableHead>
-                  <TableRow>
-                    <TableCell><b>Date</b></TableCell>
-                    <TableCell>{keys[0]}</TableCell>
-                    <TableCell>{keys[1]}</TableCell>
-                    <TableCell>{keys[2]}</TableCell>
-                    <TableCell>{keys[3]}</TableCell>
-                    <TableCell>{keys[4]}</TableCell>
-                    <TableCell>{keys[5]}</TableCell>
-                    <TableCell>{keys[6]}</TableCell>
-                    <TableCell>{keys[7]}</TableCell>
-                    <TableCell>{keys[8]}</TableCell>
-                    <TableCell>{keys[9]}</TableCell>
-                    <TableCell>{keys[10]}</TableCell>
-                    <TableCell>{keys[11]}</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  <TableRow>
-                    <TableCell><b>Actual Demand</b></TableCell>
-                    <TableCell>{values[0]}</TableCell>
-                    <TableCell>{values[1]}</TableCell>
-                    <TableCell>{values[2]}</TableCell>
-                    <TableCell>{values[3]}</TableCell>
-                    <TableCell>{values[4]}</TableCell>
-                    <TableCell>{values[5]}</TableCell>
-                    <TableCell>{values[6]}</TableCell>
-                    <TableCell>{values[7]}</TableCell>
-                    <TableCell>{values[8]}</TableCell>
-                    <TableCell>{values[9]}</TableCell>
-                    <TableCell>{values[10]}</TableCell>
-                    <TableCell>{values[11]}</TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </div>
-          </div>
-        </div>
-        <div className='featured'>
-          <div className='featuredItem'>
-            <Autocomplete
-              value={strategyName}
-              onChange={(event, newValue) => {
-                setStrategyName(newValue);
+        <Box
+          sx={{
+              mt: 3,
+              mx: 2,
+              height: '100%',
+              width: '83vw',
+              overflowX: "hidden",
+              //overflowY: 'scroll',
+              borderRadius: '10px',
               }}
-              id="controllable-states-demo"
-              options={optionsStrat}
-              disableClearable
-              sx={{width: 250, mb:'10px'}}
-              renderInput={(params) => <TextField {...params} label="MPS Strategy" />}
-            />
-            <div className="featuredTitle">
-              7-Month Period Forecast:
-            </div>
-            <div>
-              <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} aria-label="simple table" style={{ width: '100%' }}>
+        >
+          <div className='featured'>
+            <div className='featuredItem3'>
+              <div className={classes.sticky2}>
+                <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>9 Month Weekly Historical Data</span>
+              </div>
+              <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                 <TableHead>
                   <TableRow>
-                    <TableCell><b>Date</b></TableCell>
-                    <TableCell>{dateList[0]}</TableCell>
-                    <TableCell>{dateList[1]}</TableCell>
-                    <TableCell>{dateList[2]}</TableCell>
-                    <TableCell>{dateList[3]}</TableCell>
-                    <TableCell>{dateList[4]}</TableCell>
-                    <TableCell>{dateList[5]}</TableCell>
-                    <TableCell>{dateList[6]}</TableCell>
+                    <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                    {keys.map((item,index)=>{
+                      return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   <TableRow>
-                    <TableCell><b>Forecasted Demand</b></TableCell>
-                    <TableCell><b>{overridevalue1}</b></TableCell>
-                    <TableCell><b>{overridevalue2}</b></TableCell>
-                    <TableCell><b>{overridevalue3}</b></TableCell>
-                    <TableCell><b>{overridevalue4}</b></TableCell>
-                    <TableCell><b>{overridevalue5}</b></TableCell>
-                    <TableCell><b>{overridevalue6}</b></TableCell>
-                    <TableCell><b>{overridevalue7}</b></TableCell>
-                  </TableRow>
-                  <TableRow>
-                    {(() => {
-                      if (strategyName === 'Lot Size Strategy') {
-                        return (
-                          <TableCell><b>Projected Balance</b> <i>{valueSlider} Initial on-hand</i></TableCell>
-                        )
-                      } else {
-                        return (
-                          <TableCell><b>Projected Balance</b></TableCell>
-                        )
-                      }
-                    })()}
-                    <TableCell>{projected_balance[0]}</TableCell>
-                    <TableCell>{projected_balance[1]}</TableCell>
-                    <TableCell>{projected_balance[2]}</TableCell>
-                    <TableCell>{projected_balance[3]}</TableCell>
-                    <TableCell>{projected_balance[4]}</TableCell>
-                    <TableCell>{projected_balance[5]}</TableCell>
-                    <TableCell>{projected_balance[6]}</TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell><b>Master Production Schedule</b></TableCell>
-                    <TableCell>{mps_data[0]}</TableCell>
-                    <TableCell>{mps_data[1]}</TableCell>
-                    <TableCell>{mps_data[2]}</TableCell>
-                    <TableCell>{mps_data[3]}</TableCell>
-                    <TableCell>{mps_data[4]}</TableCell>
-                    <TableCell>{mps_data[5]}</TableCell>
-                    <TableCell>{mps_data[6]}</TableCell>
+                    <TableCell className={classes.sticky}><b>Actual Demand</b></TableCell>
+                    {values.map((item,index)=>{
+                      return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                    })}
                   </TableRow>
                 </TableBody>
               </Table>
             </div>
           </div>
-        </div>
+          <div className='featured'>
+            <div className='featuredItem3'>
+              <div className={classes.sticky}>
+                <Autocomplete
+                  value={strategyName}
+                  onChange={(event, newValue) => {
+                    setStrategyName(newValue);
+                  }}
+                  id="controllable-states-demo"
+                  options={optionsStrat}
+                  disableClearable
+                  sx={{width: 250, m:'10px', ml:'20px'}}
+                  renderInput={(params) => <TextField {...params} label="MPS Strategy" />}
+                />
+                <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>3-Month Weekly Forecast</span>
+              </div>
+              <div>
+              <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                      {removedDateList.map((item,index)=>{
+                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                      })}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    <TableRow>
+                      <TableCell className={classes.sticky}><b>Forecasted Demand</b></TableCell>
+                      {LRVal.map((item,index)=>{
+                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                      })}
+                    </TableRow>
+                    <TableRow>
+                      {(() => {
+                        if (strategyName === 'Lot Size Strategy') {
+                          return (
+                            <TableCell className={classes.sticky}><b>Projected Balance</b> <i>{valueSlider} Initial on-hand</i></TableCell>
+                          )
+                        } else {
+                          return (
+                            <TableCell className={classes.sticky}><b>Projected Balance</b></TableCell>
+                          )
+                        }
+                      })()}
+                      {projected_balance.map((item,index)=>{
+                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                      })}
+                    </TableRow>
+                    <TableRow>
+                      <TableCell className={classes.sticky}><b>Master Production Schedule</b></TableCell>
+                      {mps_data.map((item,index)=>{
+                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                      })}
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
+          </div>
+        </Box>
         {(() => {
           if (strategyName === 'Chase Strategy') {
             return (

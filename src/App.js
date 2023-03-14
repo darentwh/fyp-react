@@ -16,6 +16,7 @@ import 'trendline';
 const useFetch = () => {
   const [dataAPI, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  
   useEffect((url = "https://xkscvbyt7xcmdpibtt3olzbuti0gqbgx.lambda-url.us-east-1.on.aws/") => {
     async function fetchData(){
       const response = await fetch(url,{method:'GET'});
@@ -29,32 +30,6 @@ const useFetch = () => {
   return {dataAPI,loading};
 };
 
-function getProductList(startDate) {
-  const dateList = [];
-  const startDateObj = new Date(startDate);
-  
-  // Loop through the next 7 months
-  for (let i = 0; i < 7; i++) {
-    // Calculate the year and month of the next month
-    var year = startDateObj.getFullYear();
-    var month = startDateObj.getMonth() + i + 1;
-    
-    // If the month is greater than 12, adjust the year and month accordingly
-    if (month > 12) {
-      year++;
-      month -= 12;
-    }
-    
-    // Pad the month with a leading zero if necessary
-    const monthStr = month.toString().padStart(2, '0');
-    
-    // Add the year and month to the product list
-    dateList.push(`${year}-${monthStr}`);
-  }
-  
-  return dateList;
-}
-
 function App() {
   const [overridevalue1, setOverridevalue1] = useState(400);
   const [overridevalue2, setOverridevalue2] = useState(400);
@@ -63,6 +38,13 @@ function App() {
   const [overridevalue5, setOverridevalue5] = useState(400);
   const [overridevalue6, setOverridevalue6] = useState(400);
   const [overridevalue7, setOverridevalue7] = useState(400);
+  const [overridevalue8, setOverridevalue8] = useState(400);
+  const [overridevalue9, setOverridevalue9] = useState(400);
+  const [overridevalue10, setOverridevalue10] = useState(400);
+  const [overridevalue11, setOverridevalue11] = useState(400);
+  const [overridevalue12, setOverridevalue12] = useState(400);
+  const [overridevalue13, setOverridevalue13] = useState(400);
+  const [overridevalue14, setOverridevalue14] = useState(400);
   const [dateList, setdateList] = useState(null);
   const {dataAPI,loading} = useFetch()
   useEffect(() => {
@@ -70,51 +52,60 @@ function App() {
       var keys = Object.keys(dataAPI)
       var values = Object.values(dataAPI)
       const createTrend = require('trendline');
-      const LRdata = [
-        { y: values[0], x: 1 },
-        { y: values[1], x: 2 },
-        { y: values[2], x: 3 },
-        { y: values[3], x: 4 },
-        { y: values[4], x: 5 },
-        { y: values[5], x: 6 },
-        { y: values[6], x: 7 },
-        { y: values[7], x: 8 },
-        { y: values[8], x: 9 },
-        { y: values[9], x: 10 },
-        { y: values[10], x: 11 },
-        { y: values[11], x: 12 },
-      ];
+      // const LRdata = [
+      //   { y: values[0], x: 1 },
+      //   { y: values[1], x: 2 },
+      //   { y: values[2], x: 3 },
+      //   { y: values[3], x: 4 },
+      //   { y: values[4], x: 5 },
+      //   { y: values[5], x: 6 },
+      //   { y: values[6], x: 7 },
+      //   { y: values[7], x: 8 },
+      //   { y: values[8], x: 9 },
+      //   { y: values[9], x: 10 },
+      //   { y: values[10], x: 11 },
+      //   { y: values[11], x: 12 },
+      // ];
+      const LRdata = []
+      for (let i = 0; i<keys.length; i++){
+        LRdata.push({y: values[i], x: i+1})
+      }
+      console.log(LRdata)
       const trend = createTrend(LRdata, 'x', 'y')
       console.log(trend.calcY(12))
-      setOverridevalue1(Math.round(trend.calcY(12)))
-      setOverridevalue2(Math.round(trend.calcY(13)))
-      setOverridevalue3(Math.round(trend.calcY(14)))
-      setOverridevalue4(Math.round(trend.calcY(15)))
-      setOverridevalue5(Math.round(trend.calcY(16)))
-      setOverridevalue6(Math.round(trend.calcY(17)))
-      setOverridevalue7(Math.round(trend.calcY(18)))
-      const dateList2 = [];
-      const startDateObj = new Date(keys[12]);
-      // Loop through the next 7 months
-      for (let i = 0; i < 7; i++) {
-        // Calculate the year and month of the next month
-        var year = startDateObj.getFullYear();
-        var month = startDateObj.getMonth() + i + 1;
-        
-        // If the month is greater than 12, adjust the year and month accordingly
-        if (month > 12) {
-          year++;
-          month -= 12;
-        }
-        
-        // Pad the month with a leading zero if necessary
-        const monthStr = month.toString().padStart(2, '0');
-        
-        // Add the year and month to the product list
-        dateList2.push(`${year}-${monthStr}`);
+      setOverridevalue1(Math.round(trend.calcY(45)))
+      setOverridevalue2(Math.round(trend.calcY(46)))
+      setOverridevalue3(Math.round(trend.calcY(47)))
+      setOverridevalue4(Math.round(trend.calcY(48)))
+      setOverridevalue5(Math.round(trend.calcY(49)))
+      setOverridevalue6(Math.round(trend.calcY(50)))
+      setOverridevalue7(Math.round(trend.calcY(51)))
+      setOverridevalue8(Math.round(trend.calcY(52)))
+      setOverridevalue9(Math.round(trend.calcY(53)))
+      setOverridevalue10(Math.round(trend.calcY(54)))
+      setOverridevalue11(Math.round(trend.calcY(55)))
+      setOverridevalue12(Math.round(trend.calcY(56)))
+      setOverridevalue13(Math.round(trend.calcY(57)))
+      setOverridevalue14(Math.round(trend.calcY(58)))
+
+      const result = [];
+      const date = new Date(keys[44]);
+    
+      // Add one day to ensure we start on a Sunday
+      date.setDate(date.getDate());
+    
+      // Loop through the next 15 weeks, adding each Sunday to the result array
+      for (let i = 0; i < 15; i++) {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        result.push(`${year}-${month}-${day}`);
+    
+        date.setDate(date.getDate() + 7); // Add 7 days to get to next Sunday
       }
-      console.log(dateList2)
-      setdateList(dateList2)
+
+      console.log(result)
+      setdateList(result)
     }},[dataAPI])
   return (
     <Router>
@@ -130,6 +121,13 @@ function App() {
             overridevalue5, setOverridevalue5,
             overridevalue6, setOverridevalue6,
             overridevalue7, setOverridevalue7,
+            overridevalue8, setOverridevalue8,
+            overridevalue9, setOverridevalue9,
+            overridevalue10, setOverridevalue10,
+            overridevalue11, setOverridevalue11,
+            overridevalue12, setOverridevalue12,
+            overridevalue13, setOverridevalue13,
+            overridevalue14, setOverridevalue14,
             dateList, setdateList,
             dataAPI,loading}}>
             <Routes>
