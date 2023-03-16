@@ -45,7 +45,7 @@ function App() {
   const [overridevalue12, setOverridevalue12] = useState(400);
   const [overridevalue13, setOverridevalue13] = useState(400);
   const [overridevalue14, setOverridevalue14] = useState(400);
-  const [dateList, setdateList] = useState(null);
+  const [dateList, setdateList] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
   const {dataAPI,loading} = useFetch()
   useEffect(() => {
     if(dataAPI !== null){

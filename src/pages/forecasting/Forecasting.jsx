@@ -19,6 +19,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../UserContext';
 import Slider from '@mui/material/Slider';
 import Autocomplete from '@mui/material/Autocomplete';
+import Stack from '@mui/material/Stack';
 
 export default function Forecasting(){
   const {overridevalue1, setOverridevalue1} = useContext(UserContext);
@@ -43,7 +44,7 @@ export default function Forecasting(){
   };
   console.log(overridevalue1)
   const [buttonValue, setValue] = useState('Linear Regression');
-  if(dataAPI !== null){
+  if(dataAPI !== null && dateList !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
     if(buttonValue === 'Moving Average, m = 2'){
@@ -60,11 +61,14 @@ export default function Forecasting(){
       console.log(data)
       var count = 0
       var total = 0
+      var totalMAPE = 0
       for(let i=0;i<maValue.length-1; i++){
         total += Math.abs((maValue[i+1]-values[i]))
+        totalMAPE += Math.abs((values[i]-maValue[i+1])/values[i])
         count += 1
       }
       var MAD = (total/count).toFixed(2)
+      var MAPE = ((totalMAPE/count)*100).toFixed(2)
       console.log(MAD)
     } if(buttonValue === 'Exponential Smoothing'){
       var size = ((2/alpha)-1)
@@ -88,11 +92,14 @@ export default function Forecasting(){
       console.log(data)
       count = 0
       total = 0
+      totalMAPE = 0
       for(let i=0;i<emaValue.length-1; i++){
         total += Math.abs((emaValue[i+1]-values[i]))
+        totalMAPE += Math.abs((values[i]-emaValue[i+1])/values[i])
         count += 1
       }
       MAD = (total/count).toFixed(2)
+      MAPE = ((totalMAPE/count)*100).toFixed(2)
       console.log(MAD)
     } if(buttonValue === 'Linear Regression'){
       const createTrend = require('trendline');
@@ -125,6 +132,14 @@ export default function Forecasting(){
       }
       console.log(data)
       console.log(dateList)
+      total = 0
+      totalMAPE = 0
+      for (let i=0; i<values.length;i++){
+        total += Math.abs((trend.calcY(i)-values[i]))
+        totalMAPE = Math.abs((values[i]-trend.calcY(i))/values[i])
+      }
+      MAD = (total/values.length).toFixed(2)
+      MAPE = ((totalMAPE/values.length)*100).toFixed(2)
     };
   };
   const optionsForecast = ['Moving Average, m = 2','Exponential Smoothing','Linear Regression'];
@@ -149,7 +164,7 @@ export default function Forecasting(){
               sx={{ width: 250, mb:'10px' }}
               renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
             />
-            <ResponsiveContainer width="100%" height={550} position="absolute">
+            <ResponsiveContainer width="100%" height={550} position="absolute" sx={{overflowX:'scroll'}}>
               <ComposedChart
               data={data}
               >
@@ -168,32 +183,33 @@ export default function Forecasting(){
         </div>
           <div className='featured'>
             <div className='featuredItem'>
-              MAD: <b>{MAD}</b>
+              MAD: <b>{MAD}</b><br/>
+              MAPE: <b>{MAPE}</b>%
+              {(() => {
+                if (buttonValue === 'Exponential Smoothing') {
+                  return (
+                    <div>
+                        Adjust ⍺ value: {alpha} 
+                        <Slider
+                          size="small"
+                          step = {0.01}
+                          aria-label="Small"
+                          valueLabelDisplay="auto"
+                          color="secondary"
+                          max={1}
+                          value = {alpha}
+                          onChange={changeValueSlider}
+                        />
+                    </div>
+                  )
+                }
+              })()}
             </div>
-            {(() => {
-              if (buttonValue === 'Exponential Smoothing') {
-                return (
-                  <div className='featuredItem'>
-                    Adjust ⍺ value: {alpha} 
-                    <Slider
-                      size="small"
-                      step = {0.01}
-                      aria-label="Small"
-                      valueLabelDisplay="auto"
-                      color="secondary"
-                      max={1}
-                      value = {alpha}
-                      onChange={changeValueSlider}
-                    />
-                  </div>
-                )
-              }
-            })()}
             <div className='featuredItem'>
               <div>
                 Forecast Override: 
               </div>
-              <div className='flexbox-container'>
+              <Stack direction="row">
                 <TextField
                   type="number"
                   sx={{ mx: '1px', minWidth:'80px' }}
@@ -348,7 +364,7 @@ export default function Forecasting(){
                   onChange={(event) => {setOverridevalue14(parseInt(event.target.value))}}
                   label={dateList[14]}
                 />
-              </div>
+              </Stack>
             </div>
           </div>
       </div>}

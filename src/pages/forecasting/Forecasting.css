@@ -66,15 +66,9 @@
     100% { transform: rotate(360deg); }
   }
 
-.vert{
-    align-content: center;
-    vertical-align: middle;
-    text-align: middle;
-}
-
 .flexbox-container {
-  display: flex;
-  flex-direction: row;
+  display:contents;
+  /* flex-direction: row; */
   justify-content: space-between;
   overflow-x: scroll;
 }

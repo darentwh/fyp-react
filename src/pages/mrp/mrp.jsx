@@ -33,36 +33,38 @@ const useStyles = makeStyles({
     }
 });
 
-function individalComponentMRP(onhand, demandList,lotsize, safetystock,orderList, leadtime, balanceList,multiplier){
+function individalComponentMRP(onhand, demandList,lotsize, safetystock,orderList, leadtime, balanceList,multiplier,plannedReceipts){
     var balance = onhand
     var counter = 0 
     var incoming = false
+    var plannedReceiptsHolder = ''
+    var orderHolder = ''
     for (let i=0; i<demandList.length;i++){
+        plannedReceiptsHolder = ''
+        orderHolder = ''
         if (incoming === true){
             if(counter === leadtime){
                 balance += lotsize
-                //orderList.push('')
                 incoming = false
+                plannedReceiptsHolder = lotsize
             }
         }
         balance = balance - (multiplier*demandList[i])
-        if (incoming === false){
+        
+        if(incoming === false){
             if (balance < safetystock){
-                orderList.push(lotsize)
+                orderHolder = lotsize
                 counter = 0
                 incoming = true
-            }else{
-                orderList.push('')
             }
         }else{
             if(counter === leadtime){
                 balance += lotsize
-                orderList.push('')
                 incoming = false
-            }else{
-                orderList.push('')
-            }
+                }
         }
+        orderList.push(orderHolder)
+        plannedReceipts.push(plannedReceiptsHolder)
         balanceList.push(balance)
         counter += 1
     }
@@ -379,7 +381,8 @@ export default function Mrp(){
                         const ORingMultiplier = 1
                         var ORingScheduledReceipts = []
                         var ORingBalanceList = []
-                        individalComponentMRP(ORingSS, demandInWeeks,ORingLot, ORingSS,ORingScheduledReceipts, ORingLT, ORingBalanceList, ORingMultiplier)
+                        var ORingPlannedReceipts = []
+                        individalComponentMRP(ORingSS, demandInWeeks,ORingLot, ORingSS,ORingScheduledReceipts, ORingLT, ORingBalanceList, ORingMultiplier,ORingPlannedReceipts)
                         console.log(ORingBalanceList)
                         console.log(ORingScheduledReceipts)
 
@@ -389,7 +392,8 @@ export default function Mrp(){
                         const BallValveMultiplier = 2
                         var BallValveScheduledReceipts = []
                         var BallValveBalanceList = []
-                        individalComponentMRP(BallValveSS, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier)
+                        var BallValvePlannedReceipts = []
+                        individalComponentMRP(BallValveSS, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier, BallValvePlannedReceipts)
 
                         const BoltLot = 2500
                         const BoltLT = 5
@@ -397,7 +401,8 @@ export default function Mrp(){
                         const BoltMultiplier = 3
                         var BoltScheduledReceipts = []
                         var BoltBalanceList = []
-                        individalComponentMRP(BoltSS, demandInWeeks,BoltLot, BoltSS,BoltScheduledReceipts, BoltLT, BoltBalanceList, BoltMultiplier)
+                        var BoltPlannedReceipts = []
+                        individalComponentMRP(BoltSS, demandInWeeks,BoltLot, BoltSS,BoltScheduledReceipts, BoltLT, BoltBalanceList, BoltMultiplier, BoltPlannedReceipts)
 
                         return(
                             <div>
@@ -445,6 +450,14 @@ export default function Mrp(){
                                                     <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
                                                     {ORingScheduledReceipts.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                    {ORingPlannedReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
                                                     })}
                                                 </TableRow>
                                             </TableBody>
@@ -504,6 +517,14 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                    {BallValvePlannedReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
                                                     <TableCell className={classes.sticky}><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {BallValveSS}</i></span></TableCell>
                                                     {BallValveBalanceList.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
@@ -554,6 +575,14 @@ export default function Mrp(){
                                                     {demandInWeeks.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}></TableCell>
                                                         
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                    {BoltPlannedReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
                                                     })}
                                                 </TableRow>
                                             </TableBody>
