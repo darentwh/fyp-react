@@ -39,11 +39,21 @@ export default function Ordering(){
     }
     const [value1, setValue1] = React.useState('');
     const handleChange1 = (newValue) => {
-        setValue1(newValue);
+        var val = newValue["$d"]
+        const year = val.getFullYear();
+        const month = String(val.getMonth() + 1).padStart(2, '0'); // add 1 to get 1-based month and pad with leading zero if needed
+        const day = String(val.getDate()).padStart(2, '0')
+        var varString = `${year}-${month}-${day}`
+        setValue1(varString);
     };
     const [value2, setValue2] = React.useState('');
     const handleChange2 = (newValue) => {
-        setValue2(newValue);
+        var val = newValue["$d"]
+        const year = val.getFullYear();
+        const month = String(val.getMonth() + 1).padStart(2, '0'); // add 1 to get 1-based month and pad with leading zero if needed
+        const day = String(val.getDate()).padStart(2, '0')
+        var varString = `${year}-${month}-${day}`
+        setValue2(varString);
     };
     const [valueName, setValueName] = React.useState(null);
     const [valueContactNumber, setValueContactNumber] = React.useState(null);

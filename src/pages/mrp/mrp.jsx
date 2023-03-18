@@ -50,7 +50,6 @@ function individalComponentMRP(onhand, demandList,lotsize, safetystock,orderList
             }
         }
         balance = balance - (multiplier*demandList[i])
-        
         if(incoming === false){
             if (balance < safetystock){
                 orderHolder = lotsize
