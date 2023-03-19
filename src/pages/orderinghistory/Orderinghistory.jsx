@@ -1,7 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from "react"
 import './Orderinghistory.css'
-
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -88,9 +87,14 @@ export default function Orderinghistory(){
         <div className='orderinghistory'>
             <div>
             {loading ? 
-                <div className='slider3'>
+                <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    minHeight="100vh"
+                >
                     <div className='loader'/>
-                </div> 
+                </Box>
                 : 
                 <div className='sliderWrapper'>
                     <div className='slider3'>

@@ -2,6 +2,7 @@ import * as React from 'react'
 import './Forecasting.css'
 import { useState } from "react"
 import { TextField } from '@mui/material';
+import Box from '@mui/material/Box';
 import {
   ComposedChart,
   Line,
@@ -146,9 +147,14 @@ export default function Forecasting(){
   return(
     <div className="forecasting">
       {loading ? 
-      <div className='slider3'>
-          <div className='loader'/>
-      </div> 
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        minHeight="100vh"
+      >
+        <div className='loader'/>
+      </Box> 
       : 
       <div>
         <div className='featured'>

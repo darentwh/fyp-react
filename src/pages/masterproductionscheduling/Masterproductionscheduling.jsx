@@ -66,23 +66,6 @@ export default function Masterproductionscheduling(){
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
-    // const createTrend = require('trendline');
-    // const LRdata = [
-    //   { y: values[0], x: 1 },
-    //   { y: values[1], x: 2 },
-    //   { y: values[2], x: 3 },
-    //   { y: values[3], x: 4 },
-    //   { y: values[4], x: 5 },
-    //   { y: values[5], x: 6 },
-    //   { y: values[6], x: 7 },
-    //   { y: values[7], x: 8 },
-    //   { y: values[8], x: 9 },
-    //   { y: values[9], x: 10 },
-    //   { y: values[10], x: 11 },
-    //   { y: values[11], x: 12 },
-    // ];
-    // const trend = createTrend(LRdata, 'x', 'y')
-    // console.log(trend.yStart, trend.slope)
     var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
     console.log(LRVal)
     if(strategyName === 'Chase Strategy'){
@@ -136,9 +119,14 @@ export default function Masterproductionscheduling(){
   return(
     <div className="mps">
       {loading ? 
-        <div className='slider3'>
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="100vh"
+        >
           <div className='loader'/>
-        </div> 
+        </Box> 
         : 
       <div>
         <Box

@@ -115,9 +115,14 @@ export default function Mrp(){
     return(
         <div className="mrp">
             {loading ? 
-            <div className='slider3'>
+            <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                minHeight="100vh"
+            >
                 <div className='loader'/>
-            </div> 
+            </Box> 
             : 
             <div>
                 {(() => {
@@ -352,23 +357,6 @@ export default function Mrp(){
                             </Box>
                         )
                     } else if (buttonValue === 'Individual MRP'){
-                        // var dateInWeeks = []
-                        // var demandInWeeks = []
-                        // var counter = 2
-                        // var counterMonth = 1
-                        // for (let x = 0; x<30; x++){
-                        //     if(x % 5 === 0){
-                        //         dateInWeeks.push(dateList[counterMonth])
-                        //         demandInWeeks.push(LRVal[counterMonth])
-                        //         counterMonth += 1
-                        //         counter = 2
-                        //     }
-                        //     else{
-                        //         dateInWeeks.push(counter)
-                        //         demandInWeeks.push(0)
-                        //         counter += 1
-                        //     }
-                        // }
                         const dateInWeeks = removedDateList
                         const demandInWeeks = LRVal
                         console.log(dateInWeeks)
@@ -394,9 +382,9 @@ export default function Mrp(){
                         var BallValvePlannedReceipts = []
                         individalComponentMRP(BallValveSS, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier, BallValvePlannedReceipts)
 
-                        const BoltLot = 2500
+                        const BoltLot = 4000
                         const BoltLT = 5
-                        const BoltSS = 2200
+                        const BoltSS = 4500
                         const BoltMultiplier = 3
                         var BoltScheduledReceipts = []
                         var BoltBalanceList = []
