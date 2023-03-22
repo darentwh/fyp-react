@@ -46,26 +46,13 @@ function App() {
   const [overridevalue13, setOverridevalue13] = useState(400);
   const [overridevalue14, setOverridevalue14] = useState(400);
   const [dateList, setdateList] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
+  const [MPSdata, setMPSdata] = useState([0,0,0,0,0,0,0,0,0,0,0,0,0,0]);
   const {dataAPI,loading} = useFetch()
   useEffect(() => {
     if(dataAPI !== null){
       var keys = Object.keys(dataAPI)
       var values = Object.values(dataAPI)
       const createTrend = require('trendline');
-      // const LRdata = [
-      //   { y: values[0], x: 1 },
-      //   { y: values[1], x: 2 },
-      //   { y: values[2], x: 3 },
-      //   { y: values[3], x: 4 },
-      //   { y: values[4], x: 5 },
-      //   { y: values[5], x: 6 },
-      //   { y: values[6], x: 7 },
-      //   { y: values[7], x: 8 },
-      //   { y: values[8], x: 9 },
-      //   { y: values[9], x: 10 },
-      //   { y: values[10], x: 11 },
-      //   { y: values[11], x: 12 },
-      // ];
       const LRdata = []
       for (let i = 0; i<keys.length; i++){
         LRdata.push({y: values[i], x: i+1})
@@ -128,6 +115,7 @@ function App() {
             overridevalue12, setOverridevalue12,
             overridevalue13, setOverridevalue13,
             overridevalue14, setOverridevalue14,
+            MPSdata, setMPSdata,
             dateList, setdateList,
             dataAPI,loading}}>
             <Routes>

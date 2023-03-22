@@ -14,16 +14,15 @@ import { UserContext } from '../../UserContext';
 import { useContext } from 'react';
 import { Box } from '@mui/material';
 import { makeStyles } from "@material-ui/core/styles";
+import Switch from '@mui/material/Switch';
 
 const useStyles = makeStyles({
     sticky: {
-      position: "sticky",
       left: 0,
       width: 320,
       background: 'white'
     },
     sticky2: {
-        position: "sticky",
         left: 0,
         width: 350,
         background: 'white'
@@ -39,12 +38,13 @@ function individalComponentMRP(onhand, demandList,lotsize, safetystock,orderList
     var incoming = false
     var plannedReceiptsHolder = ''
     var orderHolder = ''
+    
     for (let i=0; i<demandList.length;i++){
         plannedReceiptsHolder = ''
         orderHolder = ''
         if (incoming === true){
             if(counter === leadtime){
-                balance += lotsize
+                balance += parseInt(lotsize)
                 incoming = false
                 plannedReceiptsHolder = lotsize
             }
@@ -72,25 +72,49 @@ function individalComponentMRP(onhand, demandList,lotsize, safetystock,orderList
 export default function Mrp(){  
     const [buttonValue, setValue] = useState('BOM');
     const {dataAPI, loading} = useContext(UserContext)
-    const {overridevalue1} = useContext(UserContext);
-    const {overridevalue2} = useContext(UserContext);
-    const {overridevalue3} = useContext(UserContext);
-    const {overridevalue4} = useContext(UserContext);
-    const {overridevalue5} = useContext(UserContext);
-    const {overridevalue6} = useContext(UserContext);
-    const {overridevalue7} = useContext(UserContext);
-    const {overridevalue8} = useContext(UserContext);
-    const {overridevalue9} = useContext(UserContext);
-    const {overridevalue10} = useContext(UserContext);
-    const {overridevalue11} = useContext(UserContext);
-    const {overridevalue12} = useContext(UserContext);
-    const {overridevalue13} = useContext(UserContext);
-    const {overridevalue14} = useContext(UserContext);
+
+    const [PoppetLot, setPoppetLot] = useState(1200)
+    const [PoppetSS, setPoppetSS] = useState(1000)
+    const [PoppetOnHand, setPoppetOnHand] = useState(1000)
+    const [PoppetState, setPoppetState] = useState(false);
+
+    const [PoppetNutLot, setPoppetNutLot] = useState(3000)
+    const [PoppetNutSS, setPoppetNutSS] = useState(900)
+    const [PoppetNutOnHand, setPoppetNutOnHand] = useState(1500)
+
+    const [PoppetWasherLot, setPoppetWasherLot] = useState(2000)
+    const [PoppetWasherSS, setPoppetWasherSS] = useState(1200)
+    const [PoppetWasherOnHand, setPoppetWasherOnHand] = useState(1200)
+
+    const [PoppetDiscLot, setPoppetDiscLot] = useState(5000)
+    const [PoppetDiscSS, setPoppetDiscSS] = useState(1500)
+    const [PoppetDiscOnHand, setPoppetDiscOnHand] = useState(1500)
+
+    const [PoppetPartLot, setPoppetPartLot] = useState(4500)
+    const [PoppetPartSS, setPoppetPartSS] = useState(2000)
+    const [PoppetPartOnHand, setPoppetPartOnHand] = useState(1500)
+
+    const [ORingLot, setORingLot] = useState(1200)
+    const [ORingSS, setORingSS] = useState(1000)
+    const [ORingOnHand, setORingOnHand] = useState(1000)
+    
+    const [BallValveLot, setBallValveLot] = useState(3000)
+    const [BallValveSS, setBallValveSS] = useState(1800)
+    const [BallValveOnHand, setBallValveOnHand] = useState(1800)
+
+    const [BoltLot, setBoltLot] = useState(4000)
+    const [BoltSS, setBoltSS] = useState(3000)
+    const [BoltOnHand, setBoltOnHand] = useState(3500)
+
     const {dateList} = useContext(UserContext);
+    const {MPSdata} = useContext(UserContext);
+    console.log(MPSdata)
     const removedDateList = dateList.slice(1);
     if(dataAPI !== null){
-        var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
-        var noOfParts = (overridevalue1)
+        //var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
+        var LRVal = MPSdata
+        //var noOfParts = (overridevalue1)
+        var noOfParts = LRVal[0]
         console.log(noOfParts)
     };
 
@@ -132,7 +156,7 @@ export default function Mrp(){
                             sx={{
                                 mt: 3,
                                 mx: 2,
-                                height: '80vh',
+                                height: '85vh',
                                 overflowX: "hidden",
                                 borderRadius: '10px',
                                 boxShadow: 3
@@ -312,7 +336,7 @@ export default function Mrp(){
                             sx={{
                                 mt: 3,
                                 mx: 2,
-                                height: '80vh',
+                                height: '85vh',
                                 overflowX: "hidden",
                                 borderRadius: '10px',
                                 boxShadow: 3
@@ -362,42 +386,77 @@ export default function Mrp(){
                         console.log(dateInWeeks)
                         console.log(demandInWeeks)
 
-                        const ORingSS = 1000
-                        const ORingLot = 1200
+                        const PoppetLT = 1
+                        const PoppetMultiplier = 1
+                        var PoppetScheduledReceipts = []
+                        var PoppetBalanceList = []
+                        var PoppetPlannedReceipts = []
+                        individalComponentMRP(PoppetOnHand, demandInWeeks,PoppetLot, PoppetSS,PoppetScheduledReceipts, PoppetLT, PoppetBalanceList, PoppetMultiplier,PoppetPlannedReceipts)
+
+                        const PoppetNutLT = 3
+                        const PoppetNutMultiplier = 1
+                        var PoppetNutScheduledReceipts = []
+                        var PoppetNutBalanceList = []
+                        var PoppetNutPlannedReceipts = []
+                        individalComponentMRP(PoppetNutOnHand, PoppetScheduledReceipts, PoppetNutLot, PoppetNutSS,PoppetNutScheduledReceipts, PoppetNutLT, PoppetNutBalanceList, PoppetNutMultiplier,PoppetNutPlannedReceipts)
+
+                        const PoppetWasherLT = 2
+                        const PoppetWasherMultiplier = 1
+                        var PoppetWasherScheduledReceipts = []
+                        var PoppetWasherBalanceList = []
+                        var PoppetWasherPlannedReceipts = []
+                        individalComponentMRP(PoppetWasherOnHand, PoppetScheduledReceipts, PoppetWasherLot, PoppetWasherSS,PoppetWasherScheduledReceipts, PoppetWasherLT, PoppetWasherBalanceList, PoppetWasherMultiplier,PoppetWasherPlannedReceipts)
+
+                        const PoppetDiscLT = 3
+                        const PoppetDiscMultiplier = 1
+                        var PoppetDiscScheduledReceipts = []
+                        var PoppetDiscBalanceList = []
+                        var PoppetDiscPlannedReceipts = []
+                        individalComponentMRP(PoppetDiscOnHand, PoppetScheduledReceipts, PoppetDiscLot, PoppetDiscSS,PoppetDiscScheduledReceipts, PoppetDiscLT, PoppetDiscBalanceList, PoppetDiscMultiplier,PoppetDiscPlannedReceipts)
+                    
+                        const PoppetPartLT = 5
+                        const PoppetPartMultiplier = 1
+                        var PoppetPartScheduledReceipts = []
+                        var PoppetPartBalanceList = []
+                        var PoppetPartPlannedReceipts = []
+                        individalComponentMRP(PoppetPartOnHand, PoppetScheduledReceipts, PoppetPartLot, PoppetPartSS,PoppetPartScheduledReceipts, PoppetPartLT, PoppetPartBalanceList, PoppetPartMultiplier,PoppetPartPlannedReceipts)
+
+                        //const ORingSS = 1000
+                        //const ORingLot = 1200
                         const ORingLT = 1
                         const ORingMultiplier = 1
                         var ORingScheduledReceipts = []
                         var ORingBalanceList = []
                         var ORingPlannedReceipts = []
-                        individalComponentMRP(ORingSS, demandInWeeks,ORingLot, ORingSS,ORingScheduledReceipts, ORingLT, ORingBalanceList, ORingMultiplier,ORingPlannedReceipts)
+                        individalComponentMRP(ORingOnHand, demandInWeeks,ORingLot, ORingSS,ORingScheduledReceipts, ORingLT, ORingBalanceList, ORingMultiplier,ORingPlannedReceipts)
                         console.log(ORingBalanceList)
                         console.log(ORingScheduledReceipts)
 
-                        const BallValveLot = 3000
+                        // const BallValveLot = 3000
                         const BallValveLT = 3
-                        const BallValveSS = 1800
+                        // const BallValveSS = 1800
                         const BallValveMultiplier = 2
                         var BallValveScheduledReceipts = []
                         var BallValveBalanceList = []
                         var BallValvePlannedReceipts = []
-                        individalComponentMRP(BallValveSS, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier, BallValvePlannedReceipts)
+                        individalComponentMRP(BallValveOnHand, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier, BallValvePlannedReceipts)
 
-                        const BoltLot = 4000
+                        //const BoltLot = 4000
                         const BoltLT = 5
-                        const BoltSS = 4500
+                        //const BoltSS = 4500
                         const BoltMultiplier = 3
                         var BoltScheduledReceipts = []
                         var BoltBalanceList = []
                         var BoltPlannedReceipts = []
-                        individalComponentMRP(BoltSS, demandInWeeks,BoltLot, BoltSS,BoltScheduledReceipts, BoltLT, BoltBalanceList, BoltMultiplier, BoltPlannedReceipts)
-
+                        individalComponentMRP(BoltOnHand, demandInWeeks,BoltLot, BoltSS,BoltScheduledReceipts, BoltLT, BoltBalanceList, BoltMultiplier, BoltPlannedReceipts)
+                        
                         return(
                             <div>
                                 <Box
                                 sx={{
                                     mt: 3,
                                     mx: 2,
-                                    height: '80vh',
+                                    height: '85vh',
                                     width: '83vw',
                                     overflowX: "hidden",
                                     //overflowY: 'scroll',
@@ -408,8 +467,378 @@ export default function Mrp(){
                                 <div className="featured">
                                     <div className='featuredItem3'>
                                         <div className={classes.sticky2}>
+                                            <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Poppet Assembly </span><b><i>721-310</i></b>
+                                            <Switch
+                                                size="small"
+                                                color="secondary"
+                                                checked={PoppetState}
+                                                sx={{
+                                                    marginLeft:'10px'
+                                                }}
+                                                onClick={() => {
+                                                    setPoppetState(current => !current)
+                                                    console.log(PoppetState)
+                                                }}
+                                            /><br/>
+                                            <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetLot} onInput={e => setPoppetLot(e.target.value)}/><br/>
+                                                Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetSS} onInput={e => setPoppetSS(e.target.value)}/><br/>
+                                                Lead Time = <b>{PoppetLT} week(s)</b></i>
+                                            </div>
+                                            
+                                        </div>
+                                        <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                                            <TableHead>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                                                    {dateInWeeks.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableHead>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
+                                                    {demandInWeeks.map((item,index)=>{
+                                                        if(item !== 0){
+                                                            return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                        }else{
+                                                            return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                        }
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
+                                                    {PoppetScheduledReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                    {PoppetPlannedReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                        <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetOnHand} onInput={e => setPoppetOnHand(e.target.value)}/></i></span>
+                                                    </TableCell>
+                                                    {PoppetBalanceList.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                            <TableBody>
+                                                <TableRow>
+                                                    <TableCell className={classes.sticky}><b>Planned Order Releases </b></TableCell>
+                                                    {PoppetScheduledReceipts.map((item,index)=>{
+                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                    })}
+                                                </TableRow>
+                                            </TableBody>
+                                        </Table>
+                                    </div>
+                                </div>
+                                {/* <Switch
+                                    size="small"
+                                    color="secondary"
+                                    checked={PoppetState}
+                                    sx={{
+                                        marginLeft:'30px'
+                                    }}
+                                    onClick={() => {
+                                        setPoppetState(current => !current)
+                                        console.log(PoppetState)
+                                    }}
+                                /><span style={{fontSize: '75%'}}><i>Toggle Level 2</i></span> */}
+                                {(() => {
+                                    if (PoppetState === true){
+                                        //level 2 for poppet assembly
+                                        return(
+                                            <div>
+                                                <div className='featuredItem4'>
+                                                    <div className={classes.sticky2}>
+                                                        <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Disc Upper </span><b><i>721A-34</i></b><br/>
+                                                        <div style={{fontSize: '75%', paddingLeft:20,}}><i>
+                                                            Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetDiscLot} onInput={e => setPoppetDiscLot(e.target.value)}/><br/>
+                                                            Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetDiscSS} onInput={e => setPoppetDiscSS(e.target.value)}/><br/>
+                                                            Lead Time = <b>{PoppetDiscLT} week(s)</b></i>
+                                                        </div>
+                                                    </div>
+                                                    <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                                                                {dateInWeeks.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
+                                                                {PoppetScheduledReceipts.map((item,index)=>{
+                                                                    if(item !== 0){
+                                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                    }else{
+                                                                        return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                    }
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
+                                                                {PoppetDiscScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                                {PoppetDiscPlannedReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                                    <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetDiscOnHand} onInput={e => setPoppetDiscOnHand(e.target.value)}/></i></span>
+                                                                </TableCell>
+                                                                {PoppetDiscBalanceList.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Order Releases </b></TableCell>
+                                                                {PoppetDiscScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                                <div className='featuredItem4'>
+                                                    <div className={classes.sticky2}>
+                                                        <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Load Nut & Guide </span><b><i>721-90</i></b><br/>
+                                                        <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                            Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetNutLot} onInput={e => setPoppetNutLot(e.target.value)}/><br/>
+                                                            Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetNutSS} onInput={e => setPoppetNutSS(e.target.value)}/><br/>
+                                                            Lead Time = <b>{PoppetNutLT} week(s)</b></i>
+                                                        </div>
+                                                    </div>
+                                                    <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                                                                {dateInWeeks.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
+                                                                {PoppetScheduledReceipts.map((item,index)=>{
+                                                                    if(item !== 0){
+                                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                    }else{
+                                                                        return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                    }
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
+                                                                {PoppetNutScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                                {PoppetNutPlannedReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                                    <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetNutOnHand} onInput={e => setPoppetNutOnHand(e.target.value)}/></i></span>
+                                                                </TableCell>
+                                                                {PoppetNutBalanceList.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Order Releases </b></TableCell>
+                                                                {PoppetNutScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                                <div className='featuredItem4'>
+                                                    <div className={classes.sticky2}>
+                                                        <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Load Washer </span><b><i>721-80</i></b><br/>
+                                                        <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                            Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetWasherLot} onInput={e => setPoppetWasherLot(e.target.value)}/><br/>
+                                                            Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetWasherSS} onInput={e => setPoppetWasherSS(e.target.value)}/><br/>
+                                                            Lead Time = <b>{PoppetWasherLT} week(s)</b></i>
+                                                        </div>
+                                                    </div>
+                                                    <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                                                                {dateInWeeks.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
+                                                                {PoppetScheduledReceipts.map((item,index)=>{
+                                                                    if(item !== 0){
+                                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                    }else{
+                                                                        return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                    }
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
+                                                                {PoppetWasherScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                                {PoppetWasherPlannedReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                                    <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetWasherOnHand} onInput={e => setPoppetWasherOnHand(e.target.value)}/></i></span>
+                                                                </TableCell>
+                                                                {PoppetWasherBalanceList.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Order Releases </b></TableCell>
+                                                                {PoppetWasherScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                                <div className='featuredItem4'>
+                                                    <div className={classes.sticky2}>
+                                                        <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Poppet </span><b><i>721-30</i></b><br/>
+                                                        <div style={{fontSize: '75%', paddingLeft:20,}}><i>
+                                                            Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetPartLot} onInput={e => setPoppetPartLot(e.target.value)}/><br/>
+                                                            Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetPartSS} onInput={e => setPoppetPartSS(e.target.value)}/><br/>
+                                                            Lead Time = <b>{PoppetPartLT} week(s)</b></i>
+                                                        </div>
+                                                    </div>
+                                                    <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
+                                                        <TableHead>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Date</b></TableCell>
+                                                                {dateInWeeks.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableHead>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Gross Requirement</b></TableCell>
+                                                                {PoppetScheduledReceipts.map((item,index)=>{
+                                                                    if(item !== 0){
+                                                                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                    }else{
+                                                                        return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                    }
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Scheduled Receipts</b></TableCell> 
+                                                                {PoppetPartScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}></TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Receipts</b></TableCell>
+                                                                {PoppetPartPlannedReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                                    <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={PoppetPartOnHand} onInput={e => setPoppetPartOnHand(e.target.value)}/></i></span>
+                                                                </TableCell>
+                                                                {PoppetPartBalanceList.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                        <TableBody>
+                                                            <TableRow>
+                                                                <TableCell className={classes.sticky}><b>Planned Order Releases </b></TableCell>
+                                                                {PoppetPartScheduledReceipts.map((item,index)=>{
+                                                                    return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                                                                })}
+                                                            </TableRow>
+                                                        </TableBody>
+                                                    </Table>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+                                })()}
+                                <div className="featured">
+                                    <div className='featuredItem3'>
+                                        <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>O-Ring, FDA </span><b><i>138N</i></b><br/>
-                                            <span style={{fontSize: '75%', paddingLeft:20}}><i>({ORingLot}/lot, Lead Time = {ORingLT} weeks, Safety Stock = {ORingSS})</i></span>
+                                            <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={ORingLot} onInput={e => setORingLot(e.target.value)}/><br/>
+                                                Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={ORingSS} onInput={e => setORingSS(e.target.value)}/><br/>
+                                                Lead Time = <b>{ORingLT} week(s)</b></i>
+                                            </div>
                                         </div>
                                         <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                                             <TableHead>
@@ -450,7 +879,9 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {ORingSS}</i></span></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                        <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={ORingOnHand} onInput={e => setORingOnHand(e.target.value)}/></i></span>
+                                                    </TableCell>
                                                     {ORingBalanceList.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
                                                     })}
@@ -471,7 +902,11 @@ export default function Mrp(){
                                     <div className='featuredItem3'>
                                         <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Ball Valve, 3/4" </span><b><i>34-850</i></b><br/>
-                                            <span style={{fontSize: '75%',paddingLeft:20}}><i>({BallValveLot}/lot, Lead Time = {BallValveLT} weeks, Safety Stock = {BallValveSS})</i></span>
+                                            <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BallValveLot} onInput={e => setBallValveLot(e.target.value)}/><br/>
+                                                Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BallValveSS} onInput={e => setBallValveSS(e.target.value)}/><br/>
+                                                Lead Time = <b>{BallValveLT} week(s)</b></i>
+                                            </div>
                                         </div>
                                         <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                                             <TableHead>
@@ -512,7 +947,9 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {BallValveSS}</i></span></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                        <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BallValveOnHand} onInput={e => setBallValveOnHand(e.target.value)}/></i></span>
+                                                    </TableCell>
                                                     {BallValveBalanceList.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
                                                     })}
@@ -533,7 +970,11 @@ export default function Mrp(){
                                     <div className='featuredItem3'>
                                         <div className={classes.sticky2}>
                                             <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>Bolt, 8-32 x 3/8 Fil. SS </span><b><i>721-11</i></b><br/>
-                                            <span style={{fontSize: '75%',paddingLeft:20}}><i>({BoltLot}/lot, Lead Time = {BoltLT} weeks, Safety Stock = {BoltSS})</i></span>
+                                            <div style={{fontSize: '75%', paddingLeft:20}}><i>
+                                                Lot Size = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BoltLot} onInput={e => setBoltLot(e.target.value)}/><br/>
+                                                Safety Stock = <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BoltSS} onInput={e => setBoltSS(e.target.value)}/><br/>
+                                                Lead Time = <b>{BoltLT} week(s)</b></i>
+                                            </div>
                                         </div>
                                         <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                                             <TableHead>
@@ -575,7 +1016,9 @@ export default function Mrp(){
                                             </TableBody>
                                             <TableBody>
                                                 <TableRow>
-                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><span style={{fontSize: '75%'}}><i>On-Hand: {BoltSS}</i></span></TableCell>
+                                                    <TableCell className={classes.sticky}><b>Projected Available Balance </b><br/>
+                                                        <span style={{fontSize: '75%'}}><i>On-Hand: <input style={{border:'#FFFFFF', width:'60px',fontWeight:'bold'}}type="number" value={BoltOnHand} onInput={e => setBoltOnHand(e.target.value)}/></i></span>
+                                                    </TableCell>
                                                     {BoltBalanceList.map((item,index)=>{
                                                         return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
                                                     })}

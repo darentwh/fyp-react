@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Masterproductionscheduling.css'
 import { useState } from "react"
 import Table from '@mui/material/Table';
@@ -49,34 +49,37 @@ export default function Masterproductionscheduling(){
   const {overridevalue12} = useContext(UserContext);
   const {overridevalue13} = useContext(UserContext);
   const {overridevalue14} = useContext(UserContext);
+  const {setMPSdata}= useContext(UserContext);
   var {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [strategyName,setStrategyName] = useState('Level Strategy')
   var mps_data = null
   var projected_balance = null
-  var inventory_balance = []
   const [valueSlider, setValueSlider] = useState(20);
   const changeValueSlider = (event, value) => {
     setValueSlider(value);
+    setMyCondition(true);
   };
   const [valueSliderLS, setValueSliderLS] = useState(500);
   const changeValueSliderLS = (event, value) => {
     setValueSliderLS(value);
+    setMyCondition(true)
   };
+  const [myCondition, setMyCondition] = useState(true);
   if(dataAPI !== null){
     var keys = Object.keys(dataAPI)
     var values = Object.values(dataAPI)
     var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
     console.log(LRVal)
     if(strategyName === 'Chase Strategy'){
-      mps_data = [
-        LRVal[0]+valueSlider,
-      ]
-      projected_balance =[valueSlider]
-      for(let i=1;i<LRVal.length;i++){
-        mps_data.push(LRVal[i])
-        projected_balance.push(valueSlider)
-      }
+        mps_data = [
+          LRVal[0]+valueSlider,
+        ]
+        projected_balance =[valueSlider]
+        for(let i=1;i<LRVal.length;i++){
+          mps_data.push(LRVal[i])
+          projected_balance.push(valueSlider)
+        }
     }
     if(strategyName === 'Level Strategy'){
       var total = 0
@@ -86,11 +89,10 @@ export default function Masterproductionscheduling(){
         total += LRVal[i]
       }
       var avg = Math.round(total/14)
-      console.log(avg)
       var balance = 0
       for (let j = 0; j < LRVal.length; j++) { 
         balance = balance + (avg - LRVal[j])
-        console.log(balance)
+        //console.log(balance)
         projected_balance.push(balance)
         mps_data.push(avg)
       }
@@ -110,10 +112,16 @@ export default function Masterproductionscheduling(){
           mps_data.push(0)
         }
       }
-      console.log(mps_data)
-      console.log(inventory_balance)
     }
+    console.log(mps_data)
+    console.log(projected_balance)
   }
+  useEffect(()=>{
+    if(myCondition){
+      setMPSdata(mps_data)
+      setMyCondition(false)
+    }
+  },[mps_data,setMPSdata,myCondition])
   const removedDateList = dateList.slice(1);
   const optionsStrat = ['Level Strategy','Chase Strategy','Lot Size Strategy'];
   return(
@@ -131,14 +139,14 @@ export default function Masterproductionscheduling(){
       <div>
         <Box
           sx={{
-              mt: 3,
-              mx: 2,
-              height: '100%',
-              width: '83vw',
-              overflowX: "hidden",
-              //overflowY: 'scroll',
-              borderRadius: '10px',
-              }}
+            mt: 3,
+            mx: 2,
+            height: '100%',
+            width: '83vw',
+            overflowX: "hidden",
+            //overflowY: 'scroll',
+            borderRadius: '10px',
+          }}
         >
           <div className='featured'>
             <div className='featuredItem3'>
@@ -172,6 +180,7 @@ export default function Masterproductionscheduling(){
                   value={strategyName}
                   onChange={(event, newValue) => {
                     setStrategyName(newValue);
+                    setMyCondition(true)
                   }}
                   id="controllable-states-demo"
                   options={optionsStrat}
@@ -217,7 +226,7 @@ export default function Masterproductionscheduling(){
                     <TableRow>
                       <TableCell className={classes.sticky}><b>Master Production Schedule</b></TableCell>
                       {mps_data.map((item,index)=>{
-                        return <TableCell className={classes.cellStyles} key={index}>{item}</TableCell>
+                        return <TableCell className={classes.cellStyles} key={index}><b>{item}</b></TableCell>
                       })}
                     </TableRow>
                   </TableBody>
