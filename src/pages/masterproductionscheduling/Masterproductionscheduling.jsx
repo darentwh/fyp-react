@@ -49,7 +49,7 @@ export default function Masterproductionscheduling(){
   const {overridevalue12} = useContext(UserContext);
   const {overridevalue13} = useContext(UserContext);
   const {overridevalue14} = useContext(UserContext);
-  const {setMPSdata}= useContext(UserContext);
+  const {MPSdata, setMPSdata}= useContext(UserContext);
   var {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
   const [strategyName,setStrategyName] = useState('Level Strategy')
@@ -114,14 +114,16 @@ export default function Masterproductionscheduling(){
       }
     }
     console.log(mps_data)
-    console.log(projected_balance)
+    console.log(projected_balance)    
   }
   useEffect(()=>{
-    if(myCondition){
+    if(mps_data !== null && myCondition){
       setMPSdata(mps_data)
+      console.log('MPSData :', MPSdata)
       setMyCondition(false)
     }
-  },[mps_data,setMPSdata,myCondition])
+  },[mps_data,setMPSdata,myCondition,dataAPI,MPSdata])
+
   const removedDateList = dateList.slice(1);
   const optionsStrat = ['Level Strategy','Chase Strategy','Lot Size Strategy'];
   return(

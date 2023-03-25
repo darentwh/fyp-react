@@ -9,7 +9,7 @@ const useFetch = () => {
     const [loading, setLoading] = useState(true);
     useEffect((url = "https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/") => {
       async function fetchData(){
-        const response = await fetch(url,{method:'GET'});
+        const response = await fetch(url,{method:'GET',headers: {'value':'orderhistory'}});
         const data = await response.json();
         console.log(data)
         setData(data);

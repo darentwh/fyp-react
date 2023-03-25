@@ -16,6 +16,9 @@ import { Box } from '@mui/material';
 import { makeStyles } from "@material-ui/core/styles";
 import Switch from '@mui/material/Switch';
 
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
+
 const useStyles = makeStyles({
     sticky: {
       left: 0,
@@ -25,6 +28,10 @@ const useStyles = makeStyles({
     sticky2: {
         left: 0,
         width: 350,
+        background: 'white'
+    },
+    sticky3: {
+        top:0,
         background: 'white'
     },
     cellStyles: {
@@ -108,13 +115,22 @@ export default function Mrp(){
 
     const {dateList} = useContext(UserContext);
     const {MPSdata} = useContext(UserContext);
+    
     console.log(MPSdata)
     const removedDateList = dateList.slice(1);
+
+    const [period, setPeriod] = React.useState(0);
+    const [noOfParts, setNoOfParts] = React.useState(MPSdata[parseInt(period)]);
+    const handleChange = (event) => {
+        setPeriod(event.target.value);
+        setNoOfParts(MPSdata[event.target.value]);
+      };
+
     if(dataAPI !== null){
         //var LRVal = [overridevalue1,overridevalue2,overridevalue3,overridevalue4,overridevalue5,overridevalue6,overridevalue7,overridevalue8,overridevalue9,overridevalue10,overridevalue11,overridevalue12,overridevalue13,overridevalue14]
         var LRVal = MPSdata
         //var noOfParts = (overridevalue1)
-        var noOfParts = LRVal[0]
+        //var noOfParts = LRVal[0]
         console.log(noOfParts)
     };
 
@@ -162,18 +178,21 @@ export default function Mrp(){
                                 boxShadow: 3
                                 }}
                             >
-                            <div className='featured'>
-                                <div className="featuredItem">
-                                    <b>Item Code: </b><i>34-720A</i><br/>
-                                    <b>Period: </b><i>{removedDateList[0]}</i><br/>
-                                    <b>Quantity: </b><i>{noOfParts}</i><br/>
-                                </div>
-                            </div>
                             <div className="featured">
                                 <div className="featuredItem">
-                                    <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} stickyHeader aria-label="sticky table">
+                                    <Table sx={{ minWidth: "100%" , maxWidth:"100%"}} stickyHeader aria-label="sticky table">    
                                         <TableHead>
                                             <span className="featuredTitle2"><b>Bill of Material</b></span>
+                                            <Select
+                                            sx={{width:'auto', marginLeft:2.5}}
+                                            id="demo-simple-select"
+                                            value={period}
+                                            onChange={handleChange}
+                                            >
+                                            {removedDateList.map((item,index)=>{
+                                                return <MenuItem value={index}>{item}</MenuItem>
+                                            })}
+                                            </Select>
                                             <TableRow>   
                                                 <TableCell align="left"><b>Part No.</b></TableCell>
                                                 <TableCell><b>Quantity Required</b></TableCell>
