@@ -153,7 +153,7 @@ export default function Masterproductionscheduling(){
           <div className='featured'>
             <div className='featuredItem3'>
               <div className={classes.sticky2}>
-                <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>9 Month Weekly Historical Data</span>
+                <span style={{fontSize: 20, paddingLeft:20, paddingTop:20}}>9-Month Weekly Historical Data</span>
               </div>
               <Table sx={{ width:"100%"}} aria-label="simple table" style={{ tableLayout: "fixed" }}>
                 <TableHead>
