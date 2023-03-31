@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Architecutre from "./FYP-Diagram.drawio.png"
 import './Architecture.css'
-
+import { Box } from '@mui/material';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -27,8 +27,18 @@ export default function Architecture(){
     return(
         <div className="architecture">
             <div className="mainWrapper">
+            <Box
+                sx={{
+                    // mt: 3,
+                    // mx: 2,
+                    height: '90vh',
+                    overflowX: "hidden",
+                    borderRadius: '10px',
+                    // boxShadow: 3
+                    }}
+            >
                 <div className="imageStyle">
-                    <img src={Architecutre} alt="fireSpot" width={'100%'}/>
+                    <img src={Architecutre} alt="fireSpot" width={'85%'}/>
                 </div>
                 <br/>
                 <TableContainer component={Paper} align='center'>
@@ -56,6 +66,7 @@ export default function Architecture(){
                         </TableBody>
                     </Table>
                 </TableContainer>
+                </Box>
             </div>
         </div>
     )

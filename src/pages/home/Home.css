@@ -7,51 +7,6 @@
 	margin-left: auto;
   	margin-right: auto;
 }
-html{
-	scroll-snap-type: y mandatory;
-}
-section {
-    display:grid;
-    place-items: center;
-    align-content: center;
-    min-height: 110vh;
-	scroll-snap-align: center;
-}
-.hidden{
-    opacity:0;
-    transition: all 1s;
-	filter:blur(5px);
-    transform: translateX(-50%);
-}
-
-.show{
-    opacity:1;
-    transition: 1;
-	filter:blur(0);
-    transform: translateX(0);
-}
-
-.container{
-    text-align: left;
-    margin: 0%;
-}
-
-.functions{
-    display: flex;
-    align-items: center;
-}
-
-.logo:nth-child(2){
-    transition-delay: 200ms;
-}
-
-.logo:nth-child(3){
-    transition-delay: 400ms;
-}
-
-.logo:nth-child(4){
-    transition-delay: 600ms;
-}
 /* Popup style */
 .popup-box {
   position: fixed;

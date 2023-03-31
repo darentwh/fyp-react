@@ -1,24 +1,9 @@
 import React from 'react'
-import { useEffect,useState } from 'react';
+import { useState } from 'react';
 import Button from '@mui/material/Button';
 import './Home.css'
 
 export default function Home(){
-    useEffect(()=>{
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                console.log(entry.intersectionRatio, entry.isIntersecting)
-                if (entry.isIntersecting){
-                    entry.target.classList.add('show');
-                } else {
-                    entry.target.classList.remove('show');
-                }
-            });
-        });
-        const hiddenElements = document.querySelectorAll('.hidden');
-        
-        hiddenElements.forEach((el) => observer.observe(el));
-    });
     const Popup = props => {
         return (
           <div className="popup-box">
@@ -148,62 +133,44 @@ export default function Home(){
         fontFamily:'Arial',
         textTransform: 'none',
         boxShadow: 2
-        }
+    }
     return(
         <div className="home">
             <div className="midWrap">
                 <div>
-                    <section className="hidden">
-                        <div className="container">
-                            <p>
-                                <h1>
-                                <b>Final Year Project <span style={{color:'#AD6ADF'}}>C105</span></b></h1><br/>
-                                <b>Main Supervisor</b>: Assoc Prof Rajesh Piplani<br/><br/>
-                                <b>Title</b>: Development of an application for production scheduling and requirement planning<br/>
-                            </p>
-                        </div>                       
-                    </section>
-                    <section className="hidden">
-                        <div className="container">
-                            <p>
-                                <b>Objective</b><br/> Develop an computer-based tool that allows <b>forecasting, master production scheduling, and material requirement planning</b> for data seamlessly and in an integrated manner. The tool should be able to develop plans for different set of customer orders/forecast input. <br/>
-                            </p>
-                            <br/>
-                            <p>
-                                <b>Scope</b><br/> Scope would be limited to planning for a mid-size company, using same data, but allowing data to be ported from one application to another, including any changes to data. Data will be developed based on reference material.
-                            </p>
-                        </div>
-                    </section>
-                    <section className>
-                        <b>Functions</b><br/>
-                        <div className="functions">
-                            <div className="logo hidden">
-                                <Button sx={buttonStyle} onClick={()=>{togglePopup('Demand Forecasting')}}>
-                                    Demand Forecasting
-                                </Button>
-                            </div>
-                            <div className="logo hidden">              
-                                <Button sx={buttonStyle} onClick={() => {togglePopup('MPS')}}>
-                                    Master Production Scheduling
-                                </Button>
-                            </div>
-                            <div className="logo hidden">
-                                <Button sx={buttonStyle} onClick={() => {togglePopup('MRP')}}>
-                                    Material Requirement Planning
-                                </Button>
-                            </div>
-                            {isOpen && <Popup
-                                content={content}
-                                handleClose={togglePopup}
-                            />}
-                        </div>
-                    </section>
-                    <section className="hidden">  
-                        <p>
-                            <b>Application Architecture</b><br/>dasubuasybduasdbuas
-                        </p>  
-                    </section>
+                    <p>
+                        <h1>
+                        <b>Final Year Project <span style={{color:'#AD6ADF'}}>C105</span></b></h1><br/>
+                        <b>Main Supervisor</b>: Assoc Prof Rajesh Piplani<br/><br/>
+                        <b>Title</b>: Development of an application for production scheduling and requirement planning<br/>
+                    </p>
+                </div>                       
+                <p>
+                    <b>Objective</b><br/> Develop an computer-based tool that allows <b>forecasting, master production scheduling, and material requirement planning</b> for data seamlessly and in an integrated manner. The tool should be able to develop plans for different set of customer orders/forecast input. <br/>
+                </p>
+                <br/>
+                <p>
+                    <b>Scope</b><br/> Scope would be limited to planning for a mid-size company, using same data, but allowing data to be ported from one application to another, including any changes to data. Data will be developed based on reference material.
+                </p>
+                <b>Functions</b><br/>
+                <div className="functions">
+                        <Button sx={buttonStyle} onClick={()=>{togglePopup('Demand Forecasting')}}>
+                            Demand Forecasting
+                        </Button>         
+                        <Button sx={buttonStyle} onClick={() => {togglePopup('MPS')}}>
+                            Master Production Scheduling
+                        </Button>
+                        <Button sx={buttonStyle} onClick={() => {togglePopup('MRP')}}>
+                            Material Requirement Planning
+                        </Button>
+                    {isOpen && <Popup
+                        content={content}
+                        handleClose={togglePopup}
+                    />}
                 </div>
+                <p>
+                    <b>Application Architecture</b><br/>dasubuasybduasdbuas
+                </p>  
             </div>
         </div>
     )
