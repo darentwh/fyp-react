@@ -74,7 +74,7 @@ function App() {
       setOverridevalue12(Math.round(trend.calcY(56)))
       setOverridevalue13(Math.round(trend.calcY(57)))
       setOverridevalue14(Math.round(trend.calcY(58)))
-
+      
       const result = [];
       const date = new Date(keys[44]);
     

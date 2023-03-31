@@ -440,8 +440,6 @@ export default function Mrp(){
                         var PoppetPartPlannedReceipts = []
                         individalComponentMRP(PoppetPartOnHand, PoppetScheduledReceipts, PoppetPartLot, PoppetPartSS,PoppetPartScheduledReceipts, PoppetPartLT, PoppetPartBalanceList, PoppetPartMultiplier,PoppetPartPlannedReceipts)
 
-                        //const ORingSS = 1000
-                        //const ORingLot = 1200
                         const ORingLT = 1
                         const ORingMultiplier = 1
                         var ORingScheduledReceipts = []
@@ -451,18 +449,14 @@ export default function Mrp(){
                         console.log(ORingBalanceList)
                         console.log(ORingScheduledReceipts)
 
-                        // const BallValveLot = 3000
                         const BallValveLT = 3
-                        // const BallValveSS = 1800
                         const BallValveMultiplier = 2
                         var BallValveScheduledReceipts = []
                         var BallValveBalanceList = []
                         var BallValvePlannedReceipts = []
                         individalComponentMRP(BallValveOnHand, demandInWeeks,BallValveLot, BallValveSS,BallValveScheduledReceipts, BallValveLT, BallValveBalanceList, BallValveMultiplier, BallValvePlannedReceipts)
 
-                        //const BoltLot = 4000
                         const BoltLT = 5
-                        //const BoltSS = 4500
                         const BoltMultiplier = 3
                         var BoltScheduledReceipts = []
                         var BoltBalanceList = []

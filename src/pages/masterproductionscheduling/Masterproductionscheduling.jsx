@@ -52,10 +52,10 @@ export default function Masterproductionscheduling(){
   const {MPSdata, setMPSdata}= useContext(UserContext);
   var {dateList} = useContext(UserContext);
   const {dataAPI, loading} = useContext(UserContext)
-  const [strategyName,setStrategyName] = useState('Level Strategy')
+  const [strategyName,setStrategyName] = useState('Chase Strategy')
   var mps_data = null
   var projected_balance = null
-  const [valueSlider, setValueSlider] = useState(20);
+  const [valueSlider, setValueSlider] = useState(0);
   const changeValueSlider = (event, value) => {
     setValueSlider(value);
     setMyCondition(true);
@@ -214,7 +214,7 @@ export default function Masterproductionscheduling(){
                         if (strategyName === 'Lot Size Strategy') {
                           return (
                             <TableCell className={classes.sticky}><b>Projected Balance</b> <i>{valueSlider} Initial on-hand</i></TableCell>
-                          )
+                          ) 
                         } else {
                           return (
                             <TableCell className={classes.sticky}><b>Projected Balance</b></TableCell>

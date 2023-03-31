@@ -63,16 +63,18 @@ export default function Ordering(){
     const [inputValueCountry, setInputValueCountry] = React.useState(optionsCountries[0]);
     const [valueItem, setValueItem] = React.useState(optionsItem[0]);
     const [inputValueItem, setInputValueItem] = React.useState(optionsCountries[0]);
+    const [password, setPassword] = React.useState(null);
+    const masterPassword = '121212'
     const [ifFalse, setIfFalse] = React.useState(true)
     
     useEffect(()=>{
-        if (valueName && valueContactNumber && value1 && value2 && valueCountry && valuePostalCode && valueQuantity && valueItem  !== (null || '')) {
+        if ((valueName && valueContactNumber && value1 && value2 && valueCountry && valuePostalCode && valueQuantity && valueItem  !== (null || ''))&& password===masterPassword) {
             setIfFalse(false);
         }
         else{
             setIfFalse(true);
         }
-    }, [valueName , valueContactNumber , value1 , value2 , valueCountry , valuePostalCode , valueItem , valueQuantity])
+    }, [valueName , valueContactNumber , value1 , value2 , valueCountry , valuePostalCode , valueItem , valueQuantity, password])
 
     return(
         <div className='ordering'>
@@ -217,6 +219,13 @@ export default function Ordering(){
                     </div>
                 </div>
                 <div className="submitButton">
+                    <TextField
+                    id="outlined-password-input"
+                    label="Password"
+                    type="password"
+                    onChange={(event) => {setPassword(event.target.value)}}
+                    size='small'
+                    />
                     <Button variant="outlined" disabled={ifFalse} onClick={handleSubmit}>Submit</Button>
                 </div>
             </div>
