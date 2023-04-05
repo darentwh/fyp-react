@@ -28,7 +28,7 @@ export default function Ordering(){
                     quantity:{valueQuantity}
                 })
             }
-            fetch('https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/', requestOptions) //API destination
+            fetch(process.env.REACT_APP_API, requestOptions) //API destination
             .then(data => data.json()) // Parsing the data into a JavaScript object
             .then(json => alert(JSON.stringify(json))) // Displaying the stringified data in an alert popup
         }

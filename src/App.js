@@ -17,7 +17,7 @@ const useFetch = () => {
   const [dataAPI, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   
-  useEffect((url = "https://rtcbcz6encwcuxtjnq4mfxz3dy0cauth.lambda-url.us-east-1.on.aws/") => {
+  useEffect((url = process.env.REACT_APP_API) => {
     async function fetchData(){
       const response = await fetch(url,{method:'GET',headers: {'value':'orderweekly'}});
       const dataAPI = await response.json();

@@ -125,7 +125,7 @@ export default function Masterproductionscheduling(){
   },[mps_data,setMPSdata,myCondition,dataAPI,MPSdata])
 
   const removedDateList = dateList.slice(1);
-  const optionsStrat = ['Level Strategy','Chase Strategy','Lot Size Strategy'];
+  const optionsStrat = ['Chase Strategy','Level Strategy','Lot Size Strategy'];
   return(
     <div className="mps">
       {loading ? 
