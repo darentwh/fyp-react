@@ -16,7 +16,6 @@ import 'trendline';
 const useFetch = () => {
   const [dataAPI, setData] = useState(null);
   const [loading, setLoading] = useState(true);
-  
   useEffect((url = process.env.REACT_APP_API) => {
     async function fetchData(){
       const response = await fetch(url,{method:'GET',headers: {'value':'orderweekly'}});
