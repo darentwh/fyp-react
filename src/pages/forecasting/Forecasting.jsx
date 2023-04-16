@@ -157,34 +157,40 @@ export default function Forecasting(){
       </Box> 
       : 
       <div>
+        <Box
+              width='85vw'
+              overflowX='scroll'
+              overflowY='scroll'
+        >
         <div className='featured'>
           <div className='featuredItem'>
-            <Autocomplete
-              value={buttonValue}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              id="controllable-states-demo"
-              options={optionsForecast}
-              disableClearable
-              sx={{ width: 250, mb:'10px' }}
-              renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
-            />
-            <ResponsiveContainer width="100%" height={550} position="absolute" sx={{overflowX:'scroll'}}>
-              <ComposedChart
-              data={data}
-              >
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="name" textAnchor="end" tick={{fontSize: 12}}/>
-                <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
-                <Tooltip />
-                <Legend verticalAlign='bottom'/>
-                <Line type="monotone" dataKey="actual" stroke="#49454D" />
-                <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
-                <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
-                <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
-              </ComposedChart>
-            </ResponsiveContainer>
+            
+              <Autocomplete
+                value={buttonValue}
+                onChange={(event, newValue) => {
+                  setValue(newValue);
+                }}
+                id="controllable-states-demo"
+                options={optionsForecast}
+                disableClearable
+                sx={{ width: 250, mb:'10px' }}
+                renderInput={(params) => <TextField {...params} label="Forecast Computation" />}
+              />
+              <ResponsiveContainer width="100%" height={550} position="absolute" sx={{overflowX:'scroll'}}>
+                <ComposedChart
+                data={data}
+                >
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="name" textAnchor="end" tick={{fontSize: 12}}/>
+                  <YAxis label={{ value: 'Quantity', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip />
+                  <Legend verticalAlign='bottom'/>
+                  <Line type="monotone" dataKey="actual" stroke="#49454D" />
+                  <Line type="monotone" dataKey="forecast" stroke="#AD6ADF" strokeWidth={3}/>
+                  <Line type="monotone" dataKey="lineLR" stroke="#AD6ADF" strokeWidth={3} legendType='none'/>
+                  <Scatter type="monotone" dataKey="actualLR" stroke="#49454D" strokeWidth={0} legendType='none'/>
+                </ComposedChart>
+              </ResponsiveContainer>
           </div>
         </div>
           <div className='featured'>
@@ -373,6 +379,7 @@ export default function Forecasting(){
               </Stack>
             </div>
           </div>
+          </Box>
       </div>}
     </div>
   )
